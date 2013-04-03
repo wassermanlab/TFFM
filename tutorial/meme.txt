@@ -1,0 +1,2750 @@
+********************************************************************************
+MEME - Motif discovery tool
+********************************************************************************
+MEME version 4.6.1 (Release date: Mon Mar 21 15:08:38 EST 2011)
+
+For further information on how to interpret these results or to get
+a copy of the MEME software please access http://meme.nbcr.net.
+
+This file may be used as input to the MAST algorithm for searching
+sequence databases for matches to groups of motifs.  MAST is available
+for interactive use and downloading at http://meme.nbcr.net.
+********************************************************************************
+
+
+********************************************************************************
+REFERENCE
+********************************************************************************
+If you use this program in your research, please cite:
+
+Timothy L. Bailey and Charles Elkan,
+"Fitting a mixture model by expectation maximization to discover
+motifs in biopolymers", Proceedings of the Second International
+Conference on Intelligent Systems for Molecular Biology, pp. 28-36,
+AAAI Press, Menlo Park, California, 1994.
+********************************************************************************
+
+
+********************************************************************************
+TRAINING SET
+********************************************************************************
+DATAFILE= ./seqs-sampled.fa
+ALPHABET= ACGT
+Sequence name            Weight Length  Sequence name            Weight Length  
+-------------            ------ ------  -------------            ------ ------  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_9 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_8 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_8 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_8 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_9 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_8 1.0000    100  hg19_ct_UserTrack_3545_8 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_9 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_8 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_9 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_8 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_8 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_8 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_9 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_9 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_9 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_8 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_8 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_9 1.0000    100  hg19_ct_UserTrack_3545_7 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_4 1.0000    100  
+hg19_ct_UserTrack_3545_4 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_2 1.0000    100  hg19_ct_UserTrack_3545_3 1.0000    100  
+hg19_ct_UserTrack_3545_7 1.0000    100  hg19_ct_UserTrack_3545_2 1.0000    100  
+hg19_ct_UserTrack_3545_5 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_8 1.0000    100  
+hg19_ct_UserTrack_3545_1 1.0000    100  hg19_ct_UserTrack_3545_5 1.0000    100  
+hg19_ct_UserTrack_3545_6 1.0000    100  hg19_ct_UserTrack_3545_6 1.0000    100  
+hg19_ct_UserTrack_3545_3 1.0000    100  hg19_ct_UserTrack_3545_1 1.0000    100  
+********************************************************************************
+
+********************************************************************************
+COMMAND LINE SUMMARY
+********************************************************************************
+This information can also be useful in the event you wish to report a
+problem with the MEME software.
+
+command: meme /homed/home/amathelier/workspace/GHMM/Ap2a/ENCODE/trim_101nt//MEME/15nt/train_1/seqs-sampled.fa -oc /homed/home/amathelier/workspace/GHMM/Ap2a/ENCODE/trim_101nt//MEME/15nt/train_1/meme_out -dna -mod zoops -nmotifs 1 -minw 15 -maxw 15 -time 7200 -revcomp -nostatus 
+
+model:  mod=         zoops    nmotifs=         1    evt=           inf
+object function=  E-value of product of p-values
+width:  minw=           15    maxw=           15    minic=        0.00
+width:  wg=             11    ws=              1    endgaps=       yes
+nsites: minsites=        2    maxsites=      600    wnsites=       0.8
+theta:  prob=            1    spmap=         uni    spfuzz=        0.5
+global: substring=     yes    branching=      no    wbranch=        no
+em:     prior=   dirichlet    b=            0.01    maxiter=        50
+        distance=    1e-05
+data:   n=           60000    N=             600
+strands: + -
+sample: seed=            0    seqfrac=         1
+Letter frequencies in dataset:
+A 0.219 C 0.281 G 0.281 T 0.219 
+Background letter frequencies (from dataset with add-one prior applied):
+A 0.219 C 0.281 G 0.281 T 0.219 
+********************************************************************************
+
+
+********************************************************************************
+MOTIF  1	width =   15   sites = 553   llr = 4103   E-value = 3.4e-398
+********************************************************************************
+--------------------------------------------------------------------------------
+	Motif 1 Description
+--------------------------------------------------------------------------------
+Simplified        A  3422::::16::144
+pos.-specific     C  32117a823:::721
+probability       G  22363::154aa223
+matrix            T  3241::261::::31
+
+         bits    2.2                
+                 2.0                
+                 1.8      *     *   
+                 1.5      *    **   
+Relative         1.3      **   **   
+Entropy          1.1      **   **   
+(10.7 bits)      0.9     ***  ***   
+                 0.7     **** ****  
+                 0.4     **** ****  
+                 0.2  **************
+                 0.0 ---------------
+
+Multilevel           AATGCCCTGAGGCAA
+consensus            CGG G  CCG   TG
+sequence             T A            
+                                    
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 sites sorted by position p-value
+--------------------------------------------------------------------------------
+Sequence name            Strand  Start   P-value                 Site    
+-------------            ------  ----- ---------            ---------------
+hg19_ct_UserTrack_3545_6     +     46  4.17e-08 CATCTGCATG AAAGCCCTGAGGCAG GAAAGAGCTC
+hg19_ct_UserTrack_3545_5     +     46  1.21e-07 GGAAACACAG CAAGCCCTGAGGCAG CAGGAGCCAG
+hg19_ct_UserTrack_3545_1     +     49  1.67e-07 TCTTGGGTTG TGTGCCCTCAGGCAA GTCAGTGAGT
+hg19_ct_UserTrack_3545_3     -     14  2.39e-07 CAGACAGGCA TGTGCCCTGAGGCAG CAGCTCAGGC
+hg19_ct_UserTrack_3545_2     -     41  3.13e-07 TGGCAAGTGC AATACCCTGAGGCAG GCACATGCTG
+hg19_ct_UserTrack_3545_3     +     70  3.13e-07 AAGGTTACAG AAGGCCCTGAGGCAT TTCCAGGGCA
+hg19_ct_UserTrack_3545_2     -     30  3.13e-07 GCTCAAGTTA AATGCCCTTAGGCAA TTTTACCTTA
+hg19_ct_UserTrack_3545_5     -     61  4.24e-07 ACTGGACAAT CATGGCCTGAGGCAG TCCCTGCTAC
+hg19_ct_UserTrack_3545_7     -     68  5.64e-07 CGGATGTTAT AATAGCCTGAGGCAA TGACAGCTGC
+hg19_ct_UserTrack_3545_2     +     60  5.64e-07 GACACCCACT CCTGCCCTGAGGCTA CAGTGCTGAG
+hg19_ct_UserTrack_3545_4     +     61  7.36e-07 TTCTGTGGCC AAAGCCCCCAGGCAA ACAAAGACAC
+hg19_ct_UserTrack_3545_4     -     74  7.36e-07 AAGAAAAATC TGGGCCCTCAGGCAA GTTCTCCTAG
+hg19_ct_UserTrack_3545_6     +     37  7.36e-07 CTTACTGCAC AATCCCCTGAGGCAG TGCTCTCTGT
+hg19_ct_UserTrack_3545_6     +     31  7.36e-07 ATGATTCACT ATAGGCCTGAGGCAA ATTTGCCATG
+hg19_ct_UserTrack_3545_2     -     62  7.36e-07 TTTTCTGATT ACTGCCCTCAGGCTA GAACTGTTAC
+hg19_ct_UserTrack_3545_2     -     22  9.55e-07 GGCAATCCTT CAGGCCCTGAGGGAA AGCTGAGCCA
+hg19_ct_UserTrack_3545_4     -     46  9.55e-07 GAGGCAGGAA AAGGGCCTGGGGCAA GGTATGCAAT
+hg19_ct_UserTrack_3545_2     +     55  9.55e-07 GCCCTGGCTT TCTGCCCTCAGGCTA AGTGAGTGCA
+hg19_ct_UserTrack_3545_2     -     20  9.55e-07 ATGAAAACCT TTTGCCCTGAGGGAA AAACTCTTCA
+hg19_ct_UserTrack_3545_4     +     26  9.55e-07 TGGAATCTCC TATGCCCTGAGGGCA CGTTATGGGC
+hg19_ct_UserTrack_3545_4     +     62  9.55e-07 AGAGAGAAAA TAGGCCTTGAGGCAA GATCTGATTT
+hg19_ct_UserTrack_3545_5     -     63  9.55e-07 CTTACTTACA AAAGCCCTCAGGCAC GAATGCACTT
+hg19_ct_UserTrack_3545_6     +     40  1.24e-06 TTGTTTCAGT AATGCCCTGGGGGTA AGCTTTTTCT
+hg19_ct_UserTrack_3545_9     -     50  1.24e-06 CCGAGTGACA AAGGCCCTCAGGGAA AGGGGTGGTG
+hg19_ct_UserTrack_3545_4     -     70  1.59e-06 TTTGGCCCCT CAGGCCCTCAGGCTG ACAGCTCAGA
+hg19_ct_UserTrack_3545_2     +     32  1.59e-06 AAGGCATGGC AGTGCCCTGGGGCCA TACAGCAGTG
+hg19_ct_UserTrack_3545_6     -     54  1.59e-06 AGGCGTTTCC TAACCCCTCAGGCAA CTGTGCAACT
+hg19_ct_UserTrack_3545_7     -     62  1.59e-06 GAAATTAGAC TATGCCCTAAGGCAG TAGCTACAGA
+hg19_ct_UserTrack_3545_3     +     52  2.00e-06 TTCCGGCAAG TGGGCCCTGAGGCTG GCCCCAGCTT
+hg19_ct_UserTrack_3545_3     +     40  2.00e-06 GCAGCGGCTT CTTGCCCTGGGGCAG GGCCGGGCAG
+hg19_ct_UserTrack_3545_2     -     45  2.00e-06 CCTTCTCTCT CAAGCCCTCAGGCAC TGCCATCTCC
+hg19_ct_UserTrack_3545_3     -     68  2.55e-06 CATGACTCAG TATGGCCCCAGGCAA TTCTGACCAC
+hg19_ct_UserTrack_3545_4     -     58  2.55e-06 ATTATTATAC TAAACCCTGAGGCGA AAGGAGTCTT
+hg19_ct_UserTrack_3545_7     -     20  2.55e-06 AGCAGAAGGA TCTGGCCTCAGGCAA AGGCAGGCTG
+hg19_ct_UserTrack_3545_9     +     61  2.55e-06 GGCTGGCGTG CTAGCCCTGAGGCAT TGTGGGTTCG
+hg19_ct_UserTrack_3545_1     +     52  2.55e-06 GAAAACGGCA GATGCCCTCAGGCTT AGTCTTATCT
+hg19_ct_UserTrack_3545_6     +     70  2.55e-06 ATTTTCCTGG TAAGCCCTGGGGCTT ATGAAATCAA
+hg19_ct_UserTrack_3545_5     +     34  2.55e-06 CAACTCACTG TATGGCCTTAGGCAA GTCACCTTAC
+hg19_ct_UserTrack_3545_5     +     51  2.55e-06 CTGCCTCTGT GTTGCCCTGGGGCTA ACAGCTTATG
+hg19_ct_UserTrack_3545_4     +     56  2.55e-06 TTCCCTTCTC CAAGCCCTGGGGGAA TAAAACACCC
+hg19_ct_UserTrack_3545_3     -     43  2.55e-06 GGACATACTG GCTGCCCTGGGGCAA ATTGTGTCTT
+hg19_ct_UserTrack_3545_3     -      2  3.18e-06 TGAATCACCA GAGGCCCTCAGGCTG G         
+hg19_ct_UserTrack_3545_1     -     42  3.18e-06 TAGGCTCTAA GATGCCCCGAGGCCA GCTGTCTGCC
+hg19_ct_UserTrack_3545_4     -     85  3.18e-06          C GAAGGCCTGAGGCCA TTAGGGTGCA
+hg19_ct_UserTrack_3545_4     +     33  3.18e-06 CGCCCGAGGG CTTGGCCTGGGGCAA GCGGGCCGCG
+hg19_ct_UserTrack_3545_1     -     48  3.18e-06 GCCGGCCGGA GAAGCCCTGGGGCTG GAGGTGGGTT
+hg19_ct_UserTrack_3545_3     +     50  3.18e-06 GGGAGGACAC AAAGCCCTGGGGCTC AGCTACACCT
+hg19_ct_UserTrack_3545_1     +     77  3.94e-06 GCACTCCTGC TGGGCCCTCAGGCCA TAACCCACA 
+hg19_ct_UserTrack_3545_1     -     29  3.94e-06 GGGGAAGAGC TAAGCCCGGAGGCAG TCAGCCGACT
+hg19_ct_UserTrack_3545_6     -     19  3.94e-06 TGAGTCCTGC TCTGCCCTGGGGCCA TCTCACCAAT
+hg19_ct_UserTrack_3545_3     +     54  3.94e-06 GGCATCTGAA AATAGCCTGAGGCTG ATCCGAAATG
+hg19_ct_UserTrack_3545_2     -     71  3.94e-06 TGAGAGGGCT CATCCCCTCAGGCAG GATTGCTAAA
+hg19_ct_UserTrack_3545_2     +     48  3.94e-06 TTACTCAGCA AATGCCCTTAGGGAA AGCCATGAGA
+hg19_ct_UserTrack_3545_3     +     68  4.92e-06 TCCTCTCGCC ACTGCCCTCAGGCAC GGCCACCCAG
+hg19_ct_UserTrack_3545_5     -     36  4.92e-06 CATTTAAAAC ACAGCCCTCAGGCTG GGTGCAGTGA
+hg19_ct_UserTrack_3545_6     -      9  4.92e-06 GCTTGTGGAT AGGGCCCTGGGGCCA GTCCACCT  
+hg19_ct_UserTrack_3545_9     +     34  4.92e-06 CGGCGGCGGC GGAGCCCTGAGGCGA CAGCAGCTGC
+hg19_ct_UserTrack_3545_2     -     46  4.92e-06 AAACTAAACA CCAGCCCTCAGGCAG TTCACTCACT
+hg19_ct_UserTrack_3545_2     +     35  4.92e-06 ATGTTTGCTT AAGGCCCTGGGGCTC CACAATCAGC
+hg19_ct_UserTrack_3545_7     +     30  4.92e-06 CAGTTTACAA AATGCCTTCAGGCAT ATTGGGCTTA
+hg19_ct_UserTrack_3545_1     +     64  4.92e-06 TGCCAAGGGG TGAGCCCTGAGGCGG TTTTCTGGGA
+hg19_ct_UserTrack_3545_6     +     54  4.92e-06 AGCAGGTGGC TGTGGCCTGAGGGAA GGGAGAGATG
+hg19_ct_UserTrack_3545_4     -     36  4.92e-06 ACTCAGTGCC AAGGCCCTGGGGCTC CTCAGCTCTT
+hg19_ct_UserTrack_3545_7     -     26  4.92e-06 TACAGTCCAA AGTGCCTTGGGGCAA AGGAAATGTC
+hg19_ct_UserTrack_3545_3     +     74  6.03e-06 TCTTGCCACA GATAGCCTCAGGCAA GAGTTCTTTT
+hg19_ct_UserTrack_3545_4     +     55  6.03e-06 GTGGTCACTA CAGGCCCTGAGGGTG CAGTTTGCCT
+hg19_ct_UserTrack_3545_4     +     47  6.03e-06 CTCTTCCCTG TTTGCCCTCAGGCTC TAGGCCCAGC
+hg19_ct_UserTrack_3545_4     -     57  6.03e-06 GGCACAGGGC ATGGGCCTGAGGCCA GAGCCTCCTG
+hg19_ct_UserTrack_3545_4     -     25  6.03e-06 TCTTAGCAAC TATGCCCTCAGGATA AGGGACGTGC
+hg19_ct_UserTrack_3545_1     +     62  6.03e-06 CTCAATGTCT GGTGCCCTGAGGGTA GAGGATCCAG
+hg19_ct_UserTrack_3545_5     -     76  7.36e-06 GTAAAAGCAA TGTGCCCTTAGGCAG TTTCTTTTTG
+hg19_ct_UserTrack_3545_3     +     37  7.36e-06 TCCCGTCACC AAACCCCTGAGGCCG TCCTGGCATC
+hg19_ct_UserTrack_3545_7     +     64  7.36e-06 GGCCAGCGTC CAAGCCCTTAGGCCA CCGGGAAGCA
+hg19_ct_UserTrack_3545_7     +     50  7.36e-06 GTCTAGGTTA AATGCCCTGAGGTAG CACTCCTCCA
+hg19_ct_UserTrack_3545_3     +     67  7.36e-06 ACAGGGCCCT TGTGCCCCCAGGCAG AAGGCATGAC
+hg19_ct_UserTrack_3545_1     -     44  7.36e-06 CAGCCCTGCC GAAGCCCTGAGGCGT CGAGGCCGCC
+hg19_ct_UserTrack_3545_1     +     48  7.36e-06 TGGTCAAACA CAAGCCCTCGGGCAC GATGGCTCAT
+hg19_ct_UserTrack_3545_1     +     42  7.36e-06 CTGCTGGGCC TGGGCCCTGAGGCGG GTGTGATGGG
+hg19_ct_UserTrack_3545_3     +     18  7.36e-06 TGTCTAAACA GTTGCCCCCAGGCAA ACTCTTGTCT
+hg19_ct_UserTrack_3545_5     +     70  7.36e-06 AAGTTGTTTC CGTGCCCTGGGGCAC GGGCATCCAG
+hg19_ct_UserTrack_3545_3     -     55  8.97e-06 TCAGATGGCA AAAGGCCTGAGGGTG AATCTGGGCG
+hg19_ct_UserTrack_3545_5     +     69  8.97e-06 AGGTCAGTGC AGTACCCTGAGGCCG TTATCACTCG
+hg19_ct_UserTrack_3545_6     -     38  8.97e-06 TAGATCAGCT CATTGCCTGGGGCAA CAGAGAGCTT
+hg19_ct_UserTrack_3545_2     -     80  8.97e-06     TGGATC TGTGGCCTGAGGGTA CAGGCCTCTC
+hg19_ct_UserTrack_3545_3     -     28  8.97e-06 CTGAGGAAAC CAGGGCCTCAGGCGA CAGCCGGCTC
+hg19_ct_UserTrack_3545_8     +     30  1.09e-05 ATGTCATCAG GAACCCCTGAGGCTG TACCACGGGC
+hg19_ct_UserTrack_3545_6     -     31  1.09e-05 ATGCTACTTT CCAGCCCTGGGGCCA TGGATGAGTC
+hg19_ct_UserTrack_3545_7     +     35  1.09e-05 AGGGTGAGGC AGAGCCCTGAGGGGA GAGCTGTGTG
+hg19_ct_UserTrack_3545_3     -     43  1.09e-05 AAAGAGAGAG AGGGGCCCGAGGCAA AGGAGGCTGG
+hg19_ct_UserTrack_3545_6     -      3  1.09e-05 GTGAGGAGGC CATGCCCTCGGGCCT AG        
+hg19_ct_UserTrack_3545_4     -     53  1.09e-05 TCTTTCACTT CTGGCCCCCAGGCAA ATGTGCAAGT
+hg19_ct_UserTrack_3545_3     -      3  1.09e-05 CTGAGAGCTG TGGGGCCTCAGGCAG AT        
+hg19_ct_UserTrack_3545_1     +     25  1.09e-05 TAGGCATCAC CCTGCCCTGAGGCCT GGTGCTCTAA
+hg19_ct_UserTrack_3545_7     -     35  1.09e-05 TTCCAAAAGG CAGAGCCTGAGGCAG GGATTGAGGG
+hg19_ct_UserTrack_3545_7     -     74  1.09e-05 GGGTCAGGGA GAGGCCCTGAGGGTG CAGGGAGAGA
+hg19_ct_UserTrack_3545_5     -     47  1.09e-05 TAGGAGGGGG TTTGGCCTGAGGCTC TGGGCATGCT
+hg19_ct_UserTrack_3545_4     +     31  1.09e-05 TGGTAACCAG GAAGCCCTGGGGCTC GCTTAGTCAC
+hg19_ct_UserTrack_3545_3     +     39  1.09e-05 GCCTCACCAA CGCGCCCTGGGGCAA TGCCAGGGCC
+hg19_ct_UserTrack_3545_4     +     28  1.09e-05 TCAATCCTCC AGTGCCCTCAGGGTG CTGGGAACGT
+hg19_ct_UserTrack_3545_5     -     84  1.09e-05         AA AAGACCCTGGGGCAT CAAGCACCCG
+hg19_ct_UserTrack_3545_6     +     43  1.09e-05 CCCATGATCT CCTGCCTTCAGGCAA AATGACTCAC
+hg19_ct_UserTrack_3545_5     +     60  1.09e-05 GAAATTTGAA GTTGCCCTCAGGCTT TGAGGTGGGA
+hg19_ct_UserTrack_3545_2     +     55  1.30e-05 GCTGTGTGCC CAAGCCCCGGGGCTG TGGCTTGAAT
+hg19_ct_UserTrack_3545_3     -     47  1.30e-05 ATTGGAAGGA CAAGCCCGCAGGCAG GATGGACGGC
+hg19_ct_UserTrack_3545_4     +     31  1.30e-05 CCAGAACGAC CAAACCCTGGGGCGA AAACTGCCAC
+hg19_ct_UserTrack_3545_2     -     35  1.30e-05 TTCCCACTGT ATAGCCCTTGGGCAA TTCACGGAAC
+hg19_ct_UserTrack_3545_2     -     44  1.30e-05 AGCATGGCCT GGAGCCCTGGGGCTG GAGACGGGCC
+hg19_ct_UserTrack_3545_4     +     41  1.30e-05 GGCATCTGCC TGTGCCCTCAGGAAA AGCCTGTATC
+hg19_ct_UserTrack_3545_3     -     27  1.30e-05 TGCCACACTA TGAAGCCTGAGGCTA AATAACTGGG
+hg19_ct_UserTrack_3545_9     -     83  1.30e-05        TGC AAGCCCCTGGGGCCA TGTCCAGGCC
+hg19_ct_UserTrack_3545_6     -     52  1.30e-05 ATTAGAGTTC AGTGCCCCCAGGCAT GCAAAACAGC
+hg19_ct_UserTrack_3545_8     +     40  1.30e-05 GCTTGGGACA TGGGCCCTGAGGGCA CACACTCCAC
+hg19_ct_UserTrack_3545_3     +     33  1.30e-05 TTGGCAAACC ATGGCCTTGGGGCAA ATCCAGCCAC
+hg19_ct_UserTrack_3545_5     +     59  1.30e-05 CTTCCAGTTT GTAGGCCTCAGGCTA CAGCTTGGGG
+hg19_ct_UserTrack_3545_3     -     15  1.30e-05 TCCCCCTGAC CACACCCTGAGGCAG CTCCTCTCCC
+hg19_ct_UserTrack_3545_3     +     49  1.30e-05 TTCCCTCCCA CTTGGCCTCAGGCAT TGAGGTTTGG
+hg19_ct_UserTrack_3545_1     -     37  1.30e-05 CTTGTCCTGA TATGCCTCGAGGCCA GAGAAAGAGG
+hg19_ct_UserTrack_3545_5     +     40  1.30e-05 TTGCTCAGAG AATACCCTAAGGCCA GAGTAAGTGA
+hg19_ct_UserTrack_3545_5     +     27  1.56e-05 AAACCCAGGC CCTGCCCTCAGGCTC TCCCAGTTTA
+hg19_ct_UserTrack_3545_4     -     47  1.56e-05 GCTCTGCTGC CGTGGCCCCAGGCAA CCTGGCTGGC
+hg19_ct_UserTrack_3545_2     -     42  1.56e-05 CTGCAGCCAG ACAGGCCTGGGGCAG AGAGCAGCAT
+hg19_ct_UserTrack_3545_6     +     70  1.56e-05 TGCTGCACAG GAAGGCCTCAGGCAC TTGCCCATGA
+hg19_ct_UserTrack_3545_5     -     71  1.56e-05 CTGCACGCCT CATCGCCTGAGGCGA AGTGATTGCT
+hg19_ct_UserTrack_3545_2     +     42  1.56e-05 CCTGCCCTGC CCTGCCCTGGGGCTT CAGAGAAGAC
+hg19_ct_UserTrack_3545_2     -     79  1.56e-05    TCTGCTC AGGGCCCCGGGGCTA CTGGCCTCGG
+hg19_ct_UserTrack_3545_6     -     69  1.56e-05 GCTTAGGGCC AAAGCCCTGAGGGCC TCCGCTCTGC
+hg19_ct_UserTrack_3545_2     -     46  1.56e-05 GATGGGTAAA TGAACCCTGGGGCAG AGCTGGGGGA
+hg19_ct_UserTrack_3545_2     -     53  1.87e-05 GCCCAGTTCT CATGCCCTGAGGTCA TACAGTAAAA
+hg19_ct_UserTrack_3545_5     -     42  1.87e-05 CCTTCTAGGG GTAGCCTTCAGGCAA TGATTAACTG
+hg19_ct_UserTrack_3545_6     -     56  1.87e-05 CTCACAGCTG GGGGCCCTGAGGCGG AAGGCGCAGC
+hg19_ct_UserTrack_3545_3     -     29  1.87e-05 GAGGAGCCAA GTGGCCCTCAGGGAA GGGAGGGCAC
+hg19_ct_UserTrack_3545_2     -     60  1.87e-05 GGCGGGCCCG ACGGGCCTCGGGCAA GCGCAGTCTT
+hg19_ct_UserTrack_3545_5     +     28  1.87e-05 GGGAAATGCT TTGCCCCTGAGGCCA TTGGCACTAC
+hg19_ct_UserTrack_3545_4     +     37  1.87e-05 TCATTTGCTG TATGCCCTTAGGGCA ATTATTAGAG
+hg19_ct_UserTrack_3545_4     -      4  1.87e-05 CCTGTCCCTA GTAACCCTCAGGCTA GGC       
+hg19_ct_UserTrack_3545_1     +      9  1.87e-05   CAGAGCCT GAGGCCCCGGGGCAG GAAGTCAGAC
+hg19_ct_UserTrack_3545_2     -     29  1.87e-05 GGAACTTTCC CAGGCCCCGAGGCGG ATCGGGTATT
+hg19_ct_UserTrack_3545_5     +     60  1.87e-05 TTGAATTAGA TACGGCCTGGGGCAG GCGGGTGTAA
+hg19_ct_UserTrack_3545_3     +     40  2.21e-05 ATTTTACATG CTGCCCCTGGGGCAA ACCAGTGGAT
+hg19_ct_UserTrack_3545_1     +     53  2.21e-05 ACCTTAAGCA ACTGCCCCCAGGCAT GGGCTTGAGG
+hg19_ct_UserTrack_3545_8     +     39  2.21e-05 CTCCAGGCAG GATAGCCTGAGGCAC GCTTGCTTCA
+hg19_ct_UserTrack_3545_6     -     53  2.21e-05 TGCTGTACTC TTCACCCTGAGGCTA TCCAGTCTGT
+hg19_ct_UserTrack_3545_2     +     21  2.21e-05 CTAAGCTTTT CAGTCCCTGGGGCCA ACATGTCCAT
+hg19_ct_UserTrack_3545_5     -     30  2.21e-05 AGGACACATC TAAGCCCTGAGGAAC CTGTGAGAGG
+hg19_ct_UserTrack_3545_6     -     40  2.21e-05 GCCGCCCCGC CTGGCCCCGAGGCTG GGTGAGCAAG
+hg19_ct_UserTrack_3545_4     +     47  2.21e-05 GCCAGAGGCT TAGGGCCTGGGGCTC CCCAACCCTT
+hg19_ct_UserTrack_3545_7     -     20  2.21e-05 AGCTGGTACA GATGCCTGGAGGCAA AAAGAACAGG
+hg19_ct_UserTrack_3545_2     -     63  2.62e-05 GCAACCCTGT ACTGGCCTGGGGCAC CCTGCTTGAG
+hg19_ct_UserTrack_3545_7     -     60  2.62e-05 CTTGACTCTA CATGCCCTGGGGACA TTTTGGTCTG
+hg19_ct_UserTrack_3545_1     +     40  2.62e-05 ATTGCAGATT TTGGCCCTCAGGGCA CTGGGCTGAG
+hg19_ct_UserTrack_3545_1     +     51  2.62e-05 GCAAGCTGCA AAGTCCCTGGGGCAC TCTAAGGGCC
+hg19_ct_UserTrack_3545_2     +     39  2.62e-05 GGCTGGCAGG ATCGCCCTGAGGCGG AGGCTGCCCG
+hg19_ct_UserTrack_3545_1     +     29  2.62e-05 GCTGGAAGAT GCTGCCCTGAGGCGT GGTGGCGGCG
+hg19_ct_UserTrack_3545_4     -     35  2.62e-05 GCCCCAGAGC TGTGGCCTGGGGGTA GGAGGGAGGA
+hg19_ct_UserTrack_3545_5     -     46  2.62e-05 GTTTCCTGGG ACATCCCTGGGGCTA GAGCACTGGA
+hg19_ct_UserTrack_3545_4     -     52  3.09e-05 GACAAAGTAA TTAGCCTTGAGGCTT TTAAAGGGCA
+hg19_ct_UserTrack_3545_4     +     32  3.09e-05 TTTTACTAAT ATGGCCCCGGGGCCA GACTACCCAG
+hg19_ct_UserTrack_3545_2     +     48  3.09e-05 GGGTCTCCCC AAGTGCCTGGGGCAG CGAGCCTTGT
+hg19_ct_UserTrack_3545_4     +     58  3.09e-05 TTCACCTGCC AGGCCCCTGGGGCAG TAAGATTTTC
+hg19_ct_UserTrack_3545_5     +     16  3.09e-05 CCCCACCCCC CTGCCCCTGAGGCTG CAGGGCTGCA
+hg19_ct_UserTrack_3545_7     +     25  3.09e-05 CATAGTCAGT CCCACCCTGAGGCAA GGGAAGTAGC
+hg19_ct_UserTrack_3545_1     -     24  3.09e-05 ATACAGGCTG TGCACCCTGAGGCAG CCTGTCCTTA
+hg19_ct_UserTrack_3545_4     -     60  3.09e-05 TGGTGGCTGG TGAGCCCCGGGGCTG TGTAGGCAAG
+hg19_ct_UserTrack_3545_1     +     42  3.09e-05 ACTTAATCTG TTTGGCCTGGGGCTC ATTGGGCCTG
+hg19_ct_UserTrack_3545_7     -     60  3.09e-05 CTGACGCTCC TCTACCCTCGGGCAG CACAGCGGGG
+hg19_ct_UserTrack_3545_9     +     48  3.09e-05 GCCTCCAGAA CATGGCCAGAGGCTA CAGAATCAGA
+hg19_ct_UserTrack_3545_1     +     42  3.09e-05 ACTACAAACC TTTTCCCTGGGGCAT TTGTAGAAAA
+hg19_ct_UserTrack_3545_4     +     40  3.09e-05 CCGCCATGAC AAAGCCTGGAGGCAG ACAGTTCACA
+hg19_ct_UserTrack_3545_1     +     55  3.61e-05 CTGCTGATTA GCAGCCCTCGGGCCA TACCCTTGCC
+hg19_ct_UserTrack_3545_7     -     59  3.61e-05 CTGGGGCGTG ACTGCCCTCAGGGTT CCTTCTGGTG
+hg19_ct_UserTrack_3545_7     -     77  3.61e-05  TGATGACTC TGAGCCTTGGGGCCA CCAGATCATG
+hg19_ct_UserTrack_3545_7     +     60  3.61e-05 AACGCGGAGG AAGTCCCTGAGGGGA AATTGCTGCT
+hg19_ct_UserTrack_3545_1     +     46  3.61e-05 CAGGGAAGCC TTCACCCTGGGGCAA CTCCCTTCTC
+hg19_ct_UserTrack_3545_2     -     67  3.61e-05 AAACTCAGCA AATGCCCTCGGGGCT GAAGAAAACC
+hg19_ct_UserTrack_3545_4     -     38  3.61e-05 CTAATCCTCT GATAGCCTGGGGCTG TATTAGTGTC
+hg19_ct_UserTrack_3545_1     +     65  3.61e-05 CTCAGCCTCC CAGTGCCTGGGGCTA CAGGCATGCA
+hg19_ct_UserTrack_3545_1     +     72  3.61e-05 GGATCCCATG TCGGCCCTGAGGCGC TCGGGCTACG
+hg19_ct_UserTrack_3545_4     +     74  3.61e-05 CTTAGGGTAT AGCACCCTGAGGCCA CATCCTGGAA
+hg19_ct_UserTrack_3545_6     +      4  3.61e-05        CCA AAGAGCCTCAGGCAC AGGGGAGCCT
+hg19_ct_UserTrack_3545_4     -     37  3.61e-05 GTGAGGACAC CTTGGCCCCAGGCAG CAGGAAGCAG
+hg19_ct_UserTrack_3545_8     +     48  3.61e-05 CAAAAACTGA TTAGCCTTCAGGCAT TCCAGCTAGT
+hg19_ct_UserTrack_3545_2     -     72  3.61e-05 AATTGCAAGC CTGCCCCTGGGGCTA GAGGCCCCTG
+hg19_ct_UserTrack_3545_6     -     78  3.61e-05   GCTTCTGG AAAGCCCTGGGGAAT TCCAAGCTCA
+hg19_ct_UserTrack_3545_9     +     44  3.61e-05 TGAAAGGAGC TAGGCCCTCAGGGCT CAAACTCCAG
+hg19_ct_UserTrack_3545_1     -     49  3.61e-05 GCGTCGGGTC CATGCCCCGGGGGCA GCTCTGAGCC
+hg19_ct_UserTrack_3545_9     -     42  4.22e-05 GGCCACTCCA CTGGCCCGCAGGCTA GGGCGCGCCT
+hg19_ct_UserTrack_3545_1     -     46  4.22e-05 ATAACTATTT CAGGCCTTGAGGGCA ATACAGTCTC
+hg19_ct_UserTrack_3545_6     +     28  4.22e-05 CTGAGTCAAA ACAGCCCCCAGGGAA TATTCTGCAG
+hg19_ct_UserTrack_3545_5     +     51  4.22e-05 AGCAGCCTGC CAGAGCCTGGGGCCA CAAAGTAAAG
+hg19_ct_UserTrack_3545_5     -     23  4.22e-05 AAGCAGGCAA GGAACCTTGAGGCAA AGTTGTCAGT
+hg19_ct_UserTrack_3545_4     -     84  4.22e-05         AT TAATCCTTCAGGCAG TCTTGTCCCT
+hg19_ct_UserTrack_3545_1     +     52  4.22e-05 TGAGCCAGAA TATGCCTGCAGGCAG TATTTGCTGA
+hg19_ct_UserTrack_3545_7     +     70  4.22e-05 ATTTGTCAAG AAAGCCTGGAGGCCA TAAAAGAGGG
+hg19_ct_UserTrack_3545_6     -     24  4.22e-05 GGAGAAGTCC TGGACCCTGAGGGAG GTGATGGGGC
+hg19_ct_UserTrack_3545_4     +     78  4.22e-05 AGCGCTTTCA CAGAGCCTGGGGCCA AACAAACA  
+hg19_ct_UserTrack_3545_6     +     63  4.22e-05 ATGGCGGACG CAAAGCCGGAGGCAA GGCCGCGCAC
+hg19_ct_UserTrack_3545_2     +     14  4.91e-05 TTGGCTCTGA TTTTCCCTGGGGCTT GGTAATGCGC
+hg19_ct_UserTrack_3545_2     -     56  4.91e-05 TGTGTTTCTT TAACCCCTGGGGCCT GTTGACACAG
+hg19_ct_UserTrack_3545_2     +     41  4.91e-05 CCATGAGCCT GCCGCCCTCAGGCAG CCGCGCTGCA
+hg19_ct_UserTrack_3545_9     -     66  4.91e-05 CCCCGTCCAG ATGCCCCTGGGGCTG CCTCCAGCAC
+hg19_ct_UserTrack_3545_4     -     30  4.91e-05 CCAGGCTCCC CCTGCCCTGGGGGGA TTGGAGGAAT
+hg19_ct_UserTrack_3545_3     +     20  4.91e-05 TTCTCTATTT CATGCCCCTAGGCAC TCCCAGAAGT
+hg19_ct_UserTrack_3545_3     +     60  4.91e-05 CCCCGGGCTT GGTGCCCCCGGGCAG GACGGCGGCC
+hg19_ct_UserTrack_3545_6     +     68  4.91e-05 GGAAGCTGCC TCTGGCCTCGGGGAA CCAGATGATT
+hg19_ct_UserTrack_3545_4     +     52  4.91e-05 CCCGGGAACT GGTCGCCTGGGGCAA GTCTGGATAC
+hg19_ct_UserTrack_3545_4     -     11  4.91e-05 CGGGTGCTCT CCTGGCCTCGGGCTG CCAGCCCGCC
+hg19_ct_UserTrack_3545_5     +     51  4.91e-05 GTCCCAGCCC TATGCCCGCGGGCTT CAGGGCTCGG
+hg19_ct_UserTrack_3545_3     -     30  5.68e-05 CAGTTGGGAA AAGAGCCTCAGGCTC AGATTCAGAG
+hg19_ct_UserTrack_3545_7     -     11  5.68e-05 TTGTTCTATG CAGGCCCTCAGGAAT TTGGATCAGG
+hg19_ct_UserTrack_3545_3     -     50  5.68e-05 CCCCGCTCAC AGCGCCCTCGGGCAT CGCGTTCGGC
+hg19_ct_UserTrack_3545_7     +     75  5.68e-05 TGCCTCTCCC TCTGCCCTCAGGGTC TCTCCTTGGA
+hg19_ct_UserTrack_3545_2     -     68  5.68e-05 TGGGTCCTCT TGGGGCCTGAGGGGA CACCTTTGCC
+hg19_ct_UserTrack_3545_7     +     51  5.68e-05 TTGTCTTGCC AATGCCTAGAGGCAG TTCTGCCTGG
+hg19_ct_UserTrack_3545_6     +     65  5.68e-05 GTCCCCTGCC CGGGCCCCGAGGCTC TGGGGTTCCC
+hg19_ct_UserTrack_3545_2     +     58  5.68e-05 GGGGAATTTG GAAAGCCCCAGGCAA GGTGGAAAGC
+hg19_ct_UserTrack_3545_7     +     74  5.68e-05 CATCCTCGGC GCGGCCCGGAGGCTA TGCGACCCTG
+hg19_ct_UserTrack_3545_5     +     28  5.68e-05 GCGGCGGTGA GTGGGCCCCAGGCAA GGGCGGAGGG
+hg19_ct_UserTrack_3545_4     -     55  5.68e-05 GTCCTAGCCT CTGGCCCTGGGGCCC CGCAGGCCTT
+hg19_ct_UserTrack_3545_5     +     43  5.68e-05 TATATTTCCA CGGTCCCTCAGGCTG GGCTAGTAAT
+hg19_ct_UserTrack_3545_5     -     55  5.68e-05 GCCTGCCCAG CCTGCCCGCAGGCCA GGCCTCTGGA
+hg19_ct_UserTrack_3545_8     +     57  6.56e-05 GAGGAAGTGC TGAGCCCTAGGGCGA GGGAGGGTGG
+hg19_ct_UserTrack_3545_3     +     62  6.56e-05 CTGGTCCAAT GTTCCCCCGAGGCAG TGATGTTGAA
+hg19_ct_UserTrack_3545_2     +     57  6.56e-05 CAAAGAGGAG GATGCCCTCGGGGTC AAAGGTCCGG
+hg19_ct_UserTrack_3545_1     -     65  6.56e-05 ACCTGACTAA AGAGCCCTTAGGCCT TTAGTAAACA
+hg19_ct_UserTrack_3545_5     +     54  6.56e-05 TCATTGTGGC TGGGGCCCCGGGCAA GGGCACCGTG
+hg19_ct_UserTrack_3545_5     +     47  6.56e-05 TGTTTGTGCC AATAGCCCAAGGCAA GGAATTTCTC
+hg19_ct_UserTrack_3545_2     +     59  6.56e-05 CCTCGGGTAG CGAGCCCCGAGGGCA GAGGAGCCGG
+hg19_ct_UserTrack_3545_3     -     26  6.56e-05 AGACGCTTTC CGGCCCCTCAGGCAT CTCCCCTTTC
+hg19_ct_UserTrack_3545_2     +     34  6.56e-05 AACACTCAGC TCTCCCCCGAGGCCA GATGAAAAGC
+hg19_ct_UserTrack_3545_3     +     24  6.56e-05 TCCAGAAATG GAGGCCCGGAGGCTC CCAGAAGAGG
+hg19_ct_UserTrack_3545_3     +     25  6.56e-05 AATGTGACTA CAGCCCCCGAGGGAA TGGGGCGGGG
+hg19_ct_UserTrack_3545_6     -     83  6.56e-05        GGT CGAGGCCGGAGGCAG GAAGCACGGC
+hg19_ct_UserTrack_3545_9     -     59  6.56e-05 TGATGAGTCA GTTGCCCTGGGGGAC AGAGGCTCTC
+hg19_ct_UserTrack_3545_1     -     55  6.56e-05 TAAACAGAGG AAGAGCCTCGGGCAT TAGCCACTCC
+hg19_ct_UserTrack_3545_7     -     29  6.56e-05 AGGGCGCGGG AAGGGCCTGAGGGGT GAAGGCGGGG
+hg19_ct_UserTrack_3545_4     -     15  7.56e-05 AACCCTCAAA AACACCTTCAGGCTA AACTGCAACT
+hg19_ct_UserTrack_3545_4     -     47  7.56e-05 TCTCCTGTCA CTTTCCCTCAGGGAG ACACTGCTTT
+hg19_ct_UserTrack_3545_5     +     57  7.56e-05 GGGCTGCATT CCAGGCCTCAGGCTC GCGGCTGTCC
+hg19_ct_UserTrack_3545_8     -     21  7.56e-05 CCAGAGACGC GGGGCCCCGGGGCCA GGAGAGCCAA
+hg19_ct_UserTrack_3545_5     +     51  7.56e-05 CATTTCAAGA CATTCCCTTAGGCTT CTTCTGCTGG
+hg19_ct_UserTrack_3545_5     +     43  7.56e-05 CTTTTGGAGT TTGGCCTTGGGGGAA AATGAATCAC
+hg19_ct_UserTrack_3545_5     +     38  7.56e-05 TCCTTCTCTG AATGCCCAGAGGGGA TAAATAGCAG
+hg19_ct_UserTrack_3545_6     +     46  7.56e-05 ATCCATATTG TTGTGCCTGGGGCTA GAACTAGAGA
+hg19_ct_UserTrack_3545_5     -     65  7.56e-05 GCGGTAATAG AGGTGCCCGAGGCAA ACTTTGATTC
+hg19_ct_UserTrack_3545_4     +     45  7.56e-05 GTGTGTGCCA GTAACCCTGAGGCCT TCAGTGAGTA
+hg19_ct_UserTrack_3545_4     +     31  7.56e-05 GTAGATCACT TGAGCCTCGAGGCTG CAGTCAGCTA
+hg19_ct_UserTrack_3545_7     -     52  7.56e-05 TTCTGTGTCT CACGCCCTGGGGGAT TGTTCACTGT
+hg19_ct_UserTrack_3545_6     +     35  7.56e-05 AACGCCACTC CCGGCCCTCAGGGAT AGCTTGCCTA
+hg19_ct_UserTrack_3545_2     -     71  7.56e-05 TCAGGTGCTC CAGTCCCTCGGGCAC TTTTCACAGA
+hg19_ct_UserTrack_3545_2     -     23  7.56e-05 CGGGAGATCT TGCGCCCTGGGGCTC CGGATCCAGT
+hg19_ct_UserTrack_3545_1     +     60  7.56e-05 TTTCTATGTA GATGCCTTCAGGGAT CTGAGTCACT
+hg19_ct_UserTrack_3545_4     +     62  8.67e-05 AGATGCTGGG AGGCCCCTCAGGCGG CGGCAATACC
+hg19_ct_UserTrack_3545_4     -     78  8.67e-05   GCCAAGCC AGTGCCCTGTGGCTG TTTTTTCCAT
+hg19_ct_UserTrack_3545_3     -     61  8.67e-05 GAGGCTGGCG AAACCCCCCGGGCCA GCAGACGTGG
+hg19_ct_UserTrack_3545_3     -     76  8.67e-05 GCCAGGAGCA GCTGGCCCCAGGCAG GAGCTGAGGC
+hg19_ct_UserTrack_3545_3     -     71  8.67e-05 GCCGGGCCGT GGTGCCCTCAGGACA ATGCCCTCCG
+hg19_ct_UserTrack_3545_4     +     30  8.67e-05 CCAAAGAGAA AGGCCCTTGGGGCAA AGTCTAGAGG
+hg19_ct_UserTrack_3545_6     +      7  8.67e-05     CTGCCC TGAGCCCCGGGGGAG TGCGAGGTGG
+hg19_ct_UserTrack_3545_6     -      1  8.67e-05 TCTTGTCAGC TGTAGCCTGAGGCGT           
+hg19_ct_UserTrack_3545_4     -     50  8.67e-05 AACCAACCAC AGTGCCCCGAGGACA TGTGGGATTA
+hg19_ct_UserTrack_3545_1     +     29  8.67e-05 TAATCACTTA GTAGCCCTCAGGGTT ATCAGACTGT
+hg19_ct_UserTrack_3545_5     +     15  8.67e-05 GTGACGTCGT GGTGCCTTGAGGGCA CCCTTCTGGG
+hg19_ct_UserTrack_3545_3     +     51  8.67e-05 TCCCTGGGCC TGGGGCCTGGGGCCT GGGGCCTGGG
+hg19_ct_UserTrack_3545_6     +     74  8.67e-05 GCCAGAGGAG TATCCCCTCGGGGAT AAGATGCTGT
+hg19_ct_UserTrack_3545_1     -     44  8.67e-05 TTGTTGCTGA AAATGCCTGGGGCGG AAAATGAGTC
+hg19_ct_UserTrack_3545_7     +     73  8.67e-05 CCTCCAGTGT TTTTCCCAGAGGCAA CCACATTTAC
+hg19_ct_UserTrack_3545_5     +     10  8.67e-05  CCACGTCCC CAGGCCCTTGGGCGG CGAAGAGGTC
+hg19_ct_UserTrack_3545_1     -     30  9.90e-05 CAGCCCTGGA GACACCCCGAGGCAG CCAATGACTC
+hg19_ct_UserTrack_3545_6     -     75  9.90e-05 AGCAGGAGTG CCTGCCCTGAGGGGC AGAGTAGAAA
+hg19_ct_UserTrack_3545_6     +     77  9.90e-05 GGAGGGATGA CATGCCCTGGGGACT GTGAGCAGT 
+hg19_ct_UserTrack_3545_1     -     36  9.90e-05 TGAGTCCCAG CTTCGCCTGAGGCGG CGGTTCTCAA
+hg19_ct_UserTrack_3545_2     -     51  9.90e-05 CGCACGTCGG CGCGCCCCCGGGCAA GCTCCTCCCC
+hg19_ct_UserTrack_3545_1     +     38  9.90e-05 CCCGCTTTGT ACTCCCCTCGGGCAC CATGAGCACC
+hg19_ct_UserTrack_3545_1     +     46  9.90e-05 TCTTTCGACA TTTACCTCCAGGCAA GGCCACTTGT
+hg19_ct_UserTrack_3545_7     -     47  9.90e-05 GCCATTCTGG AAAGCCCTGAAGGCA CTTGGCATGG
+hg19_ct_UserTrack_3545_1     +     58  9.90e-05 CCGTCACCTC AGGGGCCTCAGGCGC CCAGCGGTGC
+hg19_ct_UserTrack_3545_4     -     51  9.90e-05 TGCCAACAGC TAAGGCCTCGGGGTT CTTAGCTGCT
+hg19_ct_UserTrack_3545_7     +     39  9.90e-05 CCCGGAGCAG AACGCCCTCGGGCGC CCGCTCTTGC
+hg19_ct_UserTrack_3545_3     +     22  9.90e-05 TCTCTTTATC CAATGCCGGAGGCTA TTGTCGAAGC
+hg19_ct_UserTrack_3545_1     +     38  9.90e-05 CTCCCAACCC AGCACCCTGGGGCTG AGCTCACAGG
+hg19_ct_UserTrack_3545_8     -     40  9.90e-05 AGTGCGTCTG GGTAGCCTGGGGCTG CGCTTCCCCC
+hg19_ct_UserTrack_3545_4     +     74  9.90e-05 CCCGGACACG ATGTCCCCCAGGCAG GCCCCTAGAG
+hg19_ct_UserTrack_3545_6     +     59  1.13e-04 AAGGTCAGCT AATCGCCTGAGGTTA GGCGTTGGAA
+hg19_ct_UserTrack_3545_3     -     36  1.13e-04 GAGTCACCTC TGGGCCTTGAGGGAT TCCTGGGAGG
+hg19_ct_UserTrack_3545_4     -     44  1.13e-04 CATCGTGTGA ATCTCCCTCAGGCTG TCCCCAGTCG
+hg19_ct_UserTrack_3545_2     +     34  1.13e-04 ATTTCAAGTC TCTCGCCTTAGGCAA AACACCACCA
+hg19_ct_UserTrack_3545_9     -     23  1.13e-04 CACGCCCCTG TGTGCCCTGAGGTGG GCAGCTGTGC
+hg19_ct_UserTrack_3545_2     -     61  1.13e-04 GGGCCGTGAA AAAGGCCTCTGGCTA GCCAGCTCCT
+hg19_ct_UserTrack_3545_2     +     32  1.13e-04 TTGTACCCAG ACTCGCCTGAGGGAG GGAAGCCAGC
+hg19_ct_UserTrack_3545_4     +     44  1.13e-04 CAAACTGCTG ATGGCCCTCAGGGGT TGAAAAGTTG
+hg19_ct_UserTrack_3545_3     +     22  1.13e-04 ACACTTCTAT ATGTCCCTGGGGCTC AACTTCGGGC
+hg19_ct_UserTrack_3545_6     -     63  1.13e-04 AGAAAGGAAT CCTGCCTTGAGGGGA AATGGTGAGG
+hg19_ct_UserTrack_3545_6     +     32  1.13e-04 GCTGTGCACA TGTGCCTTGAGGGGG AAGTGTTATT
+hg19_ct_UserTrack_3545_9     -      9  1.13e-04 CCGCACTGTC CCTGCCCCGGGGGAG AAGGGGAA  
+hg19_ct_UserTrack_3545_3     -     29  1.13e-04 GCACCAAGGA CGGACCCTGGGGCGG CTCCTGGCTG
+hg19_ct_UserTrack_3545_2     +     46  1.13e-04 TGATTCACAT TTTGCCCTGAAGGTA ACCAGATTAG
+hg19_ct_UserTrack_3545_7     -     44  1.13e-04 TTAAAGGGCA AACTCCTTGAGGCCA ATTCCAAGGG
+hg19_ct_UserTrack_3545_9     -     35  1.13e-04 ATTTAACTCC TGTGCCTCCAGGGAA TCACAAGGTC
+hg19_ct_UserTrack_3545_7     -     55  1.28e-04 ACGGCTGGAG GATAGCTTCAGGCCA GGAATTCAAG
+hg19_ct_UserTrack_3545_5     +     12  1.28e-04 GCCTAGCAAC CAGGCCCGCAGGCCC AGTGCCCAGG
+hg19_ct_UserTrack_3545_2     -     56  1.28e-04 GTCAAAAGGC CAGGGCCCAGGGCAA GGTCCAACAG
+hg19_ct_UserTrack_3545_7     +     33  1.28e-04 AGGCTTGCGG GTTTCCCTGGGGCTC AGCCAGTCCT
+hg19_ct_UserTrack_3545_5     +     77  1.28e-04 CATATACTCA AAAGCCCCGGGGATG AAGCAACTG 
+hg19_ct_UserTrack_3545_5     -     53  1.28e-04 ACCTGTCCGG TACGCCCGGAGGCCT TTTGCAGCGG
+hg19_ct_UserTrack_3545_7     -     22  1.28e-04 ACGTGCTCCT TAGCCCTTGGGGCGA TTGTGGCTGT
+hg19_ct_UserTrack_3545_3     +     40  1.28e-04 ATCGTGCCCG TAGAGCCTTAGGCAT GATAATTTTT
+hg19_ct_UserTrack_3545_3     -     30  1.45e-04 CACCCGGCCC GCAACCCCGAGGCTG TGCCTCCCAG
+hg19_ct_UserTrack_3545_4     -     56  1.45e-04 AGGCCTGCAG GGTGCCTCCAGGCCA CTGGCCAGAT
+hg19_ct_UserTrack_3545_6     +     55  1.45e-04 TTGAGATCAT TTTCCCCCCAGGCTT TCTTTATCTA
+hg19_ct_UserTrack_3545_1     +     72  1.45e-04 CATTGACCCC CAGGCCTCCAGGCTT TTAGTCAGCT
+hg19_ct_UserTrack_3545_3     -     45  1.45e-04 TGGATACAGG AGAGCCCTTAGGGCG TTTTTTAGTA
+hg19_ct_UserTrack_3545_6     -     35  1.45e-04 CAATTTCCAG TGAGGCCCCAGGCTC CCAACCTGAT
+hg19_ct_UserTrack_3545_5     +     30  1.45e-04 TCATGAGGTG GCTGCCCCCAGGCCT CCAAGTTGTC
+hg19_ct_UserTrack_3545_1     -     52  1.45e-04 ACTCATGCGC TTCTGCCTGGGGCAA CACAATTAGA
+hg19_ct_UserTrack_3545_5     +      6  1.45e-04      TCTTT AAAGCCCCAAGGGGA TAAGCCACAG
+hg19_ct_UserTrack_3545_7     +     33  1.45e-04 TGGGGAAGGA CAGGCCCCGAGGGGT TTCCCCTATG
+hg19_ct_UserTrack_3545_2     -     40  1.45e-04 AGGTCACTGA ATGTCCCTGGGGCCT ACAAGGCTGT
+hg19_ct_UserTrack_3545_2     +     21  1.45e-04 CCCAAGATGA GATGCCCTAAAGCTA GGTCCACTGC
+hg19_ct_UserTrack_3545_7     +     29  1.45e-04 CAGGAAGGCT TGTAGCCAGAGGCAA ATTCTCAGCC
+hg19_ct_UserTrack_3545_2     -     19  1.45e-04 CTGACACCTC CCAGCCCTAGGGGAA GGCCCTCCCC
+hg19_ct_UserTrack_3545_7     -     66  1.45e-04 TCACAGCAGA TCTGCCCTGGGGTCA GAGGGCCCTA
+hg19_ct_UserTrack_3545_6     +     61  1.64e-04 CTGGGAGGCA AGTAGCCCAAGGCAA ATTCTCAGCC
+hg19_ct_UserTrack_3545_3     -     42  1.64e-04 CTCCCAACAC ACACCCTCGAGGCAA GAAAGATATC
+hg19_ct_UserTrack_3545_4     +     22  1.64e-04 AAGATCCTTG GGAGCCTCCAGGCAG TCCCCTTCCA
+hg19_ct_UserTrack_3545_7     +     19  1.64e-04 GGAAACTAAA TAAACCCTCTGGCTA CTTCCTGCAA
+hg19_ct_UserTrack_3545_4     -     12  1.64e-04 AATTAAGTAA TTTTCCCCAAGGCTA TACTACACGT
+hg19_ct_UserTrack_3545_2     +     56  1.64e-04 CCGGGAAGCG TTCTCCCTTAGGCAA AAGATACAGA
+hg19_ct_UserTrack_3545_2     +     50  1.64e-04 AATGGCCTTC TGGGCCCCCAGGCGC TACCTCGCCA
+hg19_ct_UserTrack_3545_5     -     31  1.64e-04 CTGAGCCCAG ACTCGCCTCAGGCGG GAGGAGGAGA
+hg19_ct_UserTrack_3545_4     -     67  1.64e-04 CGCCCCGCCT CGGGCCCCCGGGCCG AGTGGGCGGG
+hg19_ct_UserTrack_3545_6     +     70  1.64e-04 AGAATCGCTT AAACCCTGGAGGCAG AGGTTGCGGT
+hg19_ct_UserTrack_3545_2     -     64  1.64e-04 CGCTCCCGCC AGGAGCCCGAGGCGA GCTACGCGCG
+hg19_ct_UserTrack_3545_2     +     59  1.64e-04 CGATGCCAGG ACAGCCCTAGGGCGG GAGGTTGGGC
+hg19_ct_UserTrack_3545_7     +     19  1.64e-04 CTGCCCAACT TTTGCCCTGGAGGAA GACATTGTCT
+hg19_ct_UserTrack_3545_3     -     23  1.64e-04 ATGCAAGATC CGCGCCCCGGGGCTG AAGGGAACGG
+hg19_ct_UserTrack_3545_6     -     51  1.64e-04 CACAGCATGA CATGCCCTGAAGGAC TTGTGCCTGC
+hg19_ct_UserTrack_3545_2     -     47  1.64e-04 GACAATTAAA ATTGCCCTTGGGCGC CGATTTCATT
+hg19_ct_UserTrack_3545_1     +     76  1.85e-04 CTACCCTCTC TGTGCCCCCAGGATG TTTGTGTGCC
+hg19_ct_UserTrack_3545_1     +     47  1.85e-04 TTCTCCGCTC TACCGCCTCGGGCAG CCACACCTCC
+hg19_ct_UserTrack_3545_4     +     35  1.85e-04 ATCGTCACGA ATAGCCTACAGGCAA TAAAGAGGGT
+hg19_ct_UserTrack_3545_1     +     36  1.85e-04 GTTTGATCTG GACGCCCTTGGGCAT CTGGGCAACA
+hg19_ct_UserTrack_3545_4     -     76  1.85e-04 TGGCTGACAC CATAGCCTGGAGCAA AGAGGCTTTG
+hg19_ct_UserTrack_3545_2     +     34  1.85e-04 ACACGAAGAA TTTGCCCAGAGGCCC ATTGACCCCC
+hg19_ct_UserTrack_3545_8     -     69  1.85e-04 CCCGCCCCCT TAGTGCTTGAGGCAC TTTTTCCAGC
+hg19_ct_UserTrack_3545_5     -     66  1.85e-04 ACTGCGTTCC CGAGGCCGCGGGCTA CGCCCCCACG
+hg19_ct_UserTrack_3545_1     +     71  1.85e-04 CGCTCCCGGA GATGCCCCGCGGCAG CCGCGCTCGG
+hg19_ct_UserTrack_3545_6     +     15  1.85e-04 CTGGCATAGT CCAGCCCTGGAGCTA TGGAGCACTG
+hg19_ct_UserTrack_3545_2     +      1  1.85e-04          . TTGGGCCCCGGGCTG AAGGTGTGGG
+hg19_ct_UserTrack_3545_5     +     35  2.08e-04 TGCTCCGTGG CCTCCCCGGAGGCGA TGAGCCAACC
+hg19_ct_UserTrack_3545_1     +     47  2.08e-04 TGTGTTTTCC AAGTCCTTAGGGCAA CTGGAGTCTT
+hg19_ct_UserTrack_3545_3     -     57  2.08e-04 CCTTGCATGC CACGGCCTTAGGCTT GGTCAAGATG
+hg19_ct_UserTrack_3545_6     -     45  2.08e-04 GGGAAGAACA GTTACCCCAAGGCTA GGCGTCAGAG
+hg19_ct_UserTrack_3545_7     +     13  2.08e-04 CCGGTGTATT CCAGCCTCCAGGCCA ACACACTTCA
+hg19_ct_UserTrack_3545_6     +     20  2.08e-04 CACCCTTGGG CCTCCCCTGGGGAAA GGGTGGGGAG
+hg19_ct_UserTrack_3545_6     -     57  2.08e-04 TCTACCCGCC CCTGCCCTGAGGACC CTAGTCCAAC
+hg19_ct_UserTrack_3545_7     -     78  2.08e-04   TTAAATTT AATGCCCAGGGGATA TATGACTCAT
+hg19_ct_UserTrack_3545_7     +     35  2.08e-04 TCAGCCAGCC AGTCCCCGCAGGCAC CTGAGCAATG
+hg19_ct_UserTrack_3545_5     -     38  2.08e-04 TGACTGATTG CATGCCCTAAAGCAT TTGTTCCTGG
+hg19_ct_UserTrack_3545_1     -     52  2.08e-04 GATTTCACTG AAACGCTTGGGGCAT CTCTATTGCT
+hg19_ct_UserTrack_3545_4     +     18  2.08e-04 GTCTCGAATT CCTGGCCTCAGGTTA TATGCCCGCC
+hg19_ct_UserTrack_3545_5     +     13  2.08e-04 CACTTTGAAA CAACCCTGCAGGCAA ATCCTTGTGA
+hg19_ct_UserTrack_3545_7     -     43  2.33e-04 CGGCTGCCGG GCTGCCCCCGGGCGG GCCTGGCCCT
+hg19_ct_UserTrack_3545_8     -      2  2.33e-04 CCTCGGTGCC ATTTCCCTCCGGCAA G         
+hg19_ct_UserTrack_3545_6     -     34  2.33e-04 CTAGCAACGG GATCCCCTTAGGCGT TGTCAAGGAA
+hg19_ct_UserTrack_3545_5     +     35  2.33e-04 TCCGCATGGG GCTGCCCGGGGGGTA CCGGGTCACC
+hg19_ct_UserTrack_3545_7     +     46  2.33e-04 GAGGAGTTGC CAAGCCTTAAGGCCC GAATAACTGG
+hg19_ct_UserTrack_3545_4     -     61  2.33e-04 AGCTGCTGCA GATGCCCAGAGGGCG AGAACAGCGG
+hg19_ct_UserTrack_3545_9     -     15  2.33e-04 CGCCTCGGGC TCTGGCCTGAGGAGG CAGATGGCAG
+hg19_ct_UserTrack_3545_4     +     47  2.33e-04 CAAGGAATGA CATGCCCCGGGGTGA ATTTGGCTCA
+hg19_ct_UserTrack_3545_3     -     70  2.33e-04 TAAGTAGCTT AACCGCCTGGGGCCG TCGACCTAGA
+hg19_ct_UserTrack_3545_5     -     29  2.33e-04 GGCCCTGAGC CCAGGCCGCAGGCTG AGCTGTTGGC
+hg19_ct_UserTrack_3545_3     -      2  2.33e-04 TGTGTTAAAT TTAGCCCCCAGGACA T         
+hg19_ct_UserTrack_3545_3     -     63  2.33e-04 CCCACCCACT TCCGCCTCCAGGCAA TGCCGAATTG
+hg19_ct_UserTrack_3545_7     +     75  2.60e-04 ACTGCACCCT CCTCGCCCGAGGCGA CCTGACAGCG
+hg19_ct_UserTrack_3545_3     +     47  2.60e-04 ATCAGCTTCT AAAGCCTCTAGGCCG CTCCACCCAC
+hg19_ct_UserTrack_3545_3     -     19  2.60e-04 GGTAGCTGAC CCAGCCCTGGGGAAC CCGGCCTTCA
+hg19_ct_UserTrack_3545_5     -     54  2.60e-04 GGGCGGCTAT TTTGCCTCCAGGGCA CACTTGGCAA
+hg19_ct_UserTrack_3545_1     +     54  2.60e-04 GCAGGCTGAC CAGCCCCTGGGGTTA TTTGGCTTGG
+hg19_ct_UserTrack_3545_5     +     32  2.60e-04 AGAGAAGCGG AAGCCCCGGAGGGAT ACTATCTCTG
+hg19_ct_UserTrack_3545_4     -     55  2.60e-04 TGGCCGGAGC CCAGGCCCCAGGCGG AGTGTGACCG
+hg19_ct_UserTrack_3545_4     -     11  2.60e-04 TGCCTCTACT ATCACCCCCAGGCTG GCAGGACCTG
+hg19_ct_UserTrack_3545_5     +     37  2.60e-04 GTAATTTTAA AGGTCCCCTAGGCTA TTCAAAAGGG
+hg19_ct_UserTrack_3545_7     +     33  2.60e-04 GGCGAGTGGG GAGGGCTCGGGGCAG GAAATGGAGT
+hg19_ct_UserTrack_3545_7     -     56  2.90e-04 GGGAAGATTT TGTACCCCAAGGCAC ATCTATCAAA
+hg19_ct_UserTrack_3545_1     -     70  2.90e-04 GAGGTGTGAT TGGGCCCTCCGGCTG GATGTTCTGG
+hg19_ct_UserTrack_3545_1     -     43  2.90e-04 GCTGCTAACT GAAGCCTCCAGGGCA AGAAGGTGGC
+hg19_ct_UserTrack_3545_3     +     43  2.90e-04 GAATGAGCTG AAAGCCTTTGGGGCA TGCTTCAGGA
+hg19_ct_UserTrack_3545_2     -     22  2.90e-04 GGCAGTGGAA TCAGCCCTGGGGAGG TTGGCTAATG
+hg19_ct_UserTrack_3545_5     +     29  2.90e-04 GGATGCGAGG CTGGGCCAGAGGCTG GAGGAAGGGC
+hg19_ct_UserTrack_3545_5     +     33  2.90e-04 GCCGCGTCAG CCCGGCCCGGGGCTA GGAGGAGGCG
+hg19_ct_UserTrack_3545_3     -     84  3.22e-04         TT CTGACCCCAAGGCAG TGCTTTCCTC
+hg19_ct_UserTrack_3545_4     +      9  3.22e-04   AGCTGCCA CTGCCCCCGAGGCCT GGCAGATTTG
+hg19_ct_UserTrack_3545_5     +     71  3.22e-04 ATTGACAAGA GTAACCCCCAGGCTC TCCAAGGATT
+hg19_ct_UserTrack_3545_1     +     27  3.22e-04 GACCTGTTTT CTTGCCTCCAGGGCA GGTCAAGGAA
+hg19_ct_UserTrack_3545_6     -     46  3.22e-04 CACCTCAGCC AAGCCCCAAAGGCAA CCTGTTTGTG
+hg19_ct_UserTrack_3545_2     -     61  3.22e-04 TTCAGGGAGT TGGGCCTCCAGGCTC TTGGCTGGTT
+hg19_ct_UserTrack_3545_3     +     75  3.22e-04 GGAAACCCCA AGAGCCCAGGGGGAG GGCACCCCAC
+hg19_ct_UserTrack_3545_2     +     36  3.22e-04 GTCGGGGGCG GAGAGCCTGGGGCGC CGGGGCTGGG
+hg19_ct_UserTrack_3545_7     +      3  3.22e-04         CT GCAGCCCTTGGGCGG AGGGACTCTC
+hg19_ct_UserTrack_3545_3     +     11  3.22e-04 GACTCTGCCC TCTTGCTTGAGGCAC CAGGTCCTCT
+hg19_ct_UserTrack_3545_2     +     53  3.22e-04 CCCCCTTCCC AGCACCCGCAGGCAG TACATTCCTG
+hg19_ct_UserTrack_3545_3     +     29  3.22e-04 ACACAGGTCA ATCACCCTGGGGCCC CACTGACTCA
+hg19_ct_UserTrack_3545_5     +     65  3.22e-04 GTGACTCATT TAACCCCTGTGGGAA AAGAAAAGAA
+hg19_ct_UserTrack_3545_3     +     57  3.22e-04 GCCACCACAC CCAGCCCTGGAGCTG TTTGCTTTTA
+hg19_ct_UserTrack_3545_5     +     24  3.22e-04 GAGTTCCAGG AATTGCTGCAGGCTA TGAACCTTTC
+hg19_ct_UserTrack_3545_3     +     56  3.22e-04 GTGTGAGTCA GGTCGCTTGAGGCGA AATCCTTCCC
+hg19_ct_UserTrack_3545_4     -     26  3.22e-04 GGAAAAACCC AACGCCCAGGGGCTT TGTTAAATAT
+hg19_ct_UserTrack_3545_9     +     59  3.22e-04 CCGCTTGCCC TGAGCCCTCAGGTCT GGACCCGGGC
+hg19_ct_UserTrack_3545_9     +     67  3.57e-04 TATTGCAGCC AAGAGCCTGGGGAGA GCTGGCTGCT
+hg19_ct_UserTrack_3545_2     -     31  3.57e-04 GCAAGCCGGA TCCGCCCCGAGGCGC CAAACCTTAC
+hg19_ct_UserTrack_3545_1     +     24  3.57e-04 ACTCCAACCC TCTGCCCTCCGGCCG CCTGCAAAGG
+hg19_ct_UserTrack_3545_3     +     33  3.57e-04 ACAGCCTCCA GATTGCTCGAGGCCA CCTGGTTGAC
+hg19_ct_UserTrack_3545_6     -     64  3.57e-04 AGGTTAAACA ATATGCCTGAGGTTA CACAGTAAGT
+hg19_ct_UserTrack_3545_7     +     35  3.57e-04 TGGGAGGCAG TTTTCCCTGGAGCAG TGTTCTCTGA
+hg19_ct_UserTrack_3545_7     -     78  3.57e-04   ACATTTCA ATGAGCCACAGGCAA GTTTATGCCA
+hg19_ct_UserTrack_3545_1     -     28  3.57e-04 TGGCGGACAA AGGGCCTGGAGGGAG GATGAATCAC
+hg19_ct_UserTrack_3545_6     -      8  3.57e-04 AAGGTAATAA GAAGCCCTAAAGCTG TGTCTGG   
+hg19_ct_UserTrack_3545_7     +     48  3.57e-04 TTTATTGGTA AATTGCCTGTGGCTG CATGTGTAGG
+hg19_ct_UserTrack_3545_9     -     18  3.57e-04 GTGTAAGTGT GTGTGCCTAAGGCTA CCACATGACC
+hg19_ct_UserTrack_3545_6     +     44  3.95e-04 TTTGTCTGCG CAGCCCTGGAGGCTG CGACTTCCGG
+hg19_ct_UserTrack_3545_6     +     16  3.95e-04 CCCTGCAGAA TGTGCCTTTGGGGAG TGTACCTTTG
+hg19_ct_UserTrack_3545_1     -     25  3.95e-04 GTCCCGCCTA CAACGCCCGAGGCGC TCCGCCCAGA
+hg19_ct_UserTrack_3545_3     -     14  3.95e-04 CACTGGCAGT TTTCCCCTCAGGTAT TTTTTGGAAG
+hg19_ct_UserTrack_3545_7     -     40  3.95e-04 ATTTTTCATC TGAGCCCTTAAGCCA CACACTCTCC
+hg19_ct_UserTrack_3545_5     -     60  3.95e-04 AAGGGTGAGA GAGGCCCCCAGGGGC CTGGTGCCAG
+hg19_ct_UserTrack_3545_8     -      8  3.95e-04 AGTAAGCCAA GGTGCCCTGGGGAGT TTCTGAT   
+hg19_ct_UserTrack_3545_2     -     46  3.95e-04 CACCACAGGA CAAGCCCGCAGGGGC TGATGGCTGG
+hg19_ct_UserTrack_3545_6     +     10  3.95e-04  CTCACCCAT CAACCCCCGCGGCAA GGGAGGCGGC
+hg19_ct_UserTrack_3545_1     -     67  3.95e-04 CTTTGCCGGT GTGCGCCTGGGGCCG GAAGGGCTGT
+hg19_ct_UserTrack_3545_4     -     14  3.95e-04 TGAGTCATGC ATGTCCCTAGGGCAC TGAGCTCACT
+hg19_ct_UserTrack_3545_1     +     39  3.95e-04 AGCAAGACAG AATCCCCGGAGGGGT GGCAGGTTCA
+hg19_ct_UserTrack_3545_7     +     18  3.95e-04 ATTGAAGCTC AGAGCCTCCAGGGGA AACTCCACAC
+hg19_ct_UserTrack_3545_7     -      9  4.36e-04 GGATCGCTCG CGGAGCCCGGGGCGA GACGGGGC  
+hg19_ct_UserTrack_3545_7     +     57  4.36e-04 AGCGCGCGTC ACAGCCTTTAGGGCA TCCGGCGGCC
+hg19_ct_UserTrack_3545_4     -     72  4.36e-04 CATTTCTTCA ATCGCCTTAAGGGAA ACACATCATA
+hg19_ct_UserTrack_3545_1     -     49  4.36e-04 CCGCCCCCTC TCGCCCCCGGGGCCG CCGCGCGATG
+hg19_ct_UserTrack_3545_2     +      4  4.36e-04        ACT TCTGTCCTGGGGCTG GCAAGGTGCC
+hg19_ct_UserTrack_3545_7     +     65  4.36e-04 GCTTCCAACT GAGGCCCGGAGGGGC TGTGCCACTG
+hg19_ct_UserTrack_3545_4     +     56  4.36e-04 GGGCAAGCCA TTTGGCTCAAGGCAG CAGAGGTAAT
+hg19_ct_UserTrack_3545_6     -     41  4.36e-04 TTAGGGAGAG TTTACCCATAGGCTA TTTCCCTGCA
+hg19_ct_UserTrack_3545_3     -     44  4.80e-04 ATTGTGACTC AGGTCCTCCAGGCCA AAGCATGAAC
+hg19_ct_UserTrack_3545_5     -     27  4.80e-04 TCCGGTGAGC GGGGCCCGGAGGGGG TCCCTGCCCC
+hg19_ct_UserTrack_3545_5     -     38  4.80e-04 TGTGGAGCTG CAGAGCCCAGGGCTA TTTGTACCTA
+hg19_ct_UserTrack_3545_6     +     49  4.80e-04 CAGGCGTGGT CCTGGCCTTAAGCAA GTGTCTCACG
+hg19_ct_UserTrack_3545_6     +     43  4.80e-04 CACACAGTGC CAGCGCCCGGGGCGG CTTGGCCGGG
+hg19_ct_UserTrack_3545_3     +     45  4.80e-04 GGGCTCTGGC CGTGCCTAGAGGGTA CCTGATCTCT
+hg19_ct_UserTrack_3545_4     -     65  4.80e-04 CCAGGCTCCC TTAAGCCCGGGGCGG TCAGGCGGGG
+hg19_ct_UserTrack_3545_5     -     20  5.27e-04 TCTGGCCAAA GACTGCCGGAGGCAG CACAGGCAGC
+hg19_ct_UserTrack_3545_1     -     26  5.27e-04 AACATAGACT TGTGCCCTAGAGCCA AATCAGTGAG
+hg19_ct_UserTrack_3545_4     -     27  5.27e-04 TGTGGCCCAC CGTGCCCGCAGGTCA ACGGGCAGTG
+hg19_ct_UserTrack_3545_5     -     34  5.27e-04 ATTCCCCATT CGTGCCTGCAGGGCA AAGTGAAAAC
+hg19_ct_UserTrack_3545_4     -     45  5.27e-04 CCAGCTGGGG GTTGCCCTTGGGACA CACCCGAGGC
+hg19_ct_UserTrack_3545_5     +     52  5.27e-04 ATTAAAACCC ACCAGCCGCAGGCAA TCACAAACAG
+hg19_ct_UserTrack_3545_7     +     28  5.27e-04 ACTGATTTCT CACCCCTGGAGGCTA TAACTCATGT
+hg19_ct_UserTrack_3545_5     +     42  5.27e-04 AAATCAAGCT GAGTCCTCCAGGCAT GAGTTGGGTC
+hg19_ct_UserTrack_3545_6     -     41  5.27e-04 TGCCTGCAGG AGGCCCCGGAGGGGA CGGATCGAGT
+hg19_ct_UserTrack_3545_7     +     32  5.27e-04 CCCTGCCCTT GGTGTCCTGGGGCTG CCCTGCAAGC
+hg19_ct_UserTrack_3545_6     +     54  5.27e-04 TCGCAGCTCT GGAGCCCGCGGGGCA GTGCGTCCGG
+hg19_ct_UserTrack_3545_4     +     49  5.79e-04 TTTCTGCAAA CAGAGCCGGGGGCTC CGTCTGCGCT
+hg19_ct_UserTrack_3545_7     +     40  5.79e-04 AAGAGCCATA AAATGCCTCGGGAGA TGCTGAGTCT
+hg19_ct_UserTrack_3545_8     +     52  5.79e-04 GAGATGAGTA ATTGCCCTAAAGGAG TTGGTGGCGT
+hg19_ct_UserTrack_3545_1     +     79  5.79e-04 TCTTAACCAA CATGCCCTGCGGTCA TTTCAAT   
+hg19_ct_UserTrack_3545_6     +     32  5.79e-04 CAAGCTGGTG TGTGCCTGCAGGCGC TATTTCTATT
+hg19_ct_UserTrack_3545_2     -     31  5.79e-04 GTAACTTATT TGTGCCTTTAGGACA TGCTCAAGCC
+hg19_ct_UserTrack_3545_4     +     23  5.79e-04 TACTCAGCCA AATGCCTGCAGGGCC AGCAGGTAAC
+hg19_ct_UserTrack_3545_1     +     51  5.79e-04 GAGGTTCTCG GACGCCCTCCGGCGA AGCCACCTGT
+hg19_ct_UserTrack_3545_7     -     29  5.79e-04 GGGTGCAGGC TTGCGCCTGAGGTAG TGCACCTGCG
+hg19_ct_UserTrack_3545_6     +     32  5.79e-04 TGCTGCTGAC CATGGCCCCCGGCTG GACCCAGTGC
+hg19_ct_UserTrack_3545_1     -     50  5.79e-04 CAATTACCAA GAAGCCCTTTGGCAT TCTGGCATTC
+hg19_ct_UserTrack_3545_2     -     70  6.33e-04 TCTTGGCACA GATACCCAAAGGCGA AGTCAAGAGT
+hg19_ct_UserTrack_3545_7     +     44  6.33e-04 ATTCGCAGCT TGAGCCCTGCGGGCG CCAGGAGGTG
+hg19_ct_UserTrack_3545_5     +     18  6.33e-04 GAGAAAGGGG AGTGGCCGGAGGTGA GGCTGGAGAA
+hg19_ct_UserTrack_3545_2     +     64  6.33e-04 GAGTGCTGCG GAGCGCCGGAGGGAG AAAGGGGAGG
+hg19_ct_UserTrack_3545_2     -     32  6.33e-04 TGAGGATGCA GACGCCCTTGGGGAC TATTGAGCCA
+hg19_ct_UserTrack_3545_6     -     26  6.33e-04 GCTGCAGGAA AGGAGCCACGGGCAA GATTTAAAGG
+hg19_ct_UserTrack_3545_5     +     29  6.33e-04 ATTGCCCTTT CATGCCTCGTGGCTG TGGGTGTGGT
+hg19_ct_UserTrack_3545_7     -     59  6.33e-04 GTGAAAACAA TAACTCCTCAGGCAT ATGTGGTTTT
+hg19_ct_UserTrack_3545_5     -     43  6.33e-04 GCAATAATCC AGTGGCCTTGAGCTA ACACAGTGCA
+hg19_ct_UserTrack_3545_4     -     59  6.91e-04 ACCCCTTCCG GATAGCCGCAGGCGC GGGGTTATCC
+hg19_ct_UserTrack_3545_6     +     14  6.91e-04 GGCCCTGTGG ACGTGCCCGGGGCAC CAGGGCAGGC
+hg19_ct_UserTrack_3545_5     +      8  6.91e-04    CCGAGGG AGAGGCCTGGGGAGC ACAGGCTACT
+hg19_ct_UserTrack_3545_1     +     46  6.91e-04 CACTGACAGC TGAGCCCCCTGGCGA GGCCTTGCCT
+hg19_ct_UserTrack_3545_3     -     51  6.91e-04 CCTGTGACTA ACAGGCCTGCGGCTC CTCAGGTCCT
+hg19_ct_UserTrack_3545_4     -     57  7.54e-04 CTACCTTGTT TACGCCCTAGGGGGT AGGGAAATGA
+hg19_ct_UserTrack_3545_1     -     22  7.54e-04 CTGCCTGCGG CAGGGCCTGGAGCCC GGACATGCCT
+hg19_ct_UserTrack_3545_1     -     40  7.54e-04 TTGTCTCTTG GAAGCCTTCCGGGAA CCTTCTACTG
+hg19_ct_UserTrack_3545_6     +     59  8.20e-04 GTGGACAAAC AAGTGCTTCAGGAAG TAGTCCCAAA
+hg19_ct_UserTrack_3545_5     -     33  8.20e-04 ATGAGTCATC CATGCCTCCCGGCCA GTCATAACAG
+hg19_ct_UserTrack_3545_4     +     65  8.20e-04 AGGAGTACCT GTTAGCCGAAGGCAG TGAGTTTTAT
+hg19_ct_UserTrack_3545_6     -     75  8.90e-04 CACCGTAAGC AACAGCTTGAGGAAG CAGATACCTG
+hg19_ct_UserTrack_3545_8     -     43  8.90e-04 CGCGCTTGCC GAATCCCGCGGGAAA GGTCCCCCGC
+hg19_ct_UserTrack_3545_4     +     37  8.90e-04 CCGCACCTGG CCTCGCCCTAGGCTG GGCAACCCGC
+hg19_ct_UserTrack_3545_4     +      5  8.90e-04       ATTC TATACCTTAAGGGCC ACCTCCACCC
+hg19_ct_UserTrack_3545_3     -      6  8.90e-04 TTGAAAAGTA AACGCCCGCGGGGCT GGGCG     
+hg19_ct_UserTrack_3545_6     +     57  8.90e-04 AAGAAAGTAA ATAACCTTAAGGGAT ATTTCAAGGC
+hg19_ct_UserTrack_3545_3     +     60  8.90e-04 ATGAGGACCA GATCCCCTCTGGGAG TTTACCAGCC
+hg19_ct_UserTrack_3545_4     +     35  8.90e-04 TTGACTTAAT AAATGCTCTGGGCAA TTAGCAGACA
+hg19_ct_UserTrack_3545_5     +      7  9.64e-04     CAAATG CAACGCCCAGGGGAA CCTGCCCTAT
+hg19_ct_UserTrack_3545_5     -     37  9.64e-04 AAACGGCGCG TGGCCCCTCCGGCGA AAAGCAGCTA
+hg19_ct_UserTrack_3545_6     -      3  9.64e-04 CCGCCTCTGC GTGGCCCTCTGGCCT GC        
+hg19_ct_UserTrack_3545_7     -     12  9.64e-04 TTCCCACACC CTTAGCCGCGGGCGG CCGCCGCGGG
+hg19_ct_UserTrack_3545_3     +     86  9.64e-04 CTCGCAGACT CGGGGCCTGGAGCTC           
+hg19_ct_UserTrack_3545_6     +     65  9.64e-04 TACCACAAAT CCTGCCCTTAGGTCT AAATAACCTC
+hg19_ct_UserTrack_3545_2     -     25  9.64e-04 GATGACAGCA TCTGCCTGTAGGGTA TACGGAGGAA
+hg19_ct_UserTrack_3545_5     -     65  9.64e-04 TCAGCATTTT CCATGCCCAGGGCAA GTTCCCCTTG
+hg19_ct_UserTrack_3545_6     -     75  9.64e-04 TTGGGAGGAA ATGGCCCCGGAGCTC CCGGGGTTTC
+hg19_ct_UserTrack_3545_1     -     80  1.04e-03     ATACAG AATAGCTGCAGGGGA GTAGATCATC
+hg19_ct_UserTrack_3545_5     +     65  1.04e-03 AGAGCTAGCA GTTCGCCGCGGGCGA GGGAGGGGCT
+hg19_ct_UserTrack_3545_1     -     45  1.04e-03 GGAGCGGGGG AGGCGCCCAGGGCAG TGGGTCAGCG
+hg19_ct_UserTrack_3545_6     +     75  1.04e-03 AGGTGACGTG ATTAGCCTAAGGTCA CAAAGCTATT
+hg19_ct_UserTrack_3545_7     +     54  1.04e-03 ACACAATCTA AAGAGCTCAAGGCAT TCTTCATAAA
+hg19_ct_UserTrack_3545_5     -     35  1.04e-03 TAAACCTTGC CTGGCCTAGAGGGCA CAGATGCCCA
+hg19_ct_UserTrack_3545_1     -     56  1.13e-03 CCAGTCTGTG GTGGGCTGGAGGGAG TGCCTCACTT
+hg19_ct_UserTrack_3545_6     -     36  1.13e-03 AATGTCAGTT CTTTCCCAGAAGCAA ACTGAACAAA
+hg19_ct_UserTrack_3545_9     -     44  1.13e-03 CACTATTTAT GACCGCCTGGAGCAA GAGCACAACA
+hg19_ct_UserTrack_3545_7     -     53  1.13e-03 CCGTTACCGC CGGCGCCGGGGGCCG GGGTGGCGCT
+hg19_ct_UserTrack_3545_5     +     13  1.21e-03 CCGGCCGCGC GGCTCCCGCAGGCAC AGCGCCCGCC
+hg19_ct_UserTrack_3545_2     -     64  1.21e-03 TCCAGCCAGC CCTTGCCGGAGGATA AACTGTGACG
+hg19_ct_UserTrack_3545_3     +     55  1.21e-03 GCGGACCCAG ATCCCCCGCAGGGCA GCCCCTGGTG
+hg19_ct_UserTrack_3545_5     -     68  1.21e-03 GGGGTTCCTG GATAGCCTAGGGATG GGAGCTGTTT
+hg19_ct_UserTrack_3545_3     +     66  1.21e-03 GGTGACTATC CTAACCCGTAGGGCA CAATGAGGAC
+hg19_ct_UserTrack_3545_7     -     61  1.21e-03 TGAGATTAAG ACTGGCCCCGGGTGA AATGAGAGCA
+hg19_ct_UserTrack_3545_6     -     57  1.21e-03 AATGAGTCAC TCAACCTCCGGGGTA TCAGTTTGCT
+hg19_ct_UserTrack_3545_5     -     59  1.31e-03 TCAAGCTGCT TCTATCCTGGGGCTT GCGGTTTCCC
+hg19_ct_UserTrack_3545_7     +     44  1.31e-03 GGCGGGGATT GGGCGCCTGCGGCAG CTTGTGGGCG
+hg19_ct_UserTrack_3545_2     +     74  1.31e-03 CAACTGGGGA AATAGCTTTTGGCAA AGTCACCTGT
+hg19_ct_UserTrack_3545_7     +     80  1.31e-03 TCTCTGAAGC CCCACCTTGGGGCCT GGGGCC    
+hg19_ct_UserTrack_3545_4     +     47  1.31e-03 TGGGAACGAA CCTCGCCGCGGGCTT GCGAACCGGA
+hg19_ct_UserTrack_3545_7     +     43  1.40e-03 CTATGTAGGG TGGTGCCTGGGGATC TGTGCTGATT
+hg19_ct_UserTrack_3545_7     +     10  1.40e-03  TAATCTCAC AGCAGCTGCAGGCTA ATTCCATTTC
+hg19_ct_UserTrack_3545_4     -     44  1.40e-03 GTCAGCTCCT AAAGCCCCGCAGCCA CATTCCCTAG
+hg19_ct_UserTrack_3545_7     +     72  1.51e-03 CATTGAGAGG GCGAGCCCCGGGCGG GGGCGCGAGG
+hg19_ct_UserTrack_3545_4     +     67  1.51e-03 ATCATCCATC TATATCCGGGGGCGA TTTGACTCCA
+hg19_ct_UserTrack_3545_4     -     43  1.51e-03 TCCAGTTTCA GGCAGCCTGGGGAAG AAGGCATTCC
+hg19_ct_UserTrack_3545_4     +     15  1.51e-03 ATATAGAATT CACCGCCTCTGGCAG AAGCAGAGGA
+hg19_ct_UserTrack_3545_6     -     24  1.73e-03 AGGAAGGCAT AGTCGCCGCGGGGCG CCCGGAGGAG
+hg19_ct_UserTrack_3545_5     -     40  1.73e-03 TCCCTTGCAG CGATTCCTGGGGCAC GTCTATTATC
+hg19_ct_UserTrack_3545_4     -      7  1.73e-03 ACAGCTGGCA CAGACCCAGGAGCAG ATGAGC    
+hg19_ct_UserTrack_3545_4     +     54  1.73e-03 TAACGTTAAA GACAGCCCTGGGCTG CGAGAGATGA
+hg19_ct_UserTrack_3545_7     +     25  1.84e-03 TGCTTACGCA GAGAGCCGGGAGCTA TGTTCCAGTG
+hg19_ct_UserTrack_3545_4     +     59  1.84e-03 TGCCTTGGCT GAGCCCCAGAGGTCA CAGACAGAGA
+hg19_ct_UserTrack_3545_2     -     82  1.84e-03       GGTA CGCTCCTTGAGGAAT TCCAGACTGT
+hg19_ct_UserTrack_3545_3     -     39  1.97e-03 GGGCCAGAAA TTGCTCCTTAGGCAG AGTTAGAGCA
+hg19_ct_UserTrack_3545_6     +     21  2.09e-03 TGATCACTTT GGAAGCCGGGGGAAG ACTTTGCCCT
+hg19_ct_UserTrack_3545_5     -     15  2.09e-03 TATAGGAAAT AGAGGCTTAGGGAGA TTTATTTTGC
+hg19_ct_UserTrack_3545_6     -     56  2.23e-03 CAGACGGAGT CCACGCCGGCGGCAA CCCTGGCTGC
+hg19_ct_UserTrack_3545_5     -     58  2.23e-03 AGCCCAAACC CGACGCCGCGGGCGC TCCCCTGCTA
+hg19_ct_UserTrack_3545_2     +     42  2.36e-03 TTGCAAAACG TATTGCCCAGAGCAG CTGGGCCCGG
+hg19_ct_UserTrack_3545_5     +     58  2.36e-03 ACTTAAAGGG ATTGCCCCAGAGGTG ATTACATGGG
+hg19_ct_UserTrack_3545_6     +     83  2.51e-03 ATCTCCTTGT AAGTGCCCTAGGTGA GTA       
+hg19_ct_UserTrack_3545_1     -     50  2.51e-03 GTCACACACT CAGTGCTTCAGGTTC CACTTTGCGG
+hg19_ct_UserTrack_3545_6     -     65  2.65e-03 ACTGGGCCTG CATGACCCTGGGCAA TGCCTCCTTC
+hg19_ct_UserTrack_3545_6     +     26  3.30e-03 TCAGACACCC TCCTCCTTGAGGACC ACCGCCTCAC
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 block diagrams
+--------------------------------------------------------------------------------
+SEQUENCE NAME            POSITION P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+hg19_ct_UserTrack_3545_6          4.2e-08  45_[+1]_40
+hg19_ct_UserTrack_3545_5          1.2e-07  45_[+1]_40
+hg19_ct_UserTrack_3545_1          1.7e-07  48_[+1]_37
+hg19_ct_UserTrack_3545_3          2.4e-07  13_[-1]_72
+hg19_ct_UserTrack_3545_2          3.1e-07  40_[-1]_45
+hg19_ct_UserTrack_3545_3          3.1e-07  69_[+1]_16
+hg19_ct_UserTrack_3545_2          3.1e-07  29_[-1]_56
+hg19_ct_UserTrack_3545_5          4.2e-07  60_[-1]_25
+hg19_ct_UserTrack_3545_7          5.6e-07  67_[-1]_18
+hg19_ct_UserTrack_3545_2          5.6e-07  59_[+1]_26
+hg19_ct_UserTrack_3545_4          7.4e-07  60_[+1]_25
+hg19_ct_UserTrack_3545_4          7.4e-07  73_[-1]_12
+hg19_ct_UserTrack_3545_6          7.4e-07  36_[+1]_49
+hg19_ct_UserTrack_3545_6          7.4e-07  30_[+1]_55
+hg19_ct_UserTrack_3545_2          7.4e-07  61_[-1]_24
+hg19_ct_UserTrack_3545_2          9.5e-07  21_[-1]_64
+hg19_ct_UserTrack_3545_4          9.5e-07  45_[-1]_40
+hg19_ct_UserTrack_3545_2          9.5e-07  54_[+1]_31
+hg19_ct_UserTrack_3545_2          9.5e-07  19_[-1]_66
+hg19_ct_UserTrack_3545_4          9.5e-07  25_[+1]_60
+hg19_ct_UserTrack_3545_4          9.5e-07  61_[+1]_24
+hg19_ct_UserTrack_3545_5          9.5e-07  62_[-1]_23
+hg19_ct_UserTrack_3545_6          1.2e-06  39_[+1]_46
+hg19_ct_UserTrack_3545_9          1.2e-06  49_[-1]_36
+hg19_ct_UserTrack_3545_4          1.6e-06  69_[-1]_16
+hg19_ct_UserTrack_3545_2          1.6e-06  31_[+1]_54
+hg19_ct_UserTrack_3545_6          1.6e-06  53_[-1]_32
+hg19_ct_UserTrack_3545_7          1.6e-06  61_[-1]_24
+hg19_ct_UserTrack_3545_3            2e-06  51_[+1]_34
+hg19_ct_UserTrack_3545_3            2e-06  39_[+1]_46
+hg19_ct_UserTrack_3545_2            2e-06  44_[-1]_41
+hg19_ct_UserTrack_3545_3          2.6e-06  67_[-1]_18
+hg19_ct_UserTrack_3545_4          2.6e-06  57_[-1]_28
+hg19_ct_UserTrack_3545_7          2.6e-06  19_[-1]_66
+hg19_ct_UserTrack_3545_9          2.6e-06  60_[+1]_25
+hg19_ct_UserTrack_3545_1          2.6e-06  51_[+1]_34
+hg19_ct_UserTrack_3545_6          2.6e-06  69_[+1]_16
+hg19_ct_UserTrack_3545_5          2.6e-06  33_[+1]_52
+hg19_ct_UserTrack_3545_5          2.6e-06  50_[+1]_35
+hg19_ct_UserTrack_3545_4          2.6e-06  55_[+1]_30
+hg19_ct_UserTrack_3545_3          2.6e-06  42_[-1]_43
+hg19_ct_UserTrack_3545_3          3.2e-06  1_[-1]_84
+hg19_ct_UserTrack_3545_1          3.2e-06  41_[-1]_44
+hg19_ct_UserTrack_3545_4          3.2e-06  84_[-1]_1
+hg19_ct_UserTrack_3545_4          3.2e-06  32_[+1]_53
+hg19_ct_UserTrack_3545_1          3.2e-06  47_[-1]_38
+hg19_ct_UserTrack_3545_3          3.2e-06  49_[+1]_36
+hg19_ct_UserTrack_3545_1          3.9e-06  76_[+1]_9
+hg19_ct_UserTrack_3545_1          3.9e-06  28_[-1]_57
+hg19_ct_UserTrack_3545_6          3.9e-06  18_[-1]_67
+hg19_ct_UserTrack_3545_3          3.9e-06  53_[+1]_32
+hg19_ct_UserTrack_3545_2          3.9e-06  70_[-1]_15
+hg19_ct_UserTrack_3545_2          3.9e-06  47_[+1]_38
+hg19_ct_UserTrack_3545_3          4.9e-06  67_[+1]_18
+hg19_ct_UserTrack_3545_5          4.9e-06  35_[-1]_50
+hg19_ct_UserTrack_3545_6          4.9e-06  8_[-1]_77
+hg19_ct_UserTrack_3545_9          4.9e-06  33_[+1]_52
+hg19_ct_UserTrack_3545_2          4.9e-06  45_[-1]_40
+hg19_ct_UserTrack_3545_2          4.9e-06  34_[+1]_51
+hg19_ct_UserTrack_3545_7          4.9e-06  29_[+1]_56
+hg19_ct_UserTrack_3545_1          4.9e-06  63_[+1]_22
+hg19_ct_UserTrack_3545_6          4.9e-06  53_[+1]_32
+hg19_ct_UserTrack_3545_4          4.9e-06  35_[-1]_50
+hg19_ct_UserTrack_3545_7          4.9e-06  25_[-1]_60
+hg19_ct_UserTrack_3545_3            6e-06  73_[+1]_12
+hg19_ct_UserTrack_3545_4            6e-06  54_[+1]_31
+hg19_ct_UserTrack_3545_4            6e-06  46_[+1]_39
+hg19_ct_UserTrack_3545_4            6e-06  56_[-1]_29
+hg19_ct_UserTrack_3545_4            6e-06  24_[-1]_61
+hg19_ct_UserTrack_3545_1            6e-06  61_[+1]_24
+hg19_ct_UserTrack_3545_5          7.4e-06  75_[-1]_10
+hg19_ct_UserTrack_3545_3          7.4e-06  36_[+1]_49
+hg19_ct_UserTrack_3545_7          7.4e-06  63_[+1]_22
+hg19_ct_UserTrack_3545_7          7.4e-06  49_[+1]_36
+hg19_ct_UserTrack_3545_3          7.4e-06  66_[+1]_19
+hg19_ct_UserTrack_3545_1          7.4e-06  43_[-1]_42
+hg19_ct_UserTrack_3545_1          7.4e-06  47_[+1]_38
+hg19_ct_UserTrack_3545_1          7.4e-06  41_[+1]_44
+hg19_ct_UserTrack_3545_3          7.4e-06  17_[+1]_68
+hg19_ct_UserTrack_3545_5          7.4e-06  69_[+1]_16
+hg19_ct_UserTrack_3545_3            9e-06  54_[-1]_31
+hg19_ct_UserTrack_3545_5            9e-06  68_[+1]_17
+hg19_ct_UserTrack_3545_6            9e-06  37_[-1]_48
+hg19_ct_UserTrack_3545_2            9e-06  79_[-1]_6
+hg19_ct_UserTrack_3545_3            9e-06  27_[-1]_58
+hg19_ct_UserTrack_3545_8          1.1e-05  29_[+1]_56
+hg19_ct_UserTrack_3545_6          1.1e-05  30_[-1]_55
+hg19_ct_UserTrack_3545_7          1.1e-05  34_[+1]_51
+hg19_ct_UserTrack_3545_3          1.1e-05  42_[-1]_43
+hg19_ct_UserTrack_3545_6          1.1e-05  2_[-1]_83
+hg19_ct_UserTrack_3545_4          1.1e-05  52_[-1]_33
+hg19_ct_UserTrack_3545_3          1.1e-05  2_[-1]_83
+hg19_ct_UserTrack_3545_1          1.1e-05  24_[+1]_61
+hg19_ct_UserTrack_3545_7          1.1e-05  34_[-1]_51
+hg19_ct_UserTrack_3545_7          1.1e-05  73_[-1]_12
+hg19_ct_UserTrack_3545_5          1.1e-05  46_[-1]_39
+hg19_ct_UserTrack_3545_4          1.1e-05  30_[+1]_55
+hg19_ct_UserTrack_3545_3          1.1e-05  38_[+1]_47
+hg19_ct_UserTrack_3545_4          1.1e-05  27_[+1]_58
+hg19_ct_UserTrack_3545_5          1.1e-05  83_[-1]_2
+hg19_ct_UserTrack_3545_6          1.1e-05  42_[+1]_43
+hg19_ct_UserTrack_3545_5          1.1e-05  59_[+1]_26
+hg19_ct_UserTrack_3545_2          1.3e-05  54_[+1]_31
+hg19_ct_UserTrack_3545_3          1.3e-05  46_[-1]_39
+hg19_ct_UserTrack_3545_4          1.3e-05  30_[+1]_55
+hg19_ct_UserTrack_3545_2          1.3e-05  34_[-1]_51
+hg19_ct_UserTrack_3545_2          1.3e-05  43_[-1]_42
+hg19_ct_UserTrack_3545_4          1.3e-05  40_[+1]_45
+hg19_ct_UserTrack_3545_3          1.3e-05  26_[-1]_59
+hg19_ct_UserTrack_3545_9          1.3e-05  82_[-1]_3
+hg19_ct_UserTrack_3545_6          1.3e-05  51_[-1]_34
+hg19_ct_UserTrack_3545_8          1.3e-05  39_[+1]_46
+hg19_ct_UserTrack_3545_3          1.3e-05  32_[+1]_53
+hg19_ct_UserTrack_3545_5          1.3e-05  58_[+1]_27
+hg19_ct_UserTrack_3545_3          1.3e-05  14_[-1]_71
+hg19_ct_UserTrack_3545_3          1.3e-05  48_[+1]_37
+hg19_ct_UserTrack_3545_1          1.3e-05  36_[-1]_49
+hg19_ct_UserTrack_3545_5          1.3e-05  39_[+1]_46
+hg19_ct_UserTrack_3545_5          1.6e-05  26_[+1]_59
+hg19_ct_UserTrack_3545_4          1.6e-05  46_[-1]_39
+hg19_ct_UserTrack_3545_2          1.6e-05  41_[-1]_44
+hg19_ct_UserTrack_3545_6          1.6e-05  69_[+1]_16
+hg19_ct_UserTrack_3545_5          1.6e-05  70_[-1]_15
+hg19_ct_UserTrack_3545_2          1.6e-05  41_[+1]_44
+hg19_ct_UserTrack_3545_2          1.6e-05  78_[-1]_7
+hg19_ct_UserTrack_3545_6          1.6e-05  68_[-1]_17
+hg19_ct_UserTrack_3545_2          1.6e-05  45_[-1]_40
+hg19_ct_UserTrack_3545_2          1.9e-05  52_[-1]_33
+hg19_ct_UserTrack_3545_5          1.9e-05  41_[-1]_44
+hg19_ct_UserTrack_3545_6          1.9e-05  55_[-1]_30
+hg19_ct_UserTrack_3545_3          1.9e-05  28_[-1]_57
+hg19_ct_UserTrack_3545_2          1.9e-05  59_[-1]_26
+hg19_ct_UserTrack_3545_5          1.9e-05  27_[+1]_58
+hg19_ct_UserTrack_3545_4          1.9e-05  36_[+1]_49
+hg19_ct_UserTrack_3545_4          1.9e-05  3_[-1]_82
+hg19_ct_UserTrack_3545_1          1.9e-05  8_[+1]_77
+hg19_ct_UserTrack_3545_2          1.9e-05  28_[-1]_57
+hg19_ct_UserTrack_3545_5          1.9e-05  59_[+1]_26
+hg19_ct_UserTrack_3545_3          2.2e-05  39_[+1]_46
+hg19_ct_UserTrack_3545_1          2.2e-05  52_[+1]_33
+hg19_ct_UserTrack_3545_8          2.2e-05  38_[+1]_47
+hg19_ct_UserTrack_3545_6          2.2e-05  52_[-1]_33
+hg19_ct_UserTrack_3545_2          2.2e-05  20_[+1]_65
+hg19_ct_UserTrack_3545_5          2.2e-05  29_[-1]_56
+hg19_ct_UserTrack_3545_6          2.2e-05  39_[-1]_46
+hg19_ct_UserTrack_3545_4          2.2e-05  46_[+1]_39
+hg19_ct_UserTrack_3545_7          2.2e-05  19_[-1]_66
+hg19_ct_UserTrack_3545_2          2.6e-05  62_[-1]_23
+hg19_ct_UserTrack_3545_7          2.6e-05  59_[-1]_26
+hg19_ct_UserTrack_3545_1          2.6e-05  39_[+1]_46
+hg19_ct_UserTrack_3545_1          2.6e-05  50_[+1]_35
+hg19_ct_UserTrack_3545_2          2.6e-05  38_[+1]_47
+hg19_ct_UserTrack_3545_1          2.6e-05  28_[+1]_57
+hg19_ct_UserTrack_3545_4          2.6e-05  34_[-1]_51
+hg19_ct_UserTrack_3545_5          2.6e-05  45_[-1]_40
+hg19_ct_UserTrack_3545_4          3.1e-05  51_[-1]_34
+hg19_ct_UserTrack_3545_4          3.1e-05  31_[+1]_54
+hg19_ct_UserTrack_3545_2          3.1e-05  47_[+1]_38
+hg19_ct_UserTrack_3545_4          3.1e-05  57_[+1]_28
+hg19_ct_UserTrack_3545_5          3.1e-05  15_[+1]_70
+hg19_ct_UserTrack_3545_7          3.1e-05  24_[+1]_61
+hg19_ct_UserTrack_3545_1          3.1e-05  23_[-1]_62
+hg19_ct_UserTrack_3545_4          3.1e-05  59_[-1]_26
+hg19_ct_UserTrack_3545_1          3.1e-05  41_[+1]_44
+hg19_ct_UserTrack_3545_7          3.1e-05  59_[-1]_26
+hg19_ct_UserTrack_3545_9          3.1e-05  47_[+1]_38
+hg19_ct_UserTrack_3545_1          3.1e-05  41_[+1]_44
+hg19_ct_UserTrack_3545_4          3.1e-05  39_[+1]_46
+hg19_ct_UserTrack_3545_1          3.6e-05  54_[+1]_31
+hg19_ct_UserTrack_3545_7          3.6e-05  58_[-1]_27
+hg19_ct_UserTrack_3545_7          3.6e-05  76_[-1]_9
+hg19_ct_UserTrack_3545_7          3.6e-05  59_[+1]_26
+hg19_ct_UserTrack_3545_1          3.6e-05  45_[+1]_40
+hg19_ct_UserTrack_3545_2          3.6e-05  66_[-1]_19
+hg19_ct_UserTrack_3545_4          3.6e-05  37_[-1]_48
+hg19_ct_UserTrack_3545_1          3.6e-05  64_[+1]_21
+hg19_ct_UserTrack_3545_1          3.6e-05  71_[+1]_14
+hg19_ct_UserTrack_3545_4          3.6e-05  73_[+1]_12
+hg19_ct_UserTrack_3545_6          3.6e-05  3_[+1]_82
+hg19_ct_UserTrack_3545_4          3.6e-05  36_[-1]_49
+hg19_ct_UserTrack_3545_8          3.6e-05  47_[+1]_38
+hg19_ct_UserTrack_3545_2          3.6e-05  71_[-1]_14
+hg19_ct_UserTrack_3545_6          3.6e-05  77_[-1]_8
+hg19_ct_UserTrack_3545_9          3.6e-05  43_[+1]_42
+hg19_ct_UserTrack_3545_1          3.6e-05  48_[-1]_37
+hg19_ct_UserTrack_3545_9          4.2e-05  41_[-1]_44
+hg19_ct_UserTrack_3545_1          4.2e-05  45_[-1]_40
+hg19_ct_UserTrack_3545_6          4.2e-05  27_[+1]_58
+hg19_ct_UserTrack_3545_5          4.2e-05  50_[+1]_35
+hg19_ct_UserTrack_3545_5          4.2e-05  22_[-1]_63
+hg19_ct_UserTrack_3545_4          4.2e-05  83_[-1]_2
+hg19_ct_UserTrack_3545_1          4.2e-05  51_[+1]_34
+hg19_ct_UserTrack_3545_7          4.2e-05  69_[+1]_16
+hg19_ct_UserTrack_3545_6          4.2e-05  23_[-1]_62
+hg19_ct_UserTrack_3545_4          4.2e-05  77_[+1]_8
+hg19_ct_UserTrack_3545_6          4.2e-05  62_[+1]_23
+hg19_ct_UserTrack_3545_2          4.9e-05  13_[+1]_72
+hg19_ct_UserTrack_3545_2          4.9e-05  55_[-1]_30
+hg19_ct_UserTrack_3545_2          4.9e-05  40_[+1]_45
+hg19_ct_UserTrack_3545_9          4.9e-05  65_[-1]_20
+hg19_ct_UserTrack_3545_4          4.9e-05  29_[-1]_56
+hg19_ct_UserTrack_3545_3          4.9e-05  19_[+1]_66
+hg19_ct_UserTrack_3545_3          4.9e-05  59_[+1]_26
+hg19_ct_UserTrack_3545_6          4.9e-05  67_[+1]_18
+hg19_ct_UserTrack_3545_4          4.9e-05  51_[+1]_34
+hg19_ct_UserTrack_3545_4          4.9e-05  10_[-1]_75
+hg19_ct_UserTrack_3545_5          4.9e-05  50_[+1]_35
+hg19_ct_UserTrack_3545_3          5.7e-05  29_[-1]_56
+hg19_ct_UserTrack_3545_7          5.7e-05  10_[-1]_75
+hg19_ct_UserTrack_3545_3          5.7e-05  49_[-1]_36
+hg19_ct_UserTrack_3545_7          5.7e-05  74_[+1]_11
+hg19_ct_UserTrack_3545_2          5.7e-05  67_[-1]_18
+hg19_ct_UserTrack_3545_7          5.7e-05  50_[+1]_35
+hg19_ct_UserTrack_3545_6          5.7e-05  64_[+1]_21
+hg19_ct_UserTrack_3545_2          5.7e-05  57_[+1]_28
+hg19_ct_UserTrack_3545_7          5.7e-05  73_[+1]_12
+hg19_ct_UserTrack_3545_5          5.7e-05  27_[+1]_58
+hg19_ct_UserTrack_3545_4          5.7e-05  54_[-1]_31
+hg19_ct_UserTrack_3545_5          5.7e-05  42_[+1]_43
+hg19_ct_UserTrack_3545_5          5.7e-05  54_[-1]_31
+hg19_ct_UserTrack_3545_8          6.6e-05  56_[+1]_29
+hg19_ct_UserTrack_3545_3          6.6e-05  61_[+1]_24
+hg19_ct_UserTrack_3545_2          6.6e-05  56_[+1]_29
+hg19_ct_UserTrack_3545_1          6.6e-05  64_[-1]_21
+hg19_ct_UserTrack_3545_5          6.6e-05  53_[+1]_32
+hg19_ct_UserTrack_3545_5          6.6e-05  46_[+1]_39
+hg19_ct_UserTrack_3545_2          6.6e-05  58_[+1]_27
+hg19_ct_UserTrack_3545_3          6.6e-05  25_[-1]_60
+hg19_ct_UserTrack_3545_2          6.6e-05  33_[+1]_52
+hg19_ct_UserTrack_3545_3          6.6e-05  23_[+1]_62
+hg19_ct_UserTrack_3545_3          6.6e-05  24_[+1]_61
+hg19_ct_UserTrack_3545_6          6.6e-05  82_[-1]_3
+hg19_ct_UserTrack_3545_9          6.6e-05  58_[-1]_27
+hg19_ct_UserTrack_3545_1          6.6e-05  54_[-1]_31
+hg19_ct_UserTrack_3545_7          6.6e-05  28_[-1]_57
+hg19_ct_UserTrack_3545_4          7.6e-05  14_[-1]_71
+hg19_ct_UserTrack_3545_4          7.6e-05  46_[-1]_39
+hg19_ct_UserTrack_3545_5          7.6e-05  56_[+1]_29
+hg19_ct_UserTrack_3545_8          7.6e-05  20_[-1]_65
+hg19_ct_UserTrack_3545_5          7.6e-05  50_[+1]_35
+hg19_ct_UserTrack_3545_5          7.6e-05  42_[+1]_43
+hg19_ct_UserTrack_3545_5          7.6e-05  37_[+1]_48
+hg19_ct_UserTrack_3545_6          7.6e-05  45_[+1]_40
+hg19_ct_UserTrack_3545_5          7.6e-05  64_[-1]_21
+hg19_ct_UserTrack_3545_4          7.6e-05  44_[+1]_41
+hg19_ct_UserTrack_3545_4          7.6e-05  30_[+1]_55
+hg19_ct_UserTrack_3545_7          7.6e-05  51_[-1]_34
+hg19_ct_UserTrack_3545_6          7.6e-05  34_[+1]_51
+hg19_ct_UserTrack_3545_2          7.6e-05  70_[-1]_15
+hg19_ct_UserTrack_3545_2          7.6e-05  22_[-1]_63
+hg19_ct_UserTrack_3545_1          7.6e-05  59_[+1]_26
+hg19_ct_UserTrack_3545_4          8.7e-05  61_[+1]_24
+hg19_ct_UserTrack_3545_4          8.7e-05  77_[-1]_8
+hg19_ct_UserTrack_3545_3          8.7e-05  60_[-1]_25
+hg19_ct_UserTrack_3545_3          8.7e-05  75_[-1]_10
+hg19_ct_UserTrack_3545_3          8.7e-05  70_[-1]_15
+hg19_ct_UserTrack_3545_4          8.7e-05  29_[+1]_56
+hg19_ct_UserTrack_3545_6          8.7e-05  6_[+1]_79
+hg19_ct_UserTrack_3545_6          8.7e-05  [-1]_85
+hg19_ct_UserTrack_3545_4          8.7e-05  49_[-1]_36
+hg19_ct_UserTrack_3545_1          8.7e-05  28_[+1]_57
+hg19_ct_UserTrack_3545_5          8.7e-05  14_[+1]_71
+hg19_ct_UserTrack_3545_3          8.7e-05  50_[+1]_35
+hg19_ct_UserTrack_3545_6          8.7e-05  73_[+1]_12
+hg19_ct_UserTrack_3545_1          8.7e-05  43_[-1]_42
+hg19_ct_UserTrack_3545_7          8.7e-05  72_[+1]_13
+hg19_ct_UserTrack_3545_5          8.7e-05  9_[+1]_76
+hg19_ct_UserTrack_3545_1          9.9e-05  29_[-1]_56
+hg19_ct_UserTrack_3545_6          9.9e-05  74_[-1]_11
+hg19_ct_UserTrack_3545_6          9.9e-05  76_[+1]_9
+hg19_ct_UserTrack_3545_1          9.9e-05  35_[-1]_50
+hg19_ct_UserTrack_3545_2          9.9e-05  50_[-1]_35
+hg19_ct_UserTrack_3545_1          9.9e-05  37_[+1]_48
+hg19_ct_UserTrack_3545_1          9.9e-05  45_[+1]_40
+hg19_ct_UserTrack_3545_7          9.9e-05  46_[-1]_39
+hg19_ct_UserTrack_3545_1          9.9e-05  57_[+1]_28
+hg19_ct_UserTrack_3545_4          9.9e-05  50_[-1]_35
+hg19_ct_UserTrack_3545_7          9.9e-05  38_[+1]_47
+hg19_ct_UserTrack_3545_3          9.9e-05  21_[+1]_64
+hg19_ct_UserTrack_3545_1          9.9e-05  37_[+1]_48
+hg19_ct_UserTrack_3545_8          9.9e-05  39_[-1]_46
+hg19_ct_UserTrack_3545_4          9.9e-05  73_[+1]_12
+hg19_ct_UserTrack_3545_6          0.00011  58_[+1]_27
+hg19_ct_UserTrack_3545_3          0.00011  35_[-1]_50
+hg19_ct_UserTrack_3545_4          0.00011  43_[-1]_42
+hg19_ct_UserTrack_3545_2          0.00011  33_[+1]_52
+hg19_ct_UserTrack_3545_9          0.00011  22_[-1]_63
+hg19_ct_UserTrack_3545_2          0.00011  60_[-1]_25
+hg19_ct_UserTrack_3545_2          0.00011  31_[+1]_54
+hg19_ct_UserTrack_3545_4          0.00011  43_[+1]_42
+hg19_ct_UserTrack_3545_3          0.00011  21_[+1]_64
+hg19_ct_UserTrack_3545_6          0.00011  62_[-1]_23
+hg19_ct_UserTrack_3545_6          0.00011  31_[+1]_54
+hg19_ct_UserTrack_3545_9          0.00011  8_[-1]_77
+hg19_ct_UserTrack_3545_3          0.00011  28_[-1]_57
+hg19_ct_UserTrack_3545_2          0.00011  45_[+1]_40
+hg19_ct_UserTrack_3545_7          0.00011  43_[-1]_42
+hg19_ct_UserTrack_3545_9          0.00011  34_[-1]_51
+hg19_ct_UserTrack_3545_7          0.00013  54_[-1]_31
+hg19_ct_UserTrack_3545_5          0.00013  11_[+1]_74
+hg19_ct_UserTrack_3545_2          0.00013  55_[-1]_30
+hg19_ct_UserTrack_3545_7          0.00013  32_[+1]_53
+hg19_ct_UserTrack_3545_5          0.00013  76_[+1]_9
+hg19_ct_UserTrack_3545_5          0.00013  52_[-1]_33
+hg19_ct_UserTrack_3545_7          0.00013  21_[-1]_64
+hg19_ct_UserTrack_3545_3          0.00013  39_[+1]_46
+hg19_ct_UserTrack_3545_3          0.00015  29_[-1]_56
+hg19_ct_UserTrack_3545_4          0.00015  55_[-1]_30
+hg19_ct_UserTrack_3545_6          0.00015  54_[+1]_31
+hg19_ct_UserTrack_3545_1          0.00015  71_[+1]_14
+hg19_ct_UserTrack_3545_3          0.00015  44_[-1]_41
+hg19_ct_UserTrack_3545_6          0.00015  34_[-1]_51
+hg19_ct_UserTrack_3545_5          0.00015  29_[+1]_56
+hg19_ct_UserTrack_3545_1          0.00015  51_[-1]_34
+hg19_ct_UserTrack_3545_5          0.00015  5_[+1]_80
+hg19_ct_UserTrack_3545_7          0.00015  32_[+1]_53
+hg19_ct_UserTrack_3545_2          0.00015  39_[-1]_46
+hg19_ct_UserTrack_3545_2          0.00015  20_[+1]_65
+hg19_ct_UserTrack_3545_7          0.00015  28_[+1]_57
+hg19_ct_UserTrack_3545_2          0.00015  18_[-1]_67
+hg19_ct_UserTrack_3545_7          0.00015  65_[-1]_20
+hg19_ct_UserTrack_3545_6          0.00016  60_[+1]_25
+hg19_ct_UserTrack_3545_3          0.00016  41_[-1]_44
+hg19_ct_UserTrack_3545_4          0.00016  21_[+1]_64
+hg19_ct_UserTrack_3545_7          0.00016  18_[+1]_67
+hg19_ct_UserTrack_3545_4          0.00016  11_[-1]_74
+hg19_ct_UserTrack_3545_2          0.00016  55_[+1]_30
+hg19_ct_UserTrack_3545_2          0.00016  49_[+1]_36
+hg19_ct_UserTrack_3545_5          0.00016  30_[-1]_55
+hg19_ct_UserTrack_3545_4          0.00016  66_[-1]_19
+hg19_ct_UserTrack_3545_6          0.00016  69_[+1]_16
+hg19_ct_UserTrack_3545_2          0.00016  63_[-1]_22
+hg19_ct_UserTrack_3545_2          0.00016  58_[+1]_27
+hg19_ct_UserTrack_3545_7          0.00016  18_[+1]_67
+hg19_ct_UserTrack_3545_3          0.00016  22_[-1]_63
+hg19_ct_UserTrack_3545_6          0.00016  50_[-1]_35
+hg19_ct_UserTrack_3545_2          0.00016  46_[-1]_39
+hg19_ct_UserTrack_3545_1          0.00018  75_[+1]_10
+hg19_ct_UserTrack_3545_1          0.00018  46_[+1]_39
+hg19_ct_UserTrack_3545_4          0.00018  34_[+1]_51
+hg19_ct_UserTrack_3545_1          0.00018  35_[+1]_50
+hg19_ct_UserTrack_3545_4          0.00018  75_[-1]_10
+hg19_ct_UserTrack_3545_2          0.00018  33_[+1]_52
+hg19_ct_UserTrack_3545_8          0.00018  68_[-1]_17
+hg19_ct_UserTrack_3545_5          0.00018  65_[-1]_20
+hg19_ct_UserTrack_3545_1          0.00018  70_[+1]_15
+hg19_ct_UserTrack_3545_6          0.00018  14_[+1]_71
+hg19_ct_UserTrack_3545_2          0.00018  [+1]_85
+hg19_ct_UserTrack_3545_5          0.00021  34_[+1]_51
+hg19_ct_UserTrack_3545_1          0.00021  46_[+1]_39
+hg19_ct_UserTrack_3545_3          0.00021  56_[-1]_29
+hg19_ct_UserTrack_3545_6          0.00021  44_[-1]_41
+hg19_ct_UserTrack_3545_7          0.00021  12_[+1]_73
+hg19_ct_UserTrack_3545_6          0.00021  19_[+1]_66
+hg19_ct_UserTrack_3545_6          0.00021  56_[-1]_29
+hg19_ct_UserTrack_3545_7          0.00021  77_[-1]_8
+hg19_ct_UserTrack_3545_7          0.00021  34_[+1]_51
+hg19_ct_UserTrack_3545_5          0.00021  37_[-1]_48
+hg19_ct_UserTrack_3545_1          0.00021  51_[-1]_34
+hg19_ct_UserTrack_3545_4          0.00021  17_[+1]_68
+hg19_ct_UserTrack_3545_5          0.00021  12_[+1]_73
+hg19_ct_UserTrack_3545_7          0.00023  42_[-1]_43
+hg19_ct_UserTrack_3545_8          0.00023  1_[-1]_84
+hg19_ct_UserTrack_3545_6          0.00023  33_[-1]_52
+hg19_ct_UserTrack_3545_5          0.00023  34_[+1]_51
+hg19_ct_UserTrack_3545_7          0.00023  45_[+1]_40
+hg19_ct_UserTrack_3545_4          0.00023  60_[-1]_25
+hg19_ct_UserTrack_3545_9          0.00023  14_[-1]_71
+hg19_ct_UserTrack_3545_4          0.00023  46_[+1]_39
+hg19_ct_UserTrack_3545_3          0.00023  69_[-1]_16
+hg19_ct_UserTrack_3545_5          0.00023  28_[-1]_57
+hg19_ct_UserTrack_3545_3          0.00023  1_[-1]_84
+hg19_ct_UserTrack_3545_3          0.00023  62_[-1]_23
+hg19_ct_UserTrack_3545_7          0.00026  74_[+1]_11
+hg19_ct_UserTrack_3545_3          0.00026  46_[+1]_39
+hg19_ct_UserTrack_3545_3          0.00026  18_[-1]_67
+hg19_ct_UserTrack_3545_5          0.00026  53_[-1]_32
+hg19_ct_UserTrack_3545_1          0.00026  53_[+1]_32
+hg19_ct_UserTrack_3545_5          0.00026  31_[+1]_54
+hg19_ct_UserTrack_3545_4          0.00026  54_[-1]_31
+hg19_ct_UserTrack_3545_4          0.00026  10_[-1]_75
+hg19_ct_UserTrack_3545_5          0.00026  36_[+1]_49
+hg19_ct_UserTrack_3545_7          0.00026  32_[+1]_53
+hg19_ct_UserTrack_3545_7          0.00029  55_[-1]_30
+hg19_ct_UserTrack_3545_1          0.00029  69_[-1]_16
+hg19_ct_UserTrack_3545_1          0.00029  42_[-1]_43
+hg19_ct_UserTrack_3545_3          0.00029  42_[+1]_43
+hg19_ct_UserTrack_3545_2          0.00029  21_[-1]_64
+hg19_ct_UserTrack_3545_5          0.00029  28_[+1]_57
+hg19_ct_UserTrack_3545_5          0.00029  32_[+1]_53
+hg19_ct_UserTrack_3545_3          0.00032  83_[-1]_2
+hg19_ct_UserTrack_3545_4          0.00032  8_[+1]_77
+hg19_ct_UserTrack_3545_5          0.00032  70_[+1]_15
+hg19_ct_UserTrack_3545_1          0.00032  26_[+1]_59
+hg19_ct_UserTrack_3545_6          0.00032  45_[-1]_40
+hg19_ct_UserTrack_3545_2          0.00032  60_[-1]_25
+hg19_ct_UserTrack_3545_3          0.00032  74_[+1]_11
+hg19_ct_UserTrack_3545_2          0.00032  35_[+1]_50
+hg19_ct_UserTrack_3545_7          0.00032  2_[+1]_83
+hg19_ct_UserTrack_3545_3          0.00032  10_[+1]_75
+hg19_ct_UserTrack_3545_2          0.00032  52_[+1]_33
+hg19_ct_UserTrack_3545_3          0.00032  28_[+1]_57
+hg19_ct_UserTrack_3545_5          0.00032  64_[+1]_21
+hg19_ct_UserTrack_3545_3          0.00032  56_[+1]_29
+hg19_ct_UserTrack_3545_5          0.00032  23_[+1]_62
+hg19_ct_UserTrack_3545_3          0.00032  55_[+1]_30
+hg19_ct_UserTrack_3545_4          0.00032  25_[-1]_60
+hg19_ct_UserTrack_3545_9          0.00032  58_[+1]_27
+hg19_ct_UserTrack_3545_9          0.00036  66_[+1]_19
+hg19_ct_UserTrack_3545_2          0.00036  30_[-1]_55
+hg19_ct_UserTrack_3545_1          0.00036  23_[+1]_62
+hg19_ct_UserTrack_3545_3          0.00036  32_[+1]_53
+hg19_ct_UserTrack_3545_6          0.00036  63_[-1]_22
+hg19_ct_UserTrack_3545_7          0.00036  34_[+1]_51
+hg19_ct_UserTrack_3545_7          0.00036  77_[-1]_8
+hg19_ct_UserTrack_3545_1          0.00036  27_[-1]_58
+hg19_ct_UserTrack_3545_6          0.00036  7_[-1]_78
+hg19_ct_UserTrack_3545_7          0.00036  47_[+1]_38
+hg19_ct_UserTrack_3545_9          0.00036  17_[-1]_68
+hg19_ct_UserTrack_3545_6          0.00039  43_[+1]_42
+hg19_ct_UserTrack_3545_6          0.00039  15_[+1]_70
+hg19_ct_UserTrack_3545_1          0.00039  24_[-1]_61
+hg19_ct_UserTrack_3545_3          0.00039  13_[-1]_72
+hg19_ct_UserTrack_3545_7          0.00039  39_[-1]_46
+hg19_ct_UserTrack_3545_5          0.00039  59_[-1]_26
+hg19_ct_UserTrack_3545_8          0.00039  7_[-1]_78
+hg19_ct_UserTrack_3545_2          0.00039  45_[-1]_40
+hg19_ct_UserTrack_3545_6          0.00039  9_[+1]_76
+hg19_ct_UserTrack_3545_1          0.00039  66_[-1]_19
+hg19_ct_UserTrack_3545_4          0.00039  13_[-1]_72
+hg19_ct_UserTrack_3545_1          0.00039  38_[+1]_47
+hg19_ct_UserTrack_3545_7          0.00039  17_[+1]_68
+hg19_ct_UserTrack_3545_7          0.00044  8_[-1]_77
+hg19_ct_UserTrack_3545_7          0.00044  56_[+1]_29
+hg19_ct_UserTrack_3545_4          0.00044  71_[-1]_14
+hg19_ct_UserTrack_3545_1          0.00044  48_[-1]_37
+hg19_ct_UserTrack_3545_2          0.00044  3_[+1]_82
+hg19_ct_UserTrack_3545_7          0.00044  64_[+1]_21
+hg19_ct_UserTrack_3545_4          0.00044  55_[+1]_30
+hg19_ct_UserTrack_3545_6          0.00044  40_[-1]_45
+hg19_ct_UserTrack_3545_3          0.00048  43_[-1]_42
+hg19_ct_UserTrack_3545_5          0.00048  26_[-1]_59
+hg19_ct_UserTrack_3545_5          0.00048  37_[-1]_48
+hg19_ct_UserTrack_3545_6          0.00048  48_[+1]_37
+hg19_ct_UserTrack_3545_6          0.00048  42_[+1]_43
+hg19_ct_UserTrack_3545_3          0.00048  44_[+1]_41
+hg19_ct_UserTrack_3545_4          0.00048  64_[-1]_21
+hg19_ct_UserTrack_3545_5          0.00053  19_[-1]_66
+hg19_ct_UserTrack_3545_1          0.00053  25_[-1]_60
+hg19_ct_UserTrack_3545_4          0.00053  26_[-1]_59
+hg19_ct_UserTrack_3545_5          0.00053  33_[-1]_52
+hg19_ct_UserTrack_3545_4          0.00053  44_[-1]_41
+hg19_ct_UserTrack_3545_5          0.00053  51_[+1]_34
+hg19_ct_UserTrack_3545_7          0.00053  27_[+1]_58
+hg19_ct_UserTrack_3545_5          0.00053  41_[+1]_44
+hg19_ct_UserTrack_3545_6          0.00053  40_[-1]_45
+hg19_ct_UserTrack_3545_7          0.00053  31_[+1]_54
+hg19_ct_UserTrack_3545_6          0.00053  53_[+1]_32
+hg19_ct_UserTrack_3545_4          0.00058  48_[+1]_37
+hg19_ct_UserTrack_3545_7          0.00058  39_[+1]_46
+hg19_ct_UserTrack_3545_8          0.00058  51_[+1]_34
+hg19_ct_UserTrack_3545_1          0.00058  78_[+1]_7
+hg19_ct_UserTrack_3545_6          0.00058  31_[+1]_54
+hg19_ct_UserTrack_3545_2          0.00058  30_[-1]_55
+hg19_ct_UserTrack_3545_4          0.00058  22_[+1]_63
+hg19_ct_UserTrack_3545_1          0.00058  50_[+1]_35
+hg19_ct_UserTrack_3545_7          0.00058  28_[-1]_57
+hg19_ct_UserTrack_3545_6          0.00058  31_[+1]_54
+hg19_ct_UserTrack_3545_1          0.00058  49_[-1]_36
+hg19_ct_UserTrack_3545_2          0.00063  69_[-1]_16
+hg19_ct_UserTrack_3545_7          0.00063  43_[+1]_42
+hg19_ct_UserTrack_3545_5          0.00063  17_[+1]_68
+hg19_ct_UserTrack_3545_2          0.00063  63_[+1]_22
+hg19_ct_UserTrack_3545_2          0.00063  31_[-1]_54
+hg19_ct_UserTrack_3545_6          0.00063  25_[-1]_60
+hg19_ct_UserTrack_3545_5          0.00063  28_[+1]_57
+hg19_ct_UserTrack_3545_7          0.00063  58_[-1]_27
+hg19_ct_UserTrack_3545_5          0.00063  42_[-1]_43
+hg19_ct_UserTrack_3545_4          0.00069  58_[-1]_27
+hg19_ct_UserTrack_3545_6          0.00069  13_[+1]_72
+hg19_ct_UserTrack_3545_5          0.00069  7_[+1]_78
+hg19_ct_UserTrack_3545_1          0.00069  45_[+1]_40
+hg19_ct_UserTrack_3545_3          0.00069  50_[-1]_35
+hg19_ct_UserTrack_3545_4          0.00075  56_[-1]_29
+hg19_ct_UserTrack_3545_1          0.00075  21_[-1]_64
+hg19_ct_UserTrack_3545_1          0.00075  39_[-1]_46
+hg19_ct_UserTrack_3545_6          0.00082  58_[+1]_27
+hg19_ct_UserTrack_3545_5          0.00082  32_[-1]_53
+hg19_ct_UserTrack_3545_4          0.00082  64_[+1]_21
+hg19_ct_UserTrack_3545_6          0.00089  74_[-1]_11
+hg19_ct_UserTrack_3545_8          0.00089  42_[-1]_43
+hg19_ct_UserTrack_3545_4          0.00089  36_[+1]_49
+hg19_ct_UserTrack_3545_4          0.00089  4_[+1]_81
+hg19_ct_UserTrack_3545_3          0.00089  5_[-1]_80
+hg19_ct_UserTrack_3545_6          0.00089  56_[+1]_29
+hg19_ct_UserTrack_3545_3          0.00089  59_[+1]_26
+hg19_ct_UserTrack_3545_4          0.00089  34_[+1]_51
+hg19_ct_UserTrack_3545_5          0.00096  6_[+1]_79
+hg19_ct_UserTrack_3545_5          0.00096  36_[-1]_49
+hg19_ct_UserTrack_3545_6          0.00096  2_[-1]_83
+hg19_ct_UserTrack_3545_7          0.00096  11_[-1]_74
+hg19_ct_UserTrack_3545_3          0.00096  85_[+1]
+hg19_ct_UserTrack_3545_6          0.00096  64_[+1]_21
+hg19_ct_UserTrack_3545_2          0.00096  24_[-1]_61
+hg19_ct_UserTrack_3545_5          0.00096  64_[-1]_21
+hg19_ct_UserTrack_3545_6          0.00096  74_[-1]_11
+hg19_ct_UserTrack_3545_1            0.001  79_[-1]_6
+hg19_ct_UserTrack_3545_5            0.001  64_[+1]_21
+hg19_ct_UserTrack_3545_1            0.001  44_[-1]_41
+hg19_ct_UserTrack_3545_6            0.001  74_[+1]_11
+hg19_ct_UserTrack_3545_7            0.001  53_[+1]_32
+hg19_ct_UserTrack_3545_5            0.001  34_[-1]_51
+hg19_ct_UserTrack_3545_1           0.0011  55_[-1]_30
+hg19_ct_UserTrack_3545_6           0.0011  35_[-1]_50
+hg19_ct_UserTrack_3545_9           0.0011  43_[-1]_42
+hg19_ct_UserTrack_3545_7           0.0011  52_[-1]_33
+hg19_ct_UserTrack_3545_5           0.0012  12_[+1]_73
+hg19_ct_UserTrack_3545_2           0.0012  63_[-1]_22
+hg19_ct_UserTrack_3545_3           0.0012  54_[+1]_31
+hg19_ct_UserTrack_3545_5           0.0012  67_[-1]_18
+hg19_ct_UserTrack_3545_3           0.0012  65_[+1]_20
+hg19_ct_UserTrack_3545_7           0.0012  60_[-1]_25
+hg19_ct_UserTrack_3545_6           0.0012  56_[-1]_29
+hg19_ct_UserTrack_3545_5           0.0013  58_[-1]_27
+hg19_ct_UserTrack_3545_7           0.0013  43_[+1]_42
+hg19_ct_UserTrack_3545_2           0.0013  73_[+1]_12
+hg19_ct_UserTrack_3545_7           0.0013  79_[+1]_6
+hg19_ct_UserTrack_3545_4           0.0013  46_[+1]_39
+hg19_ct_UserTrack_3545_7           0.0014  42_[+1]_43
+hg19_ct_UserTrack_3545_7           0.0014  9_[+1]_76
+hg19_ct_UserTrack_3545_4           0.0014  43_[-1]_42
+hg19_ct_UserTrack_3545_7           0.0015  71_[+1]_14
+hg19_ct_UserTrack_3545_4           0.0015  66_[+1]_19
+hg19_ct_UserTrack_3545_4           0.0015  42_[-1]_43
+hg19_ct_UserTrack_3545_4           0.0015  14_[+1]_71
+hg19_ct_UserTrack_3545_6           0.0017  23_[-1]_62
+hg19_ct_UserTrack_3545_5           0.0017  39_[-1]_46
+hg19_ct_UserTrack_3545_4           0.0017  6_[-1]_79
+hg19_ct_UserTrack_3545_4           0.0017  53_[+1]_32
+hg19_ct_UserTrack_3545_7           0.0018  24_[+1]_61
+hg19_ct_UserTrack_3545_4           0.0018  58_[+1]_27
+hg19_ct_UserTrack_3545_2           0.0018  81_[-1]_4
+hg19_ct_UserTrack_3545_3            0.002  38_[-1]_47
+hg19_ct_UserTrack_3545_6           0.0021  20_[+1]_65
+hg19_ct_UserTrack_3545_5           0.0021  14_[-1]_71
+hg19_ct_UserTrack_3545_6           0.0022  55_[-1]_30
+hg19_ct_UserTrack_3545_5           0.0022  57_[-1]_28
+hg19_ct_UserTrack_3545_2           0.0024  41_[+1]_44
+hg19_ct_UserTrack_3545_5           0.0024  57_[+1]_28
+hg19_ct_UserTrack_3545_6           0.0025  82_[+1]_3
+hg19_ct_UserTrack_3545_1           0.0025  49_[-1]_36
+hg19_ct_UserTrack_3545_6           0.0027  64_[-1]_21
+hg19_ct_UserTrack_3545_6           0.0033  25_[+1]_60
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 in BLOCKS format
+--------------------------------------------------------------------------------
+BL   MOTIF 1 width=15 seqs=553
+hg19_ct_UserTrack_3545_6 (   46) AAAGCCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_5 (   46) CAAGCCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_1 (   49) TGTGCCCTCAGGCAA  1 
+hg19_ct_UserTrack_3545_3 (   14) TGTGCCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   41) AATACCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_3 (   70) AAGGCCCTGAGGCAT  1 
+hg19_ct_UserTrack_3545_2 (   30) AATGCCCTTAGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   61) CATGGCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_7 (   68) AATAGCCTGAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   60) CCTGCCCTGAGGCTA  1 
+hg19_ct_UserTrack_3545_4 (   61) AAAGCCCCCAGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   74) TGGGCCCTCAGGCAA  1 
+hg19_ct_UserTrack_3545_6 (   37) AATCCCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   31) ATAGGCCTGAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   62) ACTGCCCTCAGGCTA  1 
+hg19_ct_UserTrack_3545_2 (   22) CAGGCCCTGAGGGAA  1 
+hg19_ct_UserTrack_3545_4 (   46) AAGGGCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   55) TCTGCCCTCAGGCTA  1 
+hg19_ct_UserTrack_3545_2 (   20) TTTGCCCTGAGGGAA  1 
+hg19_ct_UserTrack_3545_4 (   26) TATGCCCTGAGGGCA  1 
+hg19_ct_UserTrack_3545_4 (   62) TAGGCCTTGAGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   63) AAAGCCCTCAGGCAC  1 
+hg19_ct_UserTrack_3545_6 (   40) AATGCCCTGGGGGTA  1 
+hg19_ct_UserTrack_3545_9 (   50) AAGGCCCTCAGGGAA  1 
+hg19_ct_UserTrack_3545_4 (   70) CAGGCCCTCAGGCTG  1 
+hg19_ct_UserTrack_3545_2 (   32) AGTGCCCTGGGGCCA  1 
+hg19_ct_UserTrack_3545_6 (   54) TAACCCCTCAGGCAA  1 
+hg19_ct_UserTrack_3545_7 (   62) TATGCCCTAAGGCAG  1 
+hg19_ct_UserTrack_3545_3 (   52) TGGGCCCTGAGGCTG  1 
+hg19_ct_UserTrack_3545_3 (   40) CTTGCCCTGGGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   45) CAAGCCCTCAGGCAC  1 
+hg19_ct_UserTrack_3545_3 (   68) TATGGCCCCAGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   58) TAAACCCTGAGGCGA  1 
+hg19_ct_UserTrack_3545_7 (   20) TCTGGCCTCAGGCAA  1 
+hg19_ct_UserTrack_3545_9 (   61) CTAGCCCTGAGGCAT  1 
+hg19_ct_UserTrack_3545_1 (   52) GATGCCCTCAGGCTT  1 
+hg19_ct_UserTrack_3545_6 (   70) TAAGCCCTGGGGCTT  1 
+hg19_ct_UserTrack_3545_5 (   34) TATGGCCTTAGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   51) GTTGCCCTGGGGCTA  1 
+hg19_ct_UserTrack_3545_4 (   56) CAAGCCCTGGGGGAA  1 
+hg19_ct_UserTrack_3545_3 (   43) GCTGCCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_3 (    2) GAGGCCCTCAGGCTG  1 
+hg19_ct_UserTrack_3545_1 (   42) GATGCCCCGAGGCCA  1 
+hg19_ct_UserTrack_3545_4 (   85) GAAGGCCTGAGGCCA  1 
+hg19_ct_UserTrack_3545_4 (   33) CTTGGCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_1 (   48) GAAGCCCTGGGGCTG  1 
+hg19_ct_UserTrack_3545_3 (   50) AAAGCCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_1 (   77) TGGGCCCTCAGGCCA  1 
+hg19_ct_UserTrack_3545_1 (   29) TAAGCCCGGAGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   19) TCTGCCCTGGGGCCA  1 
+hg19_ct_UserTrack_3545_3 (   54) AATAGCCTGAGGCTG  1 
+hg19_ct_UserTrack_3545_2 (   71) CATCCCCTCAGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   48) AATGCCCTTAGGGAA  1 
+hg19_ct_UserTrack_3545_3 (   68) ACTGCCCTCAGGCAC  1 
+hg19_ct_UserTrack_3545_5 (   36) ACAGCCCTCAGGCTG  1 
+hg19_ct_UserTrack_3545_6 (    9) AGGGCCCTGGGGCCA  1 
+hg19_ct_UserTrack_3545_9 (   34) GGAGCCCTGAGGCGA  1 
+hg19_ct_UserTrack_3545_2 (   46) CCAGCCCTCAGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   35) AAGGCCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_7 (   30) AATGCCTTCAGGCAT  1 
+hg19_ct_UserTrack_3545_1 (   64) TGAGCCCTGAGGCGG  1 
+hg19_ct_UserTrack_3545_6 (   54) TGTGGCCTGAGGGAA  1 
+hg19_ct_UserTrack_3545_4 (   36) AAGGCCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_7 (   26) AGTGCCTTGGGGCAA  1 
+hg19_ct_UserTrack_3545_3 (   74) GATAGCCTCAGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   55) CAGGCCCTGAGGGTG  1 
+hg19_ct_UserTrack_3545_4 (   47) TTTGCCCTCAGGCTC  1 
+hg19_ct_UserTrack_3545_4 (   57) ATGGGCCTGAGGCCA  1 
+hg19_ct_UserTrack_3545_4 (   25) TATGCCCTCAGGATA  1 
+hg19_ct_UserTrack_3545_1 (   62) GGTGCCCTGAGGGTA  1 
+hg19_ct_UserTrack_3545_5 (   76) TGTGCCCTTAGGCAG  1 
+hg19_ct_UserTrack_3545_3 (   37) AAACCCCTGAGGCCG  1 
+hg19_ct_UserTrack_3545_7 (   64) CAAGCCCTTAGGCCA  1 
+hg19_ct_UserTrack_3545_7 (   50) AATGCCCTGAGGTAG  1 
+hg19_ct_UserTrack_3545_3 (   67) TGTGCCCCCAGGCAG  1 
+hg19_ct_UserTrack_3545_1 (   44) GAAGCCCTGAGGCGT  1 
+hg19_ct_UserTrack_3545_1 (   48) CAAGCCCTCGGGCAC  1 
+hg19_ct_UserTrack_3545_1 (   42) TGGGCCCTGAGGCGG  1 
+hg19_ct_UserTrack_3545_3 (   18) GTTGCCCCCAGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   70) CGTGCCCTGGGGCAC  1 
+hg19_ct_UserTrack_3545_3 (   55) AAAGGCCTGAGGGTG  1 
+hg19_ct_UserTrack_3545_5 (   69) AGTACCCTGAGGCCG  1 
+hg19_ct_UserTrack_3545_6 (   38) CATTGCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   80) TGTGGCCTGAGGGTA  1 
+hg19_ct_UserTrack_3545_3 (   28) CAGGGCCTCAGGCGA  1 
+hg19_ct_UserTrack_3545_8 (   30) GAACCCCTGAGGCTG  1 
+hg19_ct_UserTrack_3545_6 (   31) CCAGCCCTGGGGCCA  1 
+hg19_ct_UserTrack_3545_7 (   35) AGAGCCCTGAGGGGA  1 
+hg19_ct_UserTrack_3545_3 (   43) AGGGGCCCGAGGCAA  1 
+hg19_ct_UserTrack_3545_6 (    3) CATGCCCTCGGGCCT  1 
+hg19_ct_UserTrack_3545_4 (   53) CTGGCCCCCAGGCAA  1 
+hg19_ct_UserTrack_3545_3 (    3) TGGGGCCTCAGGCAG  1 
+hg19_ct_UserTrack_3545_1 (   25) CCTGCCCTGAGGCCT  1 
+hg19_ct_UserTrack_3545_7 (   35) CAGAGCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_7 (   74) GAGGCCCTGAGGGTG  1 
+hg19_ct_UserTrack_3545_5 (   47) TTTGGCCTGAGGCTC  1 
+hg19_ct_UserTrack_3545_4 (   31) GAAGCCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_3 (   39) CGCGCCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   28) AGTGCCCTCAGGGTG  1 
+hg19_ct_UserTrack_3545_5 (   84) AAGACCCTGGGGCAT  1 
+hg19_ct_UserTrack_3545_6 (   43) CCTGCCTTCAGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   60) GTTGCCCTCAGGCTT  1 
+hg19_ct_UserTrack_3545_2 (   55) CAAGCCCCGGGGCTG  1 
+hg19_ct_UserTrack_3545_3 (   47) CAAGCCCGCAGGCAG  1 
+hg19_ct_UserTrack_3545_4 (   31) CAAACCCTGGGGCGA  1 
+hg19_ct_UserTrack_3545_2 (   35) ATAGCCCTTGGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   44) GGAGCCCTGGGGCTG  1 
+hg19_ct_UserTrack_3545_4 (   41) TGTGCCCTCAGGAAA  1 
+hg19_ct_UserTrack_3545_3 (   27) TGAAGCCTGAGGCTA  1 
+hg19_ct_UserTrack_3545_9 (   83) AAGCCCCTGGGGCCA  1 
+hg19_ct_UserTrack_3545_6 (   52) AGTGCCCCCAGGCAT  1 
+hg19_ct_UserTrack_3545_8 (   40) TGGGCCCTGAGGGCA  1 
+hg19_ct_UserTrack_3545_3 (   33) ATGGCCTTGGGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   59) GTAGGCCTCAGGCTA  1 
+hg19_ct_UserTrack_3545_3 (   15) CACACCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_3 (   49) CTTGGCCTCAGGCAT  1 
+hg19_ct_UserTrack_3545_1 (   37) TATGCCTCGAGGCCA  1 
+hg19_ct_UserTrack_3545_5 (   40) AATACCCTAAGGCCA  1 
+hg19_ct_UserTrack_3545_5 (   27) CCTGCCCTCAGGCTC  1 
+hg19_ct_UserTrack_3545_4 (   47) CGTGGCCCCAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   42) ACAGGCCTGGGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   70) GAAGGCCTCAGGCAC  1 
+hg19_ct_UserTrack_3545_5 (   71) CATCGCCTGAGGCGA  1 
+hg19_ct_UserTrack_3545_2 (   42) CCTGCCCTGGGGCTT  1 
+hg19_ct_UserTrack_3545_2 (   79) AGGGCCCCGGGGCTA  1 
+hg19_ct_UserTrack_3545_6 (   69) AAAGCCCTGAGGGCC  1 
+hg19_ct_UserTrack_3545_2 (   46) TGAACCCTGGGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   53) CATGCCCTGAGGTCA  1 
+hg19_ct_UserTrack_3545_5 (   42) GTAGCCTTCAGGCAA  1 
+hg19_ct_UserTrack_3545_6 (   56) GGGGCCCTGAGGCGG  1 
+hg19_ct_UserTrack_3545_3 (   29) GTGGCCCTCAGGGAA  1 
+hg19_ct_UserTrack_3545_2 (   60) ACGGGCCTCGGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   28) TTGCCCCTGAGGCCA  1 
+hg19_ct_UserTrack_3545_4 (   37) TATGCCCTTAGGGCA  1 
+hg19_ct_UserTrack_3545_4 (    4) GTAACCCTCAGGCTA  1 
+hg19_ct_UserTrack_3545_1 (    9) GAGGCCCCGGGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   29) CAGGCCCCGAGGCGG  1 
+hg19_ct_UserTrack_3545_5 (   60) TACGGCCTGGGGCAG  1 
+hg19_ct_UserTrack_3545_3 (   40) CTGCCCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_1 (   53) ACTGCCCCCAGGCAT  1 
+hg19_ct_UserTrack_3545_8 (   39) GATAGCCTGAGGCAC  1 
+hg19_ct_UserTrack_3545_6 (   53) TTCACCCTGAGGCTA  1 
+hg19_ct_UserTrack_3545_2 (   21) CAGTCCCTGGGGCCA  1 
+hg19_ct_UserTrack_3545_5 (   30) TAAGCCCTGAGGAAC  1 
+hg19_ct_UserTrack_3545_6 (   40) CTGGCCCCGAGGCTG  1 
+hg19_ct_UserTrack_3545_4 (   47) TAGGGCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_7 (   20) GATGCCTGGAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   63) ACTGGCCTGGGGCAC  1 
+hg19_ct_UserTrack_3545_7 (   60) CATGCCCTGGGGACA  1 
+hg19_ct_UserTrack_3545_1 (   40) TTGGCCCTCAGGGCA  1 
+hg19_ct_UserTrack_3545_1 (   51) AAGTCCCTGGGGCAC  1 
+hg19_ct_UserTrack_3545_2 (   39) ATCGCCCTGAGGCGG  1 
+hg19_ct_UserTrack_3545_1 (   29) GCTGCCCTGAGGCGT  1 
+hg19_ct_UserTrack_3545_4 (   35) TGTGGCCTGGGGGTA  1 
+hg19_ct_UserTrack_3545_5 (   46) ACATCCCTGGGGCTA  1 
+hg19_ct_UserTrack_3545_4 (   52) TTAGCCTTGAGGCTT  1 
+hg19_ct_UserTrack_3545_4 (   32) ATGGCCCCGGGGCCA  1 
+hg19_ct_UserTrack_3545_2 (   48) AAGTGCCTGGGGCAG  1 
+hg19_ct_UserTrack_3545_4 (   58) AGGCCCCTGGGGCAG  1 
+hg19_ct_UserTrack_3545_5 (   16) CTGCCCCTGAGGCTG  1 
+hg19_ct_UserTrack_3545_7 (   25) CCCACCCTGAGGCAA  1 
+hg19_ct_UserTrack_3545_1 (   24) TGCACCCTGAGGCAG  1 
+hg19_ct_UserTrack_3545_4 (   60) TGAGCCCCGGGGCTG  1 
+hg19_ct_UserTrack_3545_1 (   42) TTTGGCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_7 (   60) TCTACCCTCGGGCAG  1 
+hg19_ct_UserTrack_3545_9 (   48) CATGGCCAGAGGCTA  1 
+hg19_ct_UserTrack_3545_1 (   42) TTTTCCCTGGGGCAT  1 
+hg19_ct_UserTrack_3545_4 (   40) AAAGCCTGGAGGCAG  1 
+hg19_ct_UserTrack_3545_1 (   55) GCAGCCCTCGGGCCA  1 
+hg19_ct_UserTrack_3545_7 (   59) ACTGCCCTCAGGGTT  1 
+hg19_ct_UserTrack_3545_7 (   77) TGAGCCTTGGGGCCA  1 
+hg19_ct_UserTrack_3545_7 (   60) AAGTCCCTGAGGGGA  1 
+hg19_ct_UserTrack_3545_1 (   46) TTCACCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   67) AATGCCCTCGGGGCT  1 
+hg19_ct_UserTrack_3545_4 (   38) GATAGCCTGGGGCTG  1 
+hg19_ct_UserTrack_3545_1 (   65) CAGTGCCTGGGGCTA  1 
+hg19_ct_UserTrack_3545_1 (   72) TCGGCCCTGAGGCGC  1 
+hg19_ct_UserTrack_3545_4 (   74) AGCACCCTGAGGCCA  1 
+hg19_ct_UserTrack_3545_6 (    4) AAGAGCCTCAGGCAC  1 
+hg19_ct_UserTrack_3545_4 (   37) CTTGGCCCCAGGCAG  1 
+hg19_ct_UserTrack_3545_8 (   48) TTAGCCTTCAGGCAT  1 
+hg19_ct_UserTrack_3545_2 (   72) CTGCCCCTGGGGCTA  1 
+hg19_ct_UserTrack_3545_6 (   78) AAAGCCCTGGGGAAT  1 
+hg19_ct_UserTrack_3545_9 (   44) TAGGCCCTCAGGGCT  1 
+hg19_ct_UserTrack_3545_1 (   49) CATGCCCCGGGGGCA  1 
+hg19_ct_UserTrack_3545_9 (   42) CTGGCCCGCAGGCTA  1 
+hg19_ct_UserTrack_3545_1 (   46) CAGGCCTTGAGGGCA  1 
+hg19_ct_UserTrack_3545_6 (   28) ACAGCCCCCAGGGAA  1 
+hg19_ct_UserTrack_3545_5 (   51) CAGAGCCTGGGGCCA  1 
+hg19_ct_UserTrack_3545_5 (   23) GGAACCTTGAGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   84) TAATCCTTCAGGCAG  1 
+hg19_ct_UserTrack_3545_1 (   52) TATGCCTGCAGGCAG  1 
+hg19_ct_UserTrack_3545_7 (   70) AAAGCCTGGAGGCCA  1 
+hg19_ct_UserTrack_3545_6 (   24) TGGACCCTGAGGGAG  1 
+hg19_ct_UserTrack_3545_4 (   78) CAGAGCCTGGGGCCA  1 
+hg19_ct_UserTrack_3545_6 (   63) CAAAGCCGGAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   14) TTTTCCCTGGGGCTT  1 
+hg19_ct_UserTrack_3545_2 (   56) TAACCCCTGGGGCCT  1 
+hg19_ct_UserTrack_3545_2 (   41) GCCGCCCTCAGGCAG  1 
+hg19_ct_UserTrack_3545_9 (   66) ATGCCCCTGGGGCTG  1 
+hg19_ct_UserTrack_3545_4 (   30) CCTGCCCTGGGGGGA  1 
+hg19_ct_UserTrack_3545_3 (   20) CATGCCCCTAGGCAC  1 
+hg19_ct_UserTrack_3545_3 (   60) GGTGCCCCCGGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   68) TCTGGCCTCGGGGAA  1 
+hg19_ct_UserTrack_3545_4 (   52) GGTCGCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   11) CCTGGCCTCGGGCTG  1 
+hg19_ct_UserTrack_3545_5 (   51) TATGCCCGCGGGCTT  1 
+hg19_ct_UserTrack_3545_3 (   30) AAGAGCCTCAGGCTC  1 
+hg19_ct_UserTrack_3545_7 (   11) CAGGCCCTCAGGAAT  1 
+hg19_ct_UserTrack_3545_3 (   50) AGCGCCCTCGGGCAT  1 
+hg19_ct_UserTrack_3545_7 (   75) TCTGCCCTCAGGGTC  1 
+hg19_ct_UserTrack_3545_2 (   68) TGGGGCCTGAGGGGA  1 
+hg19_ct_UserTrack_3545_7 (   51) AATGCCTAGAGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   65) CGGGCCCCGAGGCTC  1 
+hg19_ct_UserTrack_3545_2 (   58) GAAAGCCCCAGGCAA  1 
+hg19_ct_UserTrack_3545_7 (   74) GCGGCCCGGAGGCTA  1 
+hg19_ct_UserTrack_3545_5 (   28) GTGGGCCCCAGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   55) CTGGCCCTGGGGCCC  1 
+hg19_ct_UserTrack_3545_5 (   43) CGGTCCCTCAGGCTG  1 
+hg19_ct_UserTrack_3545_5 (   55) CCTGCCCGCAGGCCA  1 
+hg19_ct_UserTrack_3545_8 (   57) TGAGCCCTAGGGCGA  1 
+hg19_ct_UserTrack_3545_3 (   62) GTTCCCCCGAGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   57) GATGCCCTCGGGGTC  1 
+hg19_ct_UserTrack_3545_1 (   65) AGAGCCCTTAGGCCT  1 
+hg19_ct_UserTrack_3545_5 (   54) TGGGGCCCCGGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   47) AATAGCCCAAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   59) CGAGCCCCGAGGGCA  1 
+hg19_ct_UserTrack_3545_3 (   26) CGGCCCCTCAGGCAT  1 
+hg19_ct_UserTrack_3545_2 (   34) TCTCCCCCGAGGCCA  1 
+hg19_ct_UserTrack_3545_3 (   24) GAGGCCCGGAGGCTC  1 
+hg19_ct_UserTrack_3545_3 (   25) CAGCCCCCGAGGGAA  1 
+hg19_ct_UserTrack_3545_6 (   83) CGAGGCCGGAGGCAG  1 
+hg19_ct_UserTrack_3545_9 (   59) GTTGCCCTGGGGGAC  1 
+hg19_ct_UserTrack_3545_1 (   55) AAGAGCCTCGGGCAT  1 
+hg19_ct_UserTrack_3545_7 (   29) AAGGGCCTGAGGGGT  1 
+hg19_ct_UserTrack_3545_4 (   15) AACACCTTCAGGCTA  1 
+hg19_ct_UserTrack_3545_4 (   47) CTTTCCCTCAGGGAG  1 
+hg19_ct_UserTrack_3545_5 (   57) CCAGGCCTCAGGCTC  1 
+hg19_ct_UserTrack_3545_8 (   21) GGGGCCCCGGGGCCA  1 
+hg19_ct_UserTrack_3545_5 (   51) CATTCCCTTAGGCTT  1 
+hg19_ct_UserTrack_3545_5 (   43) TTGGCCTTGGGGGAA  1 
+hg19_ct_UserTrack_3545_5 (   38) AATGCCCAGAGGGGA  1 
+hg19_ct_UserTrack_3545_6 (   46) TTGTGCCTGGGGCTA  1 
+hg19_ct_UserTrack_3545_5 (   65) AGGTGCCCGAGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   45) GTAACCCTGAGGCCT  1 
+hg19_ct_UserTrack_3545_4 (   31) TGAGCCTCGAGGCTG  1 
+hg19_ct_UserTrack_3545_7 (   52) CACGCCCTGGGGGAT  1 
+hg19_ct_UserTrack_3545_6 (   35) CCGGCCCTCAGGGAT  1 
+hg19_ct_UserTrack_3545_2 (   71) CAGTCCCTCGGGCAC  1 
+hg19_ct_UserTrack_3545_2 (   23) TGCGCCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_1 (   60) GATGCCTTCAGGGAT  1 
+hg19_ct_UserTrack_3545_4 (   62) AGGCCCCTCAGGCGG  1 
+hg19_ct_UserTrack_3545_4 (   78) AGTGCCCTGTGGCTG  1 
+hg19_ct_UserTrack_3545_3 (   61) AAACCCCCCGGGCCA  1 
+hg19_ct_UserTrack_3545_3 (   76) GCTGGCCCCAGGCAG  1 
+hg19_ct_UserTrack_3545_3 (   71) GGTGCCCTCAGGACA  1 
+hg19_ct_UserTrack_3545_4 (   30) AGGCCCTTGGGGCAA  1 
+hg19_ct_UserTrack_3545_6 (    7) TGAGCCCCGGGGGAG  1 
+hg19_ct_UserTrack_3545_6 (    1) TGTAGCCTGAGGCGT  1 
+hg19_ct_UserTrack_3545_4 (   50) AGTGCCCCGAGGACA  1 
+hg19_ct_UserTrack_3545_1 (   29) GTAGCCCTCAGGGTT  1 
+hg19_ct_UserTrack_3545_5 (   15) GGTGCCTTGAGGGCA  1 
+hg19_ct_UserTrack_3545_3 (   51) TGGGGCCTGGGGCCT  1 
+hg19_ct_UserTrack_3545_6 (   74) TATCCCCTCGGGGAT  1 
+hg19_ct_UserTrack_3545_1 (   44) AAATGCCTGGGGCGG  1 
+hg19_ct_UserTrack_3545_7 (   73) TTTTCCCAGAGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   10) CAGGCCCTTGGGCGG  1 
+hg19_ct_UserTrack_3545_1 (   30) GACACCCCGAGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   75) CCTGCCCTGAGGGGC  1 
+hg19_ct_UserTrack_3545_6 (   77) CATGCCCTGGGGACT  1 
+hg19_ct_UserTrack_3545_1 (   36) CTTCGCCTGAGGCGG  1 
+hg19_ct_UserTrack_3545_2 (   51) CGCGCCCCCGGGCAA  1 
+hg19_ct_UserTrack_3545_1 (   38) ACTCCCCTCGGGCAC  1 
+hg19_ct_UserTrack_3545_1 (   46) TTTACCTCCAGGCAA  1 
+hg19_ct_UserTrack_3545_7 (   47) AAAGCCCTGAAGGCA  1 
+hg19_ct_UserTrack_3545_1 (   58) AGGGGCCTCAGGCGC  1 
+hg19_ct_UserTrack_3545_4 (   51) TAAGGCCTCGGGGTT  1 
+hg19_ct_UserTrack_3545_7 (   39) AACGCCCTCGGGCGC  1 
+hg19_ct_UserTrack_3545_3 (   22) CAATGCCGGAGGCTA  1 
+hg19_ct_UserTrack_3545_1 (   38) AGCACCCTGGGGCTG  1 
+hg19_ct_UserTrack_3545_8 (   40) GGTAGCCTGGGGCTG  1 
+hg19_ct_UserTrack_3545_4 (   74) ATGTCCCCCAGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   59) AATCGCCTGAGGTTA  1 
+hg19_ct_UserTrack_3545_3 (   36) TGGGCCTTGAGGGAT  1 
+hg19_ct_UserTrack_3545_4 (   44) ATCTCCCTCAGGCTG  1 
+hg19_ct_UserTrack_3545_2 (   34) TCTCGCCTTAGGCAA  1 
+hg19_ct_UserTrack_3545_9 (   23) TGTGCCCTGAGGTGG  1 
+hg19_ct_UserTrack_3545_2 (   61) AAAGGCCTCTGGCTA  1 
+hg19_ct_UserTrack_3545_2 (   32) ACTCGCCTGAGGGAG  1 
+hg19_ct_UserTrack_3545_4 (   44) ATGGCCCTCAGGGGT  1 
+hg19_ct_UserTrack_3545_3 (   22) ATGTCCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_6 (   63) CCTGCCTTGAGGGGA  1 
+hg19_ct_UserTrack_3545_6 (   32) TGTGCCTTGAGGGGG  1 
+hg19_ct_UserTrack_3545_9 (    9) CCTGCCCCGGGGGAG  1 
+hg19_ct_UserTrack_3545_3 (   29) CGGACCCTGGGGCGG  1 
+hg19_ct_UserTrack_3545_2 (   46) TTTGCCCTGAAGGTA  1 
+hg19_ct_UserTrack_3545_7 (   44) AACTCCTTGAGGCCA  1 
+hg19_ct_UserTrack_3545_9 (   35) TGTGCCTCCAGGGAA  1 
+hg19_ct_UserTrack_3545_7 (   55) GATAGCTTCAGGCCA  1 
+hg19_ct_UserTrack_3545_5 (   12) CAGGCCCGCAGGCCC  1 
+hg19_ct_UserTrack_3545_2 (   56) CAGGGCCCAGGGCAA  1 
+hg19_ct_UserTrack_3545_7 (   33) GTTTCCCTGGGGCTC  1 
+hg19_ct_UserTrack_3545_5 (   77) AAAGCCCCGGGGATG  1 
+hg19_ct_UserTrack_3545_5 (   53) TACGCCCGGAGGCCT  1 
+hg19_ct_UserTrack_3545_7 (   22) TAGCCCTTGGGGCGA  1 
+hg19_ct_UserTrack_3545_3 (   40) TAGAGCCTTAGGCAT  1 
+hg19_ct_UserTrack_3545_3 (   30) GCAACCCCGAGGCTG  1 
+hg19_ct_UserTrack_3545_4 (   56) GGTGCCTCCAGGCCA  1 
+hg19_ct_UserTrack_3545_6 (   55) TTTCCCCCCAGGCTT  1 
+hg19_ct_UserTrack_3545_1 (   72) CAGGCCTCCAGGCTT  1 
+hg19_ct_UserTrack_3545_3 (   45) AGAGCCCTTAGGGCG  1 
+hg19_ct_UserTrack_3545_6 (   35) TGAGGCCCCAGGCTC  1 
+hg19_ct_UserTrack_3545_5 (   30) GCTGCCCCCAGGCCT  1 
+hg19_ct_UserTrack_3545_1 (   52) TTCTGCCTGGGGCAA  1 
+hg19_ct_UserTrack_3545_5 (    6) AAAGCCCCAAGGGGA  1 
+hg19_ct_UserTrack_3545_7 (   33) CAGGCCCCGAGGGGT  1 
+hg19_ct_UserTrack_3545_2 (   40) ATGTCCCTGGGGCCT  1 
+hg19_ct_UserTrack_3545_2 (   21) GATGCCCTAAAGCTA  1 
+hg19_ct_UserTrack_3545_7 (   29) TGTAGCCAGAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   19) CCAGCCCTAGGGGAA  1 
+hg19_ct_UserTrack_3545_7 (   66) TCTGCCCTGGGGTCA  1 
+hg19_ct_UserTrack_3545_6 (   61) AGTAGCCCAAGGCAA  1 
+hg19_ct_UserTrack_3545_3 (   42) ACACCCTCGAGGCAA  1 
+hg19_ct_UserTrack_3545_4 (   22) GGAGCCTCCAGGCAG  1 
+hg19_ct_UserTrack_3545_7 (   19) TAAACCCTCTGGCTA  1 
+hg19_ct_UserTrack_3545_4 (   12) TTTTCCCCAAGGCTA  1 
+hg19_ct_UserTrack_3545_2 (   56) TTCTCCCTTAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   50) TGGGCCCCCAGGCGC  1 
+hg19_ct_UserTrack_3545_5 (   31) ACTCGCCTCAGGCGG  1 
+hg19_ct_UserTrack_3545_4 (   67) CGGGCCCCCGGGCCG  1 
+hg19_ct_UserTrack_3545_6 (   70) AAACCCTGGAGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   64) AGGAGCCCGAGGCGA  1 
+hg19_ct_UserTrack_3545_2 (   59) ACAGCCCTAGGGCGG  1 
+hg19_ct_UserTrack_3545_7 (   19) TTTGCCCTGGAGGAA  1 
+hg19_ct_UserTrack_3545_3 (   23) CGCGCCCCGGGGCTG  1 
+hg19_ct_UserTrack_3545_6 (   51) CATGCCCTGAAGGAC  1 
+hg19_ct_UserTrack_3545_2 (   47) ATTGCCCTTGGGCGC  1 
+hg19_ct_UserTrack_3545_1 (   76) TGTGCCCCCAGGATG  1 
+hg19_ct_UserTrack_3545_1 (   47) TACCGCCTCGGGCAG  1 
+hg19_ct_UserTrack_3545_4 (   35) ATAGCCTACAGGCAA  1 
+hg19_ct_UserTrack_3545_1 (   36) GACGCCCTTGGGCAT  1 
+hg19_ct_UserTrack_3545_4 (   76) CATAGCCTGGAGCAA  1 
+hg19_ct_UserTrack_3545_2 (   34) TTTGCCCAGAGGCCC  1 
+hg19_ct_UserTrack_3545_8 (   69) TAGTGCTTGAGGCAC  1 
+hg19_ct_UserTrack_3545_5 (   66) CGAGGCCGCGGGCTA  1 
+hg19_ct_UserTrack_3545_1 (   71) GATGCCCCGCGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   15) CCAGCCCTGGAGCTA  1 
+hg19_ct_UserTrack_3545_2 (    1) TTGGGCCCCGGGCTG  1 
+hg19_ct_UserTrack_3545_5 (   35) CCTCCCCGGAGGCGA  1 
+hg19_ct_UserTrack_3545_1 (   47) AAGTCCTTAGGGCAA  1 
+hg19_ct_UserTrack_3545_3 (   57) CACGGCCTTAGGCTT  1 
+hg19_ct_UserTrack_3545_6 (   45) GTTACCCCAAGGCTA  1 
+hg19_ct_UserTrack_3545_7 (   13) CCAGCCTCCAGGCCA  1 
+hg19_ct_UserTrack_3545_6 (   20) CCTCCCCTGGGGAAA  1 
+hg19_ct_UserTrack_3545_6 (   57) CCTGCCCTGAGGACC  1 
+hg19_ct_UserTrack_3545_7 (   78) AATGCCCAGGGGATA  1 
+hg19_ct_UserTrack_3545_7 (   35) AGTCCCCGCAGGCAC  1 
+hg19_ct_UserTrack_3545_5 (   38) CATGCCCTAAAGCAT  1 
+hg19_ct_UserTrack_3545_1 (   52) AAACGCTTGGGGCAT  1 
+hg19_ct_UserTrack_3545_4 (   18) CCTGGCCTCAGGTTA  1 
+hg19_ct_UserTrack_3545_5 (   13) CAACCCTGCAGGCAA  1 
+hg19_ct_UserTrack_3545_7 (   43) GCTGCCCCCGGGCGG  1 
+hg19_ct_UserTrack_3545_8 (    2) ATTTCCCTCCGGCAA  1 
+hg19_ct_UserTrack_3545_6 (   34) GATCCCCTTAGGCGT  1 
+hg19_ct_UserTrack_3545_5 (   35) GCTGCCCGGGGGGTA  1 
+hg19_ct_UserTrack_3545_7 (   46) CAAGCCTTAAGGCCC  1 
+hg19_ct_UserTrack_3545_4 (   61) GATGCCCAGAGGGCG  1 
+hg19_ct_UserTrack_3545_9 (   15) TCTGGCCTGAGGAGG  1 
+hg19_ct_UserTrack_3545_4 (   47) CATGCCCCGGGGTGA  1 
+hg19_ct_UserTrack_3545_3 (   70) AACCGCCTGGGGCCG  1 
+hg19_ct_UserTrack_3545_5 (   29) CCAGGCCGCAGGCTG  1 
+hg19_ct_UserTrack_3545_3 (    2) TTAGCCCCCAGGACA  1 
+hg19_ct_UserTrack_3545_3 (   63) TCCGCCTCCAGGCAA  1 
+hg19_ct_UserTrack_3545_7 (   75) CCTCGCCCGAGGCGA  1 
+hg19_ct_UserTrack_3545_3 (   47) AAAGCCTCTAGGCCG  1 
+hg19_ct_UserTrack_3545_3 (   19) CCAGCCCTGGGGAAC  1 
+hg19_ct_UserTrack_3545_5 (   54) TTTGCCTCCAGGGCA  1 
+hg19_ct_UserTrack_3545_1 (   54) CAGCCCCTGGGGTTA  1 
+hg19_ct_UserTrack_3545_5 (   32) AAGCCCCGGAGGGAT  1 
+hg19_ct_UserTrack_3545_4 (   55) CCAGGCCCCAGGCGG  1 
+hg19_ct_UserTrack_3545_4 (   11) ATCACCCCCAGGCTG  1 
+hg19_ct_UserTrack_3545_5 (   37) AGGTCCCCTAGGCTA  1 
+hg19_ct_UserTrack_3545_7 (   33) GAGGGCTCGGGGCAG  1 
+hg19_ct_UserTrack_3545_7 (   56) TGTACCCCAAGGCAC  1 
+hg19_ct_UserTrack_3545_1 (   70) TGGGCCCTCCGGCTG  1 
+hg19_ct_UserTrack_3545_1 (   43) GAAGCCTCCAGGGCA  1 
+hg19_ct_UserTrack_3545_3 (   43) AAAGCCTTTGGGGCA  1 
+hg19_ct_UserTrack_3545_2 (   22) TCAGCCCTGGGGAGG  1 
+hg19_ct_UserTrack_3545_5 (   29) CTGGGCCAGAGGCTG  1 
+hg19_ct_UserTrack_3545_5 (   33) CCCGGCCCGGGGCTA  1 
+hg19_ct_UserTrack_3545_3 (   84) CTGACCCCAAGGCAG  1 
+hg19_ct_UserTrack_3545_4 (    9) CTGCCCCCGAGGCCT  1 
+hg19_ct_UserTrack_3545_5 (   71) GTAACCCCCAGGCTC  1 
+hg19_ct_UserTrack_3545_1 (   27) CTTGCCTCCAGGGCA  1 
+hg19_ct_UserTrack_3545_6 (   46) AAGCCCCAAAGGCAA  1 
+hg19_ct_UserTrack_3545_2 (   61) TGGGCCTCCAGGCTC  1 
+hg19_ct_UserTrack_3545_3 (   75) AGAGCCCAGGGGGAG  1 
+hg19_ct_UserTrack_3545_2 (   36) GAGAGCCTGGGGCGC  1 
+hg19_ct_UserTrack_3545_7 (    3) GCAGCCCTTGGGCGG  1 
+hg19_ct_UserTrack_3545_3 (   11) TCTTGCTTGAGGCAC  1 
+hg19_ct_UserTrack_3545_2 (   53) AGCACCCGCAGGCAG  1 
+hg19_ct_UserTrack_3545_3 (   29) ATCACCCTGGGGCCC  1 
+hg19_ct_UserTrack_3545_5 (   65) TAACCCCTGTGGGAA  1 
+hg19_ct_UserTrack_3545_3 (   57) CCAGCCCTGGAGCTG  1 
+hg19_ct_UserTrack_3545_5 (   24) AATTGCTGCAGGCTA  1 
+hg19_ct_UserTrack_3545_3 (   56) GGTCGCTTGAGGCGA  1 
+hg19_ct_UserTrack_3545_4 (   26) AACGCCCAGGGGCTT  1 
+hg19_ct_UserTrack_3545_9 (   59) TGAGCCCTCAGGTCT  1 
+hg19_ct_UserTrack_3545_9 (   67) AAGAGCCTGGGGAGA  1 
+hg19_ct_UserTrack_3545_2 (   31) TCCGCCCCGAGGCGC  1 
+hg19_ct_UserTrack_3545_1 (   24) TCTGCCCTCCGGCCG  1 
+hg19_ct_UserTrack_3545_3 (   33) GATTGCTCGAGGCCA  1 
+hg19_ct_UserTrack_3545_6 (   64) ATATGCCTGAGGTTA  1 
+hg19_ct_UserTrack_3545_7 (   35) TTTTCCCTGGAGCAG  1 
+hg19_ct_UserTrack_3545_7 (   78) ATGAGCCACAGGCAA  1 
+hg19_ct_UserTrack_3545_1 (   28) AGGGCCTGGAGGGAG  1 
+hg19_ct_UserTrack_3545_6 (    8) GAAGCCCTAAAGCTG  1 
+hg19_ct_UserTrack_3545_7 (   48) AATTGCCTGTGGCTG  1 
+hg19_ct_UserTrack_3545_9 (   18) GTGTGCCTAAGGCTA  1 
+hg19_ct_UserTrack_3545_6 (   44) CAGCCCTGGAGGCTG  1 
+hg19_ct_UserTrack_3545_6 (   16) TGTGCCTTTGGGGAG  1 
+hg19_ct_UserTrack_3545_1 (   25) CAACGCCCGAGGCGC  1 
+hg19_ct_UserTrack_3545_3 (   14) TTTCCCCTCAGGTAT  1 
+hg19_ct_UserTrack_3545_7 (   40) TGAGCCCTTAAGCCA  1 
+hg19_ct_UserTrack_3545_5 (   60) GAGGCCCCCAGGGGC  1 
+hg19_ct_UserTrack_3545_8 (    8) GGTGCCCTGGGGAGT  1 
+hg19_ct_UserTrack_3545_2 (   46) CAAGCCCGCAGGGGC  1 
+hg19_ct_UserTrack_3545_6 (   10) CAACCCCCGCGGCAA  1 
+hg19_ct_UserTrack_3545_1 (   67) GTGCGCCTGGGGCCG  1 
+hg19_ct_UserTrack_3545_4 (   14) ATGTCCCTAGGGCAC  1 
+hg19_ct_UserTrack_3545_1 (   39) AATCCCCGGAGGGGT  1 
+hg19_ct_UserTrack_3545_7 (   18) AGAGCCTCCAGGGGA  1 
+hg19_ct_UserTrack_3545_7 (    9) CGGAGCCCGGGGCGA  1 
+hg19_ct_UserTrack_3545_7 (   57) ACAGCCTTTAGGGCA  1 
+hg19_ct_UserTrack_3545_4 (   72) ATCGCCTTAAGGGAA  1 
+hg19_ct_UserTrack_3545_1 (   49) TCGCCCCCGGGGCCG  1 
+hg19_ct_UserTrack_3545_2 (    4) TCTGTCCTGGGGCTG  1 
+hg19_ct_UserTrack_3545_7 (   65) GAGGCCCGGAGGGGC  1 
+hg19_ct_UserTrack_3545_4 (   56) TTTGGCTCAAGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   41) TTTACCCATAGGCTA  1 
+hg19_ct_UserTrack_3545_3 (   44) AGGTCCTCCAGGCCA  1 
+hg19_ct_UserTrack_3545_5 (   27) GGGGCCCGGAGGGGG  1 
+hg19_ct_UserTrack_3545_5 (   38) CAGAGCCCAGGGCTA  1 
+hg19_ct_UserTrack_3545_6 (   49) CCTGGCCTTAAGCAA  1 
+hg19_ct_UserTrack_3545_6 (   43) CAGCGCCCGGGGCGG  1 
+hg19_ct_UserTrack_3545_3 (   45) CGTGCCTAGAGGGTA  1 
+hg19_ct_UserTrack_3545_4 (   65) TTAAGCCCGGGGCGG  1 
+hg19_ct_UserTrack_3545_5 (   20) GACTGCCGGAGGCAG  1 
+hg19_ct_UserTrack_3545_1 (   26) TGTGCCCTAGAGCCA  1 
+hg19_ct_UserTrack_3545_4 (   27) CGTGCCCGCAGGTCA  1 
+hg19_ct_UserTrack_3545_5 (   34) CGTGCCTGCAGGGCA  1 
+hg19_ct_UserTrack_3545_4 (   45) GTTGCCCTTGGGACA  1 
+hg19_ct_UserTrack_3545_5 (   52) ACCAGCCGCAGGCAA  1 
+hg19_ct_UserTrack_3545_7 (   28) CACCCCTGGAGGCTA  1 
+hg19_ct_UserTrack_3545_5 (   42) GAGTCCTCCAGGCAT  1 
+hg19_ct_UserTrack_3545_6 (   41) AGGCCCCGGAGGGGA  1 
+hg19_ct_UserTrack_3545_7 (   32) GGTGTCCTGGGGCTG  1 
+hg19_ct_UserTrack_3545_6 (   54) GGAGCCCGCGGGGCA  1 
+hg19_ct_UserTrack_3545_4 (   49) CAGAGCCGGGGGCTC  1 
+hg19_ct_UserTrack_3545_7 (   40) AAATGCCTCGGGAGA  1 
+hg19_ct_UserTrack_3545_8 (   52) ATTGCCCTAAAGGAG  1 
+hg19_ct_UserTrack_3545_1 (   79) CATGCCCTGCGGTCA  1 
+hg19_ct_UserTrack_3545_6 (   32) TGTGCCTGCAGGCGC  1 
+hg19_ct_UserTrack_3545_2 (   31) TGTGCCTTTAGGACA  1 
+hg19_ct_UserTrack_3545_4 (   23) AATGCCTGCAGGGCC  1 
+hg19_ct_UserTrack_3545_1 (   51) GACGCCCTCCGGCGA  1 
+hg19_ct_UserTrack_3545_7 (   29) TTGCGCCTGAGGTAG  1 
+hg19_ct_UserTrack_3545_6 (   32) CATGGCCCCCGGCTG  1 
+hg19_ct_UserTrack_3545_1 (   50) GAAGCCCTTTGGCAT  1 
+hg19_ct_UserTrack_3545_2 (   70) GATACCCAAAGGCGA  1 
+hg19_ct_UserTrack_3545_7 (   44) TGAGCCCTGCGGGCG  1 
+hg19_ct_UserTrack_3545_5 (   18) AGTGGCCGGAGGTGA  1 
+hg19_ct_UserTrack_3545_2 (   64) GAGCGCCGGAGGGAG  1 
+hg19_ct_UserTrack_3545_2 (   32) GACGCCCTTGGGGAC  1 
+hg19_ct_UserTrack_3545_6 (   26) AGGAGCCACGGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   29) CATGCCTCGTGGCTG  1 
+hg19_ct_UserTrack_3545_7 (   59) TAACTCCTCAGGCAT  1 
+hg19_ct_UserTrack_3545_5 (   43) AGTGGCCTTGAGCTA  1 
+hg19_ct_UserTrack_3545_4 (   59) GATAGCCGCAGGCGC  1 
+hg19_ct_UserTrack_3545_6 (   14) ACGTGCCCGGGGCAC  1 
+hg19_ct_UserTrack_3545_5 (    8) AGAGGCCTGGGGAGC  1 
+hg19_ct_UserTrack_3545_1 (   46) TGAGCCCCCTGGCGA  1 
+hg19_ct_UserTrack_3545_3 (   51) ACAGGCCTGCGGCTC  1 
+hg19_ct_UserTrack_3545_4 (   57) TACGCCCTAGGGGGT  1 
+hg19_ct_UserTrack_3545_1 (   22) CAGGGCCTGGAGCCC  1 
+hg19_ct_UserTrack_3545_1 (   40) GAAGCCTTCCGGGAA  1 
+hg19_ct_UserTrack_3545_6 (   59) AAGTGCTTCAGGAAG  1 
+hg19_ct_UserTrack_3545_5 (   33) CATGCCTCCCGGCCA  1 
+hg19_ct_UserTrack_3545_4 (   65) GTTAGCCGAAGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   75) AACAGCTTGAGGAAG  1 
+hg19_ct_UserTrack_3545_8 (   43) GAATCCCGCGGGAAA  1 
+hg19_ct_UserTrack_3545_4 (   37) CCTCGCCCTAGGCTG  1 
+hg19_ct_UserTrack_3545_4 (    5) TATACCTTAAGGGCC  1 
+hg19_ct_UserTrack_3545_3 (    6) AACGCCCGCGGGGCT  1 
+hg19_ct_UserTrack_3545_6 (   57) ATAACCTTAAGGGAT  1 
+hg19_ct_UserTrack_3545_3 (   60) GATCCCCTCTGGGAG  1 
+hg19_ct_UserTrack_3545_4 (   35) AAATGCTCTGGGCAA  1 
+hg19_ct_UserTrack_3545_5 (    7) CAACGCCCAGGGGAA  1 
+hg19_ct_UserTrack_3545_5 (   37) TGGCCCCTCCGGCGA  1 
+hg19_ct_UserTrack_3545_6 (    3) GTGGCCCTCTGGCCT  1 
+hg19_ct_UserTrack_3545_7 (   12) CTTAGCCGCGGGCGG  1 
+hg19_ct_UserTrack_3545_3 (   86) CGGGGCCTGGAGCTC  1 
+hg19_ct_UserTrack_3545_6 (   65) CCTGCCCTTAGGTCT  1 
+hg19_ct_UserTrack_3545_2 (   25) TCTGCCTGTAGGGTA  1 
+hg19_ct_UserTrack_3545_5 (   65) CCATGCCCAGGGCAA  1 
+hg19_ct_UserTrack_3545_6 (   75) ATGGCCCCGGAGCTC  1 
+hg19_ct_UserTrack_3545_1 (   80) AATAGCTGCAGGGGA  1 
+hg19_ct_UserTrack_3545_5 (   65) GTTCGCCGCGGGCGA  1 
+hg19_ct_UserTrack_3545_1 (   45) AGGCGCCCAGGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   75) ATTAGCCTAAGGTCA  1 
+hg19_ct_UserTrack_3545_7 (   54) AAGAGCTCAAGGCAT  1 
+hg19_ct_UserTrack_3545_5 (   35) CTGGCCTAGAGGGCA  1 
+hg19_ct_UserTrack_3545_1 (   56) GTGGGCTGGAGGGAG  1 
+hg19_ct_UserTrack_3545_6 (   36) CTTTCCCAGAAGCAA  1 
+hg19_ct_UserTrack_3545_9 (   44) GACCGCCTGGAGCAA  1 
+hg19_ct_UserTrack_3545_7 (   53) CGGCGCCGGGGGCCG  1 
+hg19_ct_UserTrack_3545_5 (   13) GGCTCCCGCAGGCAC  1 
+hg19_ct_UserTrack_3545_2 (   64) CCTTGCCGGAGGATA  1 
+hg19_ct_UserTrack_3545_3 (   55) ATCCCCCGCAGGGCA  1 
+hg19_ct_UserTrack_3545_5 (   68) GATAGCCTAGGGATG  1 
+hg19_ct_UserTrack_3545_3 (   66) CTAACCCGTAGGGCA  1 
+hg19_ct_UserTrack_3545_7 (   61) ACTGGCCCCGGGTGA  1 
+hg19_ct_UserTrack_3545_6 (   57) TCAACCTCCGGGGTA  1 
+hg19_ct_UserTrack_3545_5 (   59) TCTATCCTGGGGCTT  1 
+hg19_ct_UserTrack_3545_7 (   44) GGGCGCCTGCGGCAG  1 
+hg19_ct_UserTrack_3545_2 (   74) AATAGCTTTTGGCAA  1 
+hg19_ct_UserTrack_3545_7 (   80) CCCACCTTGGGGCCT  1 
+hg19_ct_UserTrack_3545_4 (   47) CCTCGCCGCGGGCTT  1 
+hg19_ct_UserTrack_3545_7 (   43) TGGTGCCTGGGGATC  1 
+hg19_ct_UserTrack_3545_7 (   10) AGCAGCTGCAGGCTA  1 
+hg19_ct_UserTrack_3545_4 (   44) AAAGCCCCGCAGCCA  1 
+hg19_ct_UserTrack_3545_7 (   72) GCGAGCCCCGGGCGG  1 
+hg19_ct_UserTrack_3545_4 (   67) TATATCCGGGGGCGA  1 
+hg19_ct_UserTrack_3545_4 (   43) GGCAGCCTGGGGAAG  1 
+hg19_ct_UserTrack_3545_4 (   15) CACCGCCTCTGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   24) AGTCGCCGCGGGGCG  1 
+hg19_ct_UserTrack_3545_5 (   40) CGATTCCTGGGGCAC  1 
+hg19_ct_UserTrack_3545_4 (    7) CAGACCCAGGAGCAG  1 
+hg19_ct_UserTrack_3545_4 (   54) GACAGCCCTGGGCTG  1 
+hg19_ct_UserTrack_3545_7 (   25) GAGAGCCGGGAGCTA  1 
+hg19_ct_UserTrack_3545_4 (   59) GAGCCCCAGAGGTCA  1 
+hg19_ct_UserTrack_3545_2 (   82) CGCTCCTTGAGGAAT  1 
+hg19_ct_UserTrack_3545_3 (   39) TTGCTCCTTAGGCAG  1 
+hg19_ct_UserTrack_3545_6 (   21) GGAAGCCGGGGGAAG  1 
+hg19_ct_UserTrack_3545_5 (   15) AGAGGCTTAGGGAGA  1 
+hg19_ct_UserTrack_3545_6 (   56) CCACGCCGGCGGCAA  1 
+hg19_ct_UserTrack_3545_5 (   58) CGACGCCGCGGGCGC  1 
+hg19_ct_UserTrack_3545_2 (   42) TATTGCCCAGAGCAG  1 
+hg19_ct_UserTrack_3545_5 (   58) ATTGCCCCAGAGGTG  1 
+hg19_ct_UserTrack_3545_6 (   83) AAGTGCCCTAGGTGA  1 
+hg19_ct_UserTrack_3545_1 (   50) CAGTGCTTCAGGTTC  1 
+hg19_ct_UserTrack_3545_6 (   65) CATGACCCTGGGCAA  1 
+hg19_ct_UserTrack_3545_6 (   26) TCCTCCTTGAGGACC  1 
+//
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific scoring matrix
+--------------------------------------------------------------------------------
+log-odds matrix: alength= 4 w= 15 n= 51600 bayes= 7.3452 E= 3.4e-398 
+    39     -5    -57     20 
+    90    -77    -23    -22 
+    16   -153     -4     82 
+   -44   -100    107   -104 
+  -692    128     11   -411 
+ -1576    183  -1576  -1576 
+ -1576    157  -1576    -39 
+  -246    -35   -124    150 
+  -160     20     90   -149 
+   143   -328     36   -333 
+  -222  -1576    176  -1576 
+ -1576  -1576    183  -1576 
+  -179    132    -51   -253 
+    86    -53    -87     22 
+   100    -96      0    -67 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 position-specific probability matrix
+--------------------------------------------------------------------------------
+letter-probability matrix: alength= 4 w= 15 nsites= 553 E= 3.4e-398 
+ 0.287523  0.271248  0.189873  0.251356 
+ 0.406872  0.164557  0.240506  0.188065 
+ 0.244123  0.097649  0.273056  0.385172 
+ 0.160940  0.141049  0.591320  0.106691 
+ 0.001808  0.681736  0.303797  0.012658 
+ 0.000000  1.000000  0.000000  0.000000 
+ 0.000000  0.833635  0.000000  0.166365 
+ 0.039783  0.220615  0.119349  0.620253 
+ 0.072333  0.323689  0.526221  0.077758 
+ 0.589512  0.028933  0.359855  0.021700 
+ 0.047016  0.000000  0.952984  0.000000 
+ 0.000000  0.000000  1.000000  0.000000 
+ 0.063291  0.701627  0.197107  0.037975 
+ 0.396022  0.195298  0.153707  0.254973 
+ 0.437613  0.144665  0.280289  0.137432 
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+	Motif 1 regular expression
+--------------------------------------------------------------------------------
+[ACT][AG][TGA]G[CG]CC[TC][GC][AG]GGC[AT][AG]
+--------------------------------------------------------------------------------
+
+
+
+
+Time 105.07 secs.
+
+********************************************************************************
+
+
+********************************************************************************
+SUMMARY OF MOTIFS
+********************************************************************************
+
+--------------------------------------------------------------------------------
+	Combined block diagrams: non-overlapping sites with p-value < 0.0001
+--------------------------------------------------------------------------------
+SEQUENCE NAME            COMBINED P-VALUE  MOTIF DIAGRAM
+-------------            ----------------  -------------
+hg19_ct_UserTrack_3545_2         2.79e-02  100
+hg19_ct_UserTrack_3545_2         3.13e-02  100
+hg19_ct_UserTrack_3545_4         2.57e-01  100
+hg19_ct_UserTrack_3545_5         4.49e-03  45_[-1(2.62e-05)]_40
+hg19_ct_UserTrack_3545_3         9.17e-01  100
+hg19_ct_UserTrack_3545_9         5.96e-02  100
+hg19_ct_UserTrack_3545_5         2.24e-03  39_[+1(1.30e-05)]_46
+hg19_ct_UserTrack_3545_1         6.18e-03  48_[-1(3.61e-05)]_37
+hg19_ct_UserTrack_3545_1         2.24e-03  36_[-1(1.30e-05)]_49
+hg19_ct_UserTrack_3545_6         1.53e-01  100
+hg19_ct_UserTrack_3545_3         2.18e-02  100
+hg19_ct_UserTrack_3545_6         7.23e-03  62_[+1(4.22e-05)]_23
+hg19_ct_UserTrack_3545_3         2.24e-03  48_[+1(1.30e-05)]_37
+hg19_ct_UserTrack_3545_1         1.29e-02  59_[+1(7.56e-05)]_26
+hg19_ct_UserTrack_3545_5         3.21e-03  59_[+1(1.87e-05)]_26
+hg19_ct_UserTrack_3545_9         1.92e-02  100
+hg19_ct_UserTrack_3545_5         1.86e-03  59_[+1(1.09e-05)]_26
+hg19_ct_UserTrack_3545_3         5.48e-04  49_[+1(3.18e-06)]_36
+hg19_ct_UserTrack_3545_2         2.72e-01  100
+hg19_ct_UserTrack_3545_3         1.12e-01  100
+hg19_ct_UserTrack_3545_4         5.29e-03  39_[+1(3.09e-05)]_46
+hg19_ct_UserTrack_3545_1         5.29e-03  41_[+1(3.09e-05)]_44
+hg19_ct_UserTrack_3545_6         7.23e-02  100
+hg19_ct_UserTrack_3545_7         3.79e-03  19_[-1(2.21e-05)]_66
+hg19_ct_UserTrack_3545_3         3.13e-02  100
+hg19_ct_UserTrack_3545_9         6.18e-03  43_[+1(3.61e-05)]_42
+hg19_ct_UserTrack_3545_4         2.72e-01  100
+hg19_ct_UserTrack_3545_3         2.24e-03  14_[-1(1.30e-05)]_71
+hg19_ct_UserTrack_3545_9         5.39e-02  100
+hg19_ct_UserTrack_3545_5         1.03e-01  100
+hg19_ct_UserTrack_3545_5         1.64e-04  62_[-1(9.55e-07)]_23
+hg19_ct_UserTrack_3545_7         8.46e-04  25_[-1(4.92e-06)]_60
+hg19_ct_UserTrack_3545_4         1.64e-04  61_[+1(9.55e-07)]_24
+hg19_ct_UserTrack_3545_4         1.69e-02  73_[+1(9.90e-05)]_12
+hg19_ct_UserTrack_3545_7         2.74e-04  61_[-1(1.59e-06)]_24
+hg19_ct_UserTrack_3545_2         1.27e-04  61_[-1(7.36e-07)]_24
+hg19_ct_UserTrack_3545_5         1.48e-02  9_[+1(8.67e-05)]_76
+hg19_ct_UserTrack_3545_2         9.69e-05  59_[+1(5.64e-07)]_26
+hg19_ct_UserTrack_3545_6         3.13e-02  100
+hg19_ct_UserTrack_3545_7         1.92e-02  100
+hg19_ct_UserTrack_3545_6         6.18e-03  77_[-1(3.61e-05)]_8
+hg19_ct_UserTrack_3545_5         9.72e-03  54_[-1(5.68e-05)]_31
+hg19_ct_UserTrack_3545_2         6.78e-04  47_[+1(3.94e-06)]_38
+hg19_ct_UserTrack_3545_4         4.37e-02  100
+hg19_ct_UserTrack_3545_5         8.41e-03  50_[+1(4.91e-05)]_35
+hg19_ct_UserTrack_3545_1         3.13e-02  100
+hg19_ct_UserTrack_3545_2         3.44e-04  44_[-1(2.00e-06)]_41
+hg19_ct_UserTrack_3545_7         1.48e-02  72_[+1(8.67e-05)]_13
+hg19_ct_UserTrack_3545_6         2.79e-02  100
+hg19_ct_UserTrack_3545_6         5.32e-01  100
+hg19_ct_UserTrack_3545_7         2.47e-02  100
+hg19_ct_UserTrack_3545_6         1.86e-03  42_[+1(1.09e-05)]_43
+hg19_ct_UserTrack_3545_2         1.29e-02  22_[-1(7.56e-05)]_63
+hg19_ct_UserTrack_3545_1         1.48e-02  43_[-1(8.67e-05)]_42
+hg19_ct_UserTrack_3545_5         9.72e-03  42_[+1(5.68e-05)]_43
+hg19_ct_UserTrack_3545_1         3.84e-01  100
+hg19_ct_UserTrack_3545_1         1.22e-01  100
+hg19_ct_UserTrack_3545_9         5.29e-03  47_[+1(3.09e-05)]_38
+hg19_ct_UserTrack_3545_7         1.12e-02  28_[-1(6.56e-05)]_57
+hg19_ct_UserTrack_3545_6         1.48e-02  73_[+1(8.67e-05)]_12
+hg19_ct_UserTrack_3545_7         6.57e-02  100
+hg19_ct_UserTrack_3545_5         1.53e-01  100
+hg19_ct_UserTrack_3545_6         8.68e-02  100
+hg19_ct_UserTrack_3545_5         4.86e-02  100
+hg19_ct_UserTrack_3545_4         1.64e-04  25_[+1(9.55e-07)]_60
+hg19_ct_UserTrack_3545_3         2.79e-02  100
+hg19_ct_UserTrack_3545_2         1.29e-02  70_[-1(7.56e-05)]_15
+hg19_ct_UserTrack_3545_5         1.86e-03  83_[-1(1.09e-05)]_2
+hg19_ct_UserTrack_3545_3         1.54e-03  27_[-1(8.97e-06)]_58
+hg19_ct_UserTrack_3545_7         2.79e-02  100
+hg19_ct_UserTrack_3545_8         1.69e-02  39_[-1(9.90e-05)]_46
+hg19_ct_UserTrack_3545_5         2.24e-03  58_[+1(1.30e-05)]_27
+hg19_ct_UserTrack_3545_3         5.39e-02  100
+hg19_ct_UserTrack_3545_2         2.69e-03  45_[-1(1.56e-05)]_40
+hg19_ct_UserTrack_3545_5         4.86e-02  100
+hg19_ct_UserTrack_3545_4         4.49e-03  34_[-1(2.62e-05)]_51
+hg19_ct_UserTrack_3545_3         2.24e-03  32_[+1(1.30e-05)]_53
+hg19_ct_UserTrack_3545_7         2.18e-02  100
+hg19_ct_UserTrack_3545_2         6.78e-04  70_[-1(3.94e-06)]_15
+hg19_ct_UserTrack_3545_6         2.74e-04  53_[-1(1.59e-06)]_32
+hg19_ct_UserTrack_3545_4         1.86e-03  27_[+1(1.09e-05)]_58
+hg19_ct_UserTrack_3545_5         7.39e-01  100
+hg19_ct_UserTrack_3545_2         2.79e-02  100
+hg19_ct_UserTrack_3545_2         1.92e-02  100
+hg19_ct_UserTrack_3545_3         1.48e-02  50_[+1(8.67e-05)]_35
+hg19_ct_UserTrack_3545_3         4.11e-05  13_[-1(2.39e-07)]_72
+hg19_ct_UserTrack_3545_3         4.39e-04  42_[-1(2.55e-06)]_43
+hg19_ct_UserTrack_3545_4         1.42e-01  100
+hg19_ct_UserTrack_3545_1         4.49e-03  28_[+1(2.62e-05)]_57
+hg19_ct_UserTrack_3545_2         6.18e-03  71_[-1(3.61e-05)]_14
+hg19_ct_UserTrack_3545_3         1.92e-02  100
+hg19_ct_UserTrack_3545_4         7.23e-03  77_[+1(4.22e-05)]_8
+hg19_ct_UserTrack_3545_1         1.04e-03  61_[+1(6.03e-06)]_24
+hg19_ct_UserTrack_3545_8         2.24e-03  39_[+1(1.30e-05)]_46
+hg19_ct_UserTrack_3545_6         2.24e-03  51_[-1(1.30e-05)]_34
+hg19_ct_UserTrack_3545_4         9.72e-03  54_[-1(5.68e-05)]_31
+hg19_ct_UserTrack_3545_2         1.54e-03  77_[+1(8.97e-06)]_8
+hg19_ct_UserTrack_3545_1         5.48e-04  47_[-1(3.18e-06)]_38
+hg19_ct_UserTrack_3545_5         9.72e-03  27_[+1(5.68e-05)]_58
+hg19_ct_UserTrack_3545_1         6.57e-02  100
+hg19_ct_UserTrack_3545_2         4.49e-03  38_[+1(2.62e-05)]_47
+hg19_ct_UserTrack_3545_4         8.46e-04  35_[-1(4.92e-06)]_50
+hg19_ct_UserTrack_3545_5         4.00e-01  100
+hg19_ct_UserTrack_3545_5         3.51e-02  100
+hg19_ct_UserTrack_3545_3         1.86e-03  38_[+1(1.09e-05)]_47
+hg19_ct_UserTrack_3545_4         7.93e-02  100
+hg19_ct_UserTrack_3545_2         1.53e-01  100
+hg19_ct_UserTrack_3545_4         8.41e-03  10_[-1(4.91e-05)]_58_[-1(4.91e-05)]_2
+hg19_ct_UserTrack_3545_1         1.69e-02  37_[+1(9.90e-05)]_48
+hg19_ct_UserTrack_3545_4         4.86e-02  100
+hg19_ct_UserTrack_3545_3         1.42e-01  100
+hg19_ct_UserTrack_3545_1         6.57e-02  100
+hg19_ct_UserTrack_3545_4         2.29e-01  100
+hg19_ct_UserTrack_3545_2         1.64e-04  19_[-1(9.55e-07)]_66
+hg19_ct_UserTrack_3545_5         1.00e+00  100
+hg19_ct_UserTrack_3545_7         9.72e-03  73_[+1(5.68e-05)]_12
+hg19_ct_UserTrack_3545_5         1.48e-02  14_[+1(8.67e-05)]_71
+hg19_ct_UserTrack_3545_2         2.47e-02  100
+hg19_ct_UserTrack_3545_5         9.17e-01  100
+hg19_ct_UserTrack_3545_1         1.48e-02  28_[+1(8.67e-05)]_57
+hg19_ct_UserTrack_3545_6         1.76e-01  100
+hg19_ct_UserTrack_3545_7         1.89e-01  100
+hg19_ct_UserTrack_3545_2         3.21e-03  28_[-1(1.87e-05)]_57
+hg19_ct_UserTrack_3545_2         2.74e-04  31_[+1(1.59e-06)]_54
+hg19_ct_UserTrack_3545_6         6.57e-02  100
+hg19_ct_UserTrack_3545_8         6.18e-03  47_[+1(3.61e-05)]_38
+hg19_ct_UserTrack_3545_1         9.48e-02  100
+hg19_ct_UserTrack_3545_3         1.69e-02  21_[+1(9.90e-05)]_64
+hg19_ct_UserTrack_3545_5         3.13e-02  100
+hg19_ct_UserTrack_3545_7         1.03e-01  100
+hg19_ct_UserTrack_3545_7         5.29e-03  59_[-1(3.09e-05)]_26
+hg19_ct_UserTrack_3545_2         6.57e-02  100
+hg19_ct_UserTrack_3545_2         2.79e-02  100
+hg19_ct_UserTrack_3545_6         1.29e-02  34_[+1(7.56e-05)]_51
+hg19_ct_UserTrack_3545_4         8.41e-03  51_[+1(4.91e-05)]_34
+hg19_ct_UserTrack_3545_9         1.92e-02  100
+hg19_ct_UserTrack_3545_6         9.67e-01  100
+hg19_ct_UserTrack_3545_6         8.41e-03  67_[+1(4.91e-05)]_18
+hg19_ct_UserTrack_3545_4         2.02e-01  100
+hg19_ct_UserTrack_3545_3         2.87e-01  100
+hg19_ct_UserTrack_3545_9         2.24e-03  82_[-1(1.30e-05)]_3
+hg19_ct_UserTrack_3545_5         5.16e-01  100
+hg19_ct_UserTrack_3545_1         1.12e-01  100
+hg19_ct_UserTrack_3545_1         3.21e-03  8_[+1(1.87e-05)]_77
+hg19_ct_UserTrack_3545_6         1.92e-02  100
+hg19_ct_UserTrack_3545_6         1.53e-01  100
+hg19_ct_UserTrack_3545_6         9.48e-01  100
+hg19_ct_UserTrack_3545_4         3.51e-02  100
+hg19_ct_UserTrack_3545_7         8.68e-02  100
+hg19_ct_UserTrack_3545_4         1.04e-03  24_[-1(6.03e-06)]_61
+hg19_ct_UserTrack_3545_7         4.37e-02  100
+hg19_ct_UserTrack_3545_4         7.23e-02  100
+hg19_ct_UserTrack_3545_6         1.92e-02  100
+hg19_ct_UserTrack_3545_3         3.92e-02  100
+hg19_ct_UserTrack_3545_6         2.79e-02  100
+hg19_ct_UserTrack_3545_5         2.18e-02  100
+hg19_ct_UserTrack_3545_6         7.23e-03  23_[-1(4.22e-05)]_26_[-1(5.68e-05)]_21
+hg19_ct_UserTrack_3545_6         1.27e-04  30_[+1(7.36e-07)]_55
+hg19_ct_UserTrack_3545_4         6.66e-01  100
+hg19_ct_UserTrack_3545_2         1.64e-04  54_[+1(9.55e-07)]_31
+hg19_ct_UserTrack_3545_4         3.21e-03  3_[-1(1.87e-05)]_82
+hg19_ct_UserTrack_3545_6         9.48e-02  100
+hg19_ct_UserTrack_3545_3         2.24e-03  26_[-1(1.30e-05)]_59
+hg19_ct_UserTrack_3545_5         3.92e-02  100
+hg19_ct_UserTrack_3545_4         1.48e-02  49_[-1(8.67e-05)]_36
+hg19_ct_UserTrack_3545_7         7.23e-02  100
+hg19_ct_UserTrack_3545_3         1.32e-01  100
+hg19_ct_UserTrack_3545_3         1.92e-02  100
+hg19_ct_UserTrack_3545_7         1.69e-02  38_[+1(9.90e-05)]_47
+hg19_ct_UserTrack_3545_2         5.38e-05  29_[-1(3.13e-07)]_56
+hg19_ct_UserTrack_3545_4         2.79e-02  100
+hg19_ct_UserTrack_3545_4         9.98e-01  100
+hg19_ct_UserTrack_3545_5         4.37e-02  100
+hg19_ct_UserTrack_3545_4         4.39e-04  55_[+1(2.55e-06)]_30
+hg19_ct_UserTrack_3545_5         1.26e-03  69_[+1(7.36e-06)]_16
+hg19_ct_UserTrack_3545_4         4.37e-02  100
+hg19_ct_UserTrack_3545_3         8.41e-03  59_[+1(4.91e-05)]_26
+hg19_ct_UserTrack_3545_1         1.12e-02  54_[-1(6.56e-05)]_31
+hg19_ct_UserTrack_3545_7         1.89e-01  100
+hg19_ct_UserTrack_3545_5         3.34e-01  100
+hg19_ct_UserTrack_3545_7         5.96e-02  100
+hg19_ct_UserTrack_3545_6         1.48e-02  [-1(8.67e-05)]_85
+hg19_ct_UserTrack_3545_2         9.72e-03  57_[+1(5.68e-05)]_28
+hg19_ct_UserTrack_3545_5         1.03e-01  100
+hg19_ct_UserTrack_3545_5         3.18e-01  100
+hg19_ct_UserTrack_3545_6         8.68e-02  100
+hg19_ct_UserTrack_3545_4         3.21e-03  36_[+1(1.87e-05)]_49
+hg19_ct_UserTrack_3545_3         3.92e-02  100
+hg19_ct_UserTrack_3545_4         3.79e-03  46_[+1(2.21e-05)]_39
+hg19_ct_UserTrack_3545_6         1.03e-01  100
+hg19_ct_UserTrack_3545_4         1.69e-02  50_[-1(9.90e-05)]_35
+hg19_ct_UserTrack_3545_4         1.86e-03  30_[+1(1.09e-05)]_55
+hg19_ct_UserTrack_3545_5         8.74e-01  100
+hg19_ct_UserTrack_3545_4         6.18e-03  36_[-1(3.61e-05)]_49
+hg19_ct_UserTrack_3545_1         1.69e-02  57_[+1(9.90e-05)]_28
+hg19_ct_UserTrack_3545_4         3.92e-02  100
+hg19_ct_UserTrack_3545_7         1.69e-02  46_[-1(9.90e-05)]_39
+hg19_ct_UserTrack_3545_5         2.18e-02  100
+hg19_ct_UserTrack_3545_6         8.46e-04  53_[+1(4.92e-06)]_32
+hg19_ct_UserTrack_3545_7         1.29e-02  51_[-1(7.56e-05)]_34
+hg19_ct_UserTrack_3545_4         1.04e-03  56_[-1(6.03e-06)]_29
+hg19_ct_UserTrack_3545_1         3.51e-02  100
+hg19_ct_UserTrack_3545_4         2.24e-03  40_[+1(1.30e-05)]_45
+hg19_ct_UserTrack_3545_2         7.23e-02  100
+hg19_ct_UserTrack_3545_7         2.47e-02  100
+hg19_ct_UserTrack_3545_1         6.79e-01  100
+hg19_ct_UserTrack_3545_2         2.47e-02  100
+hg19_ct_UserTrack_3545_5         5.39e-02  100
+hg19_ct_UserTrack_3545_8         6.57e-02  100
+hg19_ct_UserTrack_3545_8         3.13e-02  100
+hg19_ct_UserTrack_3545_3         1.26e-03  17_[+1(7.36e-06)]_68
+hg19_ct_UserTrack_3545_6         1.42e-01  100
+hg19_ct_UserTrack_3545_5         1.86e-03  46_[-1(1.09e-05)]_39
+hg19_ct_UserTrack_3545_3         5.39e-02  100
+hg19_ct_UserTrack_3545_7         9.48e-02  100
+hg19_ct_UserTrack_3545_2         4.86e-02  100
+hg19_ct_UserTrack_3545_3         1.32e-01  100
+hg19_ct_UserTrack_3545_1         8.46e-04  63_[+1(4.92e-06)]_22
+hg19_ct_UserTrack_3545_3         5.38e-05  69_[+1(3.13e-07)]_16
+hg19_ct_UserTrack_3545_7         1.53e-01  100
+hg19_ct_UserTrack_3545_6         1.27e-04  36_[+1(7.36e-07)]_49
+hg19_ct_UserTrack_3545_4         1.04e-03  46_[+1(6.03e-06)]_39
+hg19_ct_UserTrack_3545_3         4.86e-02  100
+hg19_ct_UserTrack_3545_2         3.13e-02  100
+hg19_ct_UserTrack_3545_9         1.12e-02  58_[-1(6.56e-05)]_27
+hg19_ct_UserTrack_3545_6         1.48e-02  6_[+1(8.67e-05)]_79
+hg19_ct_UserTrack_3545_7         7.23e-03  69_[+1(4.22e-05)]_16
+hg19_ct_UserTrack_3545_2         3.34e-01  100
+hg19_ct_UserTrack_3545_6         1.12e-02  82_[-1(6.56e-05)]_3
+hg19_ct_UserTrack_3545_5         3.21e-03  27_[+1(1.87e-05)]_58
+hg19_ct_UserTrack_3545_4         1.92e-02  100
+hg19_ct_UserTrack_3545_5         2.79e-02  100
+hg19_ct_UserTrack_3545_2         1.03e-01  100
+hg19_ct_UserTrack_3545_3         8.41e-03  19_[+1(4.91e-05)]_66
+hg19_ct_UserTrack_3545_1         7.23e-02  100
+hg19_ct_UserTrack_3545_2         2.24e-03  43_[-1(1.30e-05)]_42
+hg19_ct_UserTrack_3545_5         4.39e-04  50_[+1(2.55e-06)]_35
+hg19_ct_UserTrack_3545_7         2.18e-02  100
+hg19_ct_UserTrack_3545_4         1.42e-01  100
+hg19_ct_UserTrack_3545_6         5.96e-02  100
+hg19_ct_UserTrack_3545_1         9.48e-02  100
+hg19_ct_UserTrack_3545_6         9.72e-03  64_[+1(5.68e-05)]_21
+hg19_ct_UserTrack_3545_2         1.03e-01  100
+hg19_ct_UserTrack_3545_6         3.79e-03  39_[-1(2.21e-05)]_46
+hg19_ct_UserTrack_3545_4         3.13e-02  100
+hg19_ct_UserTrack_3545_4         5.48e-04  32_[+1(3.18e-06)]_53
+hg19_ct_UserTrack_3545_3         1.12e-02  24_[+1(6.56e-05)]_61
+hg19_ct_UserTrack_3545_4         1.64e-04  45_[-1(9.55e-07)]_40
+hg19_ct_UserTrack_3545_4         8.41e-03  29_[-1(4.91e-05)]_56
+hg19_ct_UserTrack_3545_4         5.48e-04  84_[-1(3.18e-06)]_1
+hg19_ct_UserTrack_3545_1         3.51e-01  100
+hg19_ct_UserTrack_3545_5         1.03e-01  100
+hg19_ct_UserTrack_3545_7         1.86e-03  7_[-1(5.68e-05)]_51_[-1(1.09e-05)]_12
+hg19_ct_UserTrack_3545_4         1.42e-01  100
+hg19_ct_UserTrack_3545_6         4.33e-01  100
+hg19_ct_UserTrack_3545_1         1.69e-02  45_[+1(9.90e-05)]_40
+hg19_ct_UserTrack_3545_5         5.39e-02  100
+hg19_ct_UserTrack_3545_4         2.15e-01  100
+hg19_ct_UserTrack_3545_5         3.51e-02  100
+hg19_ct_UserTrack_3545_9         8.41e-03  65_[-1(4.91e-05)]_20
+hg19_ct_UserTrack_3545_7         1.86e-03  34_[-1(1.09e-05)]_51
+hg19_ct_UserTrack_3545_1         5.29e-03  41_[+1(3.09e-05)]_44
+hg19_ct_UserTrack_3545_2         3.21e-03  59_[-1(1.87e-05)]_26
+hg19_ct_UserTrack_3545_7         1.00e+00  100
+hg19_ct_UserTrack_3545_2         5.38e-05  40_[-1(3.13e-07)]_45
+hg19_ct_UserTrack_3545_5         4.39e-04  33_[+1(2.55e-06)]_52
+hg19_ct_UserTrack_3545_5         8.68e-02  100
+hg19_ct_UserTrack_3545_5         6.57e-02  100
+hg19_ct_UserTrack_3545_4         4.37e-02  100
+hg19_ct_UserTrack_3545_2         8.41e-03  40_[+1(4.91e-05)]_45
+hg19_ct_UserTrack_3545_2         1.92e-02  100
+hg19_ct_UserTrack_3545_3         3.21e-03  28_[-1(1.87e-05)]_57
+hg19_ct_UserTrack_3545_2         6.24e-01  100
+hg19_ct_UserTrack_3545_9         3.92e-02  100
+hg19_ct_UserTrack_3545_3         6.78e-04  53_[+1(3.94e-06)]_32
+hg19_ct_UserTrack_3545_4         1.29e-02  30_[+1(7.56e-05)]_55
+hg19_ct_UserTrack_3545_6         6.18e-03  3_[+1(3.61e-05)]_82
+hg19_ct_UserTrack_3545_6         1.53e-01  100
+hg19_ct_UserTrack_3545_6         4.39e-04  69_[+1(2.55e-06)]_16
+hg19_ct_UserTrack_3545_5         2.09e-05  45_[+1(1.21e-07)]_40
+hg19_ct_UserTrack_3545_4         1.04e-03  54_[+1(6.03e-06)]_31
+hg19_ct_UserTrack_3545_3         1.12e-02  23_[+1(6.56e-05)]_62
+hg19_ct_UserTrack_3545_5         4.17e-01  100
+hg19_ct_UserTrack_3545_5         1.64e-01  100
+hg19_ct_UserTrack_3545_1         5.16e-01  100
+hg19_ct_UserTrack_3545_2         2.18e-02  100
+hg19_ct_UserTrack_3545_6         8.15e-01  100
+hg19_ct_UserTrack_3545_4         9.48e-02  100
+hg19_ct_UserTrack_3545_4         1.32e-01  100
+hg19_ct_UserTrack_3545_1         7.23e-03  51_[+1(4.22e-05)]_34
+hg19_ct_UserTrack_3545_3         3.44e-04  39_[+1(2.00e-06)]_46
+hg19_ct_UserTrack_3545_7         1.64e-01  100
+hg19_ct_UserTrack_3545_1         1.86e-03  24_[+1(1.09e-05)]_61
+hg19_ct_UserTrack_3545_2         1.92e-02  100
+hg19_ct_UserTrack_3545_7         6.57e-02  100
+hg19_ct_UserTrack_3545_7         8.46e-04  29_[+1(4.92e-06)]_56
+hg19_ct_UserTrack_3545_3         7.93e-02  100
+hg19_ct_UserTrack_3545_5         3.79e-03  29_[-1(2.21e-05)]_56
+hg19_ct_UserTrack_3545_2         2.24e-03  34_[-1(1.30e-05)]_51
+hg19_ct_UserTrack_3545_4         2.74e-04  69_[-1(1.59e-06)]_16
+hg19_ct_UserTrack_3545_1         4.86e-02  100
+hg19_ct_UserTrack_3545_4         1.29e-02  44_[+1(7.56e-05)]_41
+hg19_ct_UserTrack_3545_4         7.23e-03  83_[-1(4.22e-05)]_2
+hg19_ct_UserTrack_3545_2         1.12e-02  33_[+1(6.56e-05)]_52
+hg19_ct_UserTrack_3545_1         1.26e-03  41_[+1(7.36e-06)]_44
+hg19_ct_UserTrack_3545_2         2.79e-02  100
+hg19_ct_UserTrack_3545_7         1.76e-01  100
+hg19_ct_UserTrack_3545_7         3.51e-02  100
+hg19_ct_UserTrack_3545_4         5.29e-03  59_[-1(3.09e-05)]_26
+hg19_ct_UserTrack_3545_5         9.88e-01  100
+hg19_ct_UserTrack_3545_7         3.67e-01  100
+hg19_ct_UserTrack_3545_5         7.29e-05  60_[-1(4.24e-07)]_25
+hg19_ct_UserTrack_3545_5         4.37e-02  100
+hg19_ct_UserTrack_3545_4         1.27e-04  73_[-1(7.36e-07)]_12
+hg19_ct_UserTrack_3545_1         4.37e-02  100
+hg19_ct_UserTrack_3545_6         3.84e-01  100
+hg19_ct_UserTrack_3545_3         7.99e-01  100
+hg19_ct_UserTrack_3545_3         3.44e-04  51_[+1(2.00e-06)]_34
+hg19_ct_UserTrack_3545_1         3.13e-02  100
+hg19_ct_UserTrack_3545_2         2.47e-02  100
+hg19_ct_UserTrack_3545_7         8.68e-02  100
+hg19_ct_UserTrack_3545_1         1.26e-03  47_[+1(7.36e-06)]_38
+hg19_ct_UserTrack_3545_1         4.39e-04  51_[+1(2.55e-06)]_34
+hg19_ct_UserTrack_3545_4         1.48e-02  28_[+1(8.67e-05)]_57
+hg19_ct_UserTrack_3545_4         8.57e-01  100
+hg19_ct_UserTrack_3545_1         1.69e-02  37_[+1(9.90e-05)]_48
+hg19_ct_UserTrack_3545_6         1.54e-03  37_[-1(8.97e-06)]_48
+hg19_ct_UserTrack_3545_1         8.84e-01  100
+hg19_ct_UserTrack_3545_2         3.21e-03  20_[+1(2.21e-05)]_18_[-1(1.87e-05)]_32
+hg19_ct_UserTrack_3545_4         1.27e-04  60_[+1(7.36e-07)]_25
+hg19_ct_UserTrack_3545_2         9.48e-02  100
+hg19_ct_UserTrack_3545_4         2.24e-03  30_[+1(1.30e-05)]_55
+hg19_ct_UserTrack_3545_8         1.42e-01  100
+hg19_ct_UserTrack_3545_2         8.57e-01  100
+hg19_ct_UserTrack_3545_3         1.86e-03  2_[-1(1.09e-05)]_83
+hg19_ct_UserTrack_3545_6         9.48e-02  100
+hg19_ct_UserTrack_3545_4         3.92e-02  100
+hg19_ct_UserTrack_3545_2         2.02e-01  100
+hg19_ct_UserTrack_3545_7         9.69e-05  67_[-1(5.64e-07)]_18
+hg19_ct_UserTrack_3545_2         1.69e-02  50_[-1(9.90e-05)]_35
+hg19_ct_UserTrack_3545_7         9.72e-03  50_[+1(5.68e-05)]_35
+hg19_ct_UserTrack_3545_6         7.93e-02  100
+hg19_ct_UserTrack_3545_1         1.26e-03  43_[-1(7.36e-06)]_42
+hg19_ct_UserTrack_3545_5         8.68e-02  100
+hg19_ct_UserTrack_3545_5         2.18e-02  100
+hg19_ct_UserTrack_3545_6         7.93e-02  100
+hg19_ct_UserTrack_3545_5         7.23e-03  22_[-1(4.22e-05)]_63
+hg19_ct_UserTrack_3545_7         1.03e-01  100
+hg19_ct_UserTrack_3545_1         4.86e-02  100
+hg19_ct_UserTrack_3545_5         7.23e-03  50_[+1(4.22e-05)]_35
+hg19_ct_UserTrack_3545_3         1.26e-03  66_[+1(7.36e-06)]_19
+hg19_ct_UserTrack_3545_3         1.12e-02  25_[-1(6.56e-05)]_60
+hg19_ct_UserTrack_3545_5         1.29e-02  64_[-1(7.56e-05)]_21
+hg19_ct_UserTrack_3545_1         5.29e-03  23_[-1(3.09e-05)]_62
+hg19_ct_UserTrack_3545_6         2.69e-03  68_[-1(1.56e-05)]_17
+hg19_ct_UserTrack_3545_1         5.96e-02  100
+hg19_ct_UserTrack_3545_4         6.66e-01  100
+hg19_ct_UserTrack_3545_7         2.15e-01  100
+hg19_ct_UserTrack_3545_7         5.96e-02  100
+hg19_ct_UserTrack_3545_4         3.13e-02  100
+hg19_ct_UserTrack_3545_3         4.86e-02  100
+hg19_ct_UserTrack_3545_6         1.29e-02  45_[+1(7.56e-05)]_40
+hg19_ct_UserTrack_3545_1         4.49e-03  50_[+1(2.62e-05)]_35
+hg19_ct_UserTrack_3545_2         1.03e-01  100
+hg19_ct_UserTrack_3545_3         6.57e-02  100
+hg19_ct_UserTrack_3545_2         1.12e-02  58_[+1(6.56e-05)]_27
+hg19_ct_UserTrack_3545_6         1.42e-01  100
+hg19_ct_UserTrack_3545_4         6.18e-03  73_[+1(3.61e-05)]_12
+hg19_ct_UserTrack_3545_1         6.18e-03  71_[+1(3.61e-05)]_14
+hg19_ct_UserTrack_3545_1         9.99e-01  100
+hg19_ct_UserTrack_3545_2         9.72e-03  67_[-1(5.68e-05)]_18
+hg19_ct_UserTrack_3545_5         1.29e-02  37_[+1(7.56e-05)]_48
+hg19_ct_UserTrack_3545_2         2.79e-02  100
+hg19_ct_UserTrack_3545_2         5.39e-02  100
+hg19_ct_UserTrack_3545_5         1.29e-02  42_[+1(7.56e-05)]_43
+hg19_ct_UserTrack_3545_3         1.89e-01  100
+hg19_ct_UserTrack_3545_9         1.92e-02  100
+hg19_ct_UserTrack_3545_1         9.48e-02  100
+hg19_ct_UserTrack_3545_4         1.86e-03  52_[-1(1.09e-05)]_33
+hg19_ct_UserTrack_3545_6         1.64e-01  100
+hg19_ct_UserTrack_3545_5         1.12e-02  46_[+1(6.56e-05)]_39
+hg19_ct_UserTrack_3545_5         1.53e-01  100
+hg19_ct_UserTrack_3545_7         3.92e-02  100
+hg19_ct_UserTrack_3545_1         6.57e-02  100
+hg19_ct_UserTrack_3545_7         5.96e-02  100
+hg19_ct_UserTrack_3545_5         1.00e+00  100
+hg19_ct_UserTrack_3545_6         3.79e-03  52_[-1(2.21e-05)]_33
+hg19_ct_UserTrack_3545_1         5.48e-04  41_[-1(3.18e-06)]_44
+hg19_ct_UserTrack_3545_4         6.57e-02  100
+hg19_ct_UserTrack_3545_4         8.68e-02  100
+hg19_ct_UserTrack_3545_3         8.79e-01  100
+hg19_ct_UserTrack_3545_7         2.15e-01  100
+hg19_ct_UserTrack_3545_7         1.26e-03  49_[+1(7.36e-06)]_36
+hg19_ct_UserTrack_3545_3         5.39e-02  100
+hg19_ct_UserTrack_3545_6         5.96e-02  100
+hg19_ct_UserTrack_3545_6         3.51e-01  100
+hg19_ct_UserTrack_3545_5         1.29e-02  50_[+1(7.56e-05)]_35
+hg19_ct_UserTrack_3545_3         5.39e-02  100
+hg19_ct_UserTrack_3545_1         7.17e-01  100
+hg19_ct_UserTrack_3545_5         1.32e-01  100
+hg19_ct_UserTrack_3545_5         1.12e-01  100
+hg19_ct_UserTrack_3545_4         2.47e-02  100
+hg19_ct_UserTrack_3545_1         1.64e-01  100
+hg19_ct_UserTrack_3545_7         9.53e-01  100
+hg19_ct_UserTrack_3545_8         3.79e-03  38_[+1(2.21e-05)]_47
+hg19_ct_UserTrack_3545_7         7.99e-01  100
+hg19_ct_UserTrack_3545_5         3.03e-01  100
+hg19_ct_UserTrack_3545_7         5.39e-02  100
+hg19_ct_UserTrack_3545_7         2.47e-02  100
+hg19_ct_UserTrack_3545_1         6.18e-03  64_[+1(3.61e-05)]_21
+hg19_ct_UserTrack_3545_5         8.68e-02  100
+hg19_ct_UserTrack_3545_8         9.48e-02  100
+hg19_ct_UserTrack_3545_2         1.92e-02  100
+hg19_ct_UserTrack_3545_8         1.29e-02  20_[-1(7.56e-05)]_65
+hg19_ct_UserTrack_3545_6         1.86e-03  2_[-1(1.09e-05)]_83
+hg19_ct_UserTrack_3545_5         2.47e-02  100
+hg19_ct_UserTrack_3545_7         4.86e-02  100
+hg19_ct_UserTrack_3545_5         1.53e-01  100
+hg19_ct_UserTrack_3545_9         1.76e-01  100
+hg19_ct_UserTrack_3545_1         5.96e-02  100
+hg19_ct_UserTrack_3545_7         7.23e-03  76_[-1(4.22e-05)]_9
+hg19_ct_UserTrack_3545_2         8.46e-04  34_[+1(4.92e-06)]_51
+hg19_ct_UserTrack_3545_3         1.48e-02  70_[-1(8.67e-05)]_15
+hg19_ct_UserTrack_3545_6         7.23e-03  27_[+1(4.22e-05)]_58
+hg19_ct_UserTrack_3545_2         5.96e-02  100
+hg19_ct_UserTrack_3545_4         2.29e-01  100
+hg19_ct_UserTrack_3545_5         4.37e-02  100
+hg19_ct_UserTrack_3545_9         4.39e-04  60_[+1(2.55e-06)]_25
+hg19_ct_UserTrack_3545_4         1.92e-02  100
+hg19_ct_UserTrack_3545_6         6.78e-04  18_[-1(3.94e-06)]_67
+hg19_ct_UserTrack_3545_2         8.46e-04  45_[-1(4.92e-06)]_40
+hg19_ct_UserTrack_3545_1         3.13e-02  100
+hg19_ct_UserTrack_3545_1         2.47e-02  100
+hg19_ct_UserTrack_3545_7         9.48e-02  100
+hg19_ct_UserTrack_3545_2         2.69e-03  78_[-1(1.56e-05)]_7
+hg19_ct_UserTrack_3545_5         2.47e-02  100
+hg19_ct_UserTrack_3545_4         8.68e-02  100
+hg19_ct_UserTrack_3545_7         3.51e-02  100
+hg19_ct_UserTrack_3545_7         7.05e-01  100
+hg19_ct_UserTrack_3545_3         4.37e-02  100
+hg19_ct_UserTrack_3545_4         9.48e-02  100
+hg19_ct_UserTrack_3545_5         3.92e-02  100
+hg19_ct_UserTrack_3545_1         1.22e-01  100
+hg19_ct_UserTrack_3545_7         2.02e-01  100
+hg19_ct_UserTrack_3545_7         5.29e-03  24_[+1(3.09e-05)]_61
+hg19_ct_UserTrack_3545_2         5.32e-01  100
+hg19_ct_UserTrack_3545_3         1.86e-03  42_[-1(1.09e-05)]_43
+hg19_ct_UserTrack_3545_5         5.29e-03  15_[+1(3.09e-05)]_70
+hg19_ct_UserTrack_3545_3         2.24e-03  46_[-1(1.30e-05)]_39
+hg19_ct_UserTrack_3545_4         6.18e-03  37_[-1(3.61e-05)]_48
+hg19_ct_UserTrack_3545_2         9.53e-01  100
+hg19_ct_UserTrack_3545_9         2.13e-04  49_[-1(1.24e-06)]_36
+hg19_ct_UserTrack_3545_6         2.47e-02  100
+hg19_ct_UserTrack_3545_9         5.96e-02  100
+hg19_ct_UserTrack_3545_7         1.26e-03  63_[+1(7.36e-06)]_22
+hg19_ct_UserTrack_3545_2         8.41e-03  55_[-1(4.91e-05)]_30
+hg19_ct_UserTrack_3545_6         2.13e-04  39_[+1(1.24e-06)]_46
+hg19_ct_UserTrack_3545_7         4.39e-04  19_[-1(2.55e-06)]_66
+hg19_ct_UserTrack_3545_6         3.51e-02  100
+hg19_ct_UserTrack_3545_7         2.79e-02  100
+hg19_ct_UserTrack_3545_6         3.51e-02  100
+hg19_ct_UserTrack_3545_3         1.26e-03  36_[+1(7.36e-06)]_49
+hg19_ct_UserTrack_3545_2         2.69e-03  41_[+1(1.56e-05)]_44
+hg19_ct_UserTrack_3545_5         2.02e-01  100
+hg19_ct_UserTrack_3545_5         2.69e-03  70_[-1(1.56e-05)]_15
+hg19_ct_UserTrack_3545_5         1.12e-02  53_[+1(6.56e-05)]_32
+hg19_ct_UserTrack_3545_1         6.78e-04  28_[-1(3.94e-06)]_57
+hg19_ct_UserTrack_3545_7         3.13e-02  100
+hg19_ct_UserTrack_3545_6         1.12e-01  100
+hg19_ct_UserTrack_3545_3         1.48e-02  75_[-1(8.67e-05)]_10
+hg19_ct_UserTrack_3545_6         3.21e-03  55_[-1(1.87e-05)]_30
+hg19_ct_UserTrack_3545_3         9.72e-03  49_[-1(5.68e-05)]_36
+hg19_ct_UserTrack_3545_4         2.57e-01  100
+hg19_ct_UserTrack_3545_1         6.78e-04  76_[+1(3.94e-06)]_9
+hg19_ct_UserTrack_3545_1         1.12e-02  64_[-1(6.56e-05)]_21
+hg19_ct_UserTrack_3545_3         1.04e-03  73_[+1(6.03e-06)]_12
+hg19_ct_UserTrack_3545_2         5.39e-02  100
+hg19_ct_UserTrack_3545_2         1.12e-02  56_[+1(6.56e-05)]_29
+hg19_ct_UserTrack_3545_2         6.18e-03  66_[-1(3.61e-05)]_19
+hg19_ct_UserTrack_3545_3         5.39e-02  100
+hg19_ct_UserTrack_3545_6         3.67e-01  100
+hg19_ct_UserTrack_3545_2         5.39e-02  100
+hg19_ct_UserTrack_3545_3         1.92e-02  100
+hg19_ct_UserTrack_3545_5         1.29e-02  56_[+1(7.56e-05)]_29
+hg19_ct_UserTrack_3545_4         5.29e-03  57_[+1(3.09e-05)]_28
+hg19_ct_UserTrack_3545_7         7.23e-02  100
+hg19_ct_UserTrack_3545_7         9.72e-03  10_[-1(5.68e-05)]_75
+hg19_ct_UserTrack_3545_4         1.29e-02  46_[-1(7.56e-05)]_39
+hg19_ct_UserTrack_3545_3         2.47e-02  100
+hg19_ct_UserTrack_3545_1         6.18e-03  45_[+1(3.61e-05)]_40
+hg19_ct_UserTrack_3545_6         3.92e-02  100
+hg19_ct_UserTrack_3545_3         9.96e-01  100
+hg19_ct_UserTrack_3545_2         2.24e-03  54_[+1(1.30e-05)]_31
+hg19_ct_UserTrack_3545_7         2.18e-02  100
+hg19_ct_UserTrack_3545_4         1.29e-02  14_[-1(7.56e-05)]_71
+hg19_ct_UserTrack_3545_3         9.72e-03  29_[-1(5.68e-05)]_56
+hg19_ct_UserTrack_3545_3         1.48e-02  60_[-1(8.67e-05)]_25
+hg19_ct_UserTrack_3545_2         8.41e-03  13_[+1(4.91e-05)]_72
+hg19_ct_UserTrack_3545_4         4.39e-04  57_[-1(2.55e-06)]_28
+hg19_ct_UserTrack_3545_6         1.32e-01  100
+hg19_ct_UserTrack_3545_6         1.92e-02  100
+hg19_ct_UserTrack_3545_1         1.69e-02  35_[-1(9.90e-05)]_50
+hg19_ct_UserTrack_3545_5         2.57e-01  100
+hg19_ct_UserTrack_3545_6         5.39e-02  100
+hg19_ct_UserTrack_3545_9         8.46e-04  33_[+1(4.92e-06)]_52
+hg19_ct_UserTrack_3545_5         7.93e-02  100
+hg19_ct_UserTrack_3545_3         1.12e-02  61_[+1(6.56e-05)]_24
+hg19_ct_UserTrack_3545_8         1.12e-02  56_[+1(6.56e-05)]_29
+hg19_ct_UserTrack_3545_5         3.21e-03  41_[-1(1.87e-05)]_44
+hg19_ct_UserTrack_3545_7         6.18e-03  59_[+1(3.61e-05)]_26
+hg19_ct_UserTrack_3545_4         1.48e-02  77_[-1(8.67e-05)]_8
+hg19_ct_UserTrack_3545_7         6.18e-03  76_[-1(3.61e-05)]_9
+hg19_ct_UserTrack_3545_5         5.48e-01  100
+hg19_ct_UserTrack_3545_1         2.47e-02  100
+hg19_ct_UserTrack_3545_6         2.69e-03  69_[+1(1.56e-05)]_16
+hg19_ct_UserTrack_3545_6         4.83e-01  100
+hg19_ct_UserTrack_3545_5         1.64e-01  100
+hg19_ct_UserTrack_3545_8         3.92e-02  100
+hg19_ct_UserTrack_3545_1         4.49e-03  39_[+1(2.62e-05)]_46
+hg19_ct_UserTrack_3545_1         2.86e-05  48_[+1(1.67e-07)]_37
+hg19_ct_UserTrack_3545_4         2.79e-02  100
+hg19_ct_UserTrack_3545_3         4.39e-04  67_[-1(2.55e-06)]_18
+hg19_ct_UserTrack_3545_6         1.69e-02  76_[+1(9.90e-05)]_9
+hg19_ct_UserTrack_3545_5         1.54e-03  68_[+1(8.97e-06)]_17
+hg19_ct_UserTrack_3545_7         5.16e-01  100
+hg19_ct_UserTrack_3545_2         5.29e-03  47_[+1(3.09e-05)]_38
+hg19_ct_UserTrack_3545_1         3.79e-03  52_[+1(2.21e-05)]_33
+hg19_ct_UserTrack_3545_3         3.79e-03  39_[+1(2.21e-05)]_46
+hg19_ct_UserTrack_3545_1         8.68e-02  100
+hg19_ct_UserTrack_3545_5         7.93e-02  100
+hg19_ct_UserTrack_3545_1         4.67e-01  100
+hg19_ct_UserTrack_3545_4         5.29e-03  31_[+1(3.09e-05)]_54
+hg19_ct_UserTrack_3545_1         1.64e-01  100
+hg19_ct_UserTrack_3545_4         2.29e-01  100
+hg19_ct_UserTrack_3545_1         7.23e-03  45_[-1(4.22e-05)]_40
+hg19_ct_UserTrack_3545_2         2.69e-03  41_[-1(1.56e-05)]_44
+hg19_ct_UserTrack_3545_6         7.28e-01  100
+hg19_ct_UserTrack_3545_6         8.46e-04  8_[-1(4.92e-06)]_77
+hg19_ct_UserTrack_3545_7         1.86e-03  34_[+1(1.09e-05)]_51
+hg19_ct_UserTrack_3545_7         2.29e-01  100
+hg19_ct_UserTrack_3545_6         1.69e-02  74_[-1(9.90e-05)]_11
+hg19_ct_UserTrack_3545_4         1.22e-01  100
+hg19_ct_UserTrack_3545_6         2.47e-02  100
+hg19_ct_UserTrack_3545_6         3.18e-01  100
+hg19_ct_UserTrack_3545_3         1.54e-03  54_[-1(8.97e-06)]_31
+hg19_ct_UserTrack_3545_3         5.48e-04  1_[-1(3.18e-06)]_84
+hg19_ct_UserTrack_3545_4         2.69e-03  46_[-1(1.56e-05)]_39
+hg19_ct_UserTrack_3545_6         3.51e-02  100
+hg19_ct_UserTrack_3545_4         2.47e-02  100
+hg19_ct_UserTrack_3545_5         1.89e-01  100
+hg19_ct_UserTrack_3545_4         1.12e-01  100
+hg19_ct_UserTrack_3545_7         6.18e-03  58_[-1(3.61e-05)]_27
+hg19_ct_UserTrack_3545_3         3.51e-02  100
+hg19_ct_UserTrack_3545_6         6.57e-02  100
+hg19_ct_UserTrack_3545_5         1.26e-03  75_[-1(7.36e-06)]_10
+hg19_ct_UserTrack_3545_6         6.57e-02  100
+hg19_ct_UserTrack_3545_3         2.79e-02  100
+hg19_ct_UserTrack_3545_7         3.92e-02  100
+hg19_ct_UserTrack_3545_7         7.23e-02  100
+hg19_ct_UserTrack_3545_7         4.49e-03  59_[-1(2.62e-05)]_26
+hg19_ct_UserTrack_3545_3         2.47e-02  100
+hg19_ct_UserTrack_3545_1         1.69e-02  29_[-1(9.90e-05)]_56
+hg19_ct_UserTrack_3545_2         4.17e-01  100
+hg19_ct_UserTrack_3545_2         3.21e-03  52_[-1(1.87e-05)]_33
+hg19_ct_UserTrack_3545_2         1.64e-04  21_[-1(9.55e-07)]_36_[-1(3.09e-05)]_13
+hg19_ct_UserTrack_3545_1         5.39e-02  100
+hg19_ct_UserTrack_3545_5         8.46e-04  35_[-1(4.92e-06)]_50
+hg19_ct_UserTrack_3545_4         5.29e-03  51_[-1(3.09e-05)]_34
+hg19_ct_UserTrack_3545_9         7.23e-03  41_[-1(4.22e-05)]_44
+hg19_ct_UserTrack_3545_7         2.72e-01  100
+hg19_ct_UserTrack_3545_3         7.93e-02  100
+hg19_ct_UserTrack_3545_1         3.51e-02  100
+hg19_ct_UserTrack_3545_5         5.39e-02  100
+hg19_ct_UserTrack_3545_5         3.51e-02  100
+hg19_ct_UserTrack_3545_6         3.03e-01  100
+hg19_ct_UserTrack_3545_3         1.76e-01  100
+hg19_ct_UserTrack_3545_6         2.43e-01  100
+hg19_ct_UserTrack_3545_5         2.69e-03  26_[+1(1.56e-05)]_59
+hg19_ct_UserTrack_3545_3         8.07e-01  100
+hg19_ct_UserTrack_3545_4         5.39e-02  100
+hg19_ct_UserTrack_3545_4         1.48e-02  61_[+1(8.67e-05)]_24
+hg19_ct_UserTrack_3545_6         1.86e-03  30_[-1(1.09e-05)]_55
+hg19_ct_UserTrack_3545_3         4.37e-02  100
+hg19_ct_UserTrack_3545_3         5.39e-02  100
+hg19_ct_UserTrack_3545_3         7.61e-01  100
+hg19_ct_UserTrack_3545_2         8.51e-01  100
+hg19_ct_UserTrack_3545_2         1.89e-01  100
+hg19_ct_UserTrack_3545_3         8.46e-04  67_[+1(4.92e-06)]_18
+hg19_ct_UserTrack_3545_7         4.37e-02  100
+hg19_ct_UserTrack_3545_2         4.49e-03  62_[-1(2.62e-05)]_23
+hg19_ct_UserTrack_3545_5         8.68e-02  100
+hg19_ct_UserTrack_3545_6         1.76e-01  100
+hg19_ct_UserTrack_3545_1         1.76e-01  100
+hg19_ct_UserTrack_3545_8         1.86e-03  29_[+1(1.09e-05)]_56
+hg19_ct_UserTrack_3545_1         6.18e-03  54_[+1(3.61e-05)]_31
+hg19_ct_UserTrack_3545_5         1.89e-01  100
+hg19_ct_UserTrack_3545_6         2.79e-02  100
+hg19_ct_UserTrack_3545_6         7.17e-06  45_[+1(4.17e-08)]_40
+hg19_ct_UserTrack_3545_3         6.53e-01  100
+hg19_ct_UserTrack_3545_1         3.13e-02  100
+--------------------------------------------------------------------------------
+
+********************************************************************************
+
+
+********************************************************************************
+Stopped because nmotifs = 1 reached.
+********************************************************************************
+
+CPU: loire
+
+********************************************************************************

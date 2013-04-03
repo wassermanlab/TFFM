@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>hit Module &mdash; TFFM  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TFFM  documentation" href="index.html" />
+    <link rel="next" title="drawing Module" href="drawing.html" />
+    <link rel="prev" title="tffm Module" href="tffm_module.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="drawing.html" title="drawing Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tffm_module.html" title="tffm Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TFFM  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-hit_module">
+<span id="hit-module"></span><h1>hit Module<a class="headerlink" href="#module-hit_module" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">platform:</th><td class="field-body">Unix</td>
+</tr>
+<tr class="field-even field"><th class="field-name">synopsis:</th><td class="field-body">Create the class HIT which represents a TFBS hit.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="hit_module.HIT">
+<em class="property">class </em><tt class="descclassname">hit_module.</tt><tt class="descname">HIT</tt><big>(</big><em>seq_record</em>, <em>start</em>, <em>end</em>, <em>strand</em>, <em>score</em>, <em>tffm=None</em>, <em>tffm_matched_state=-1</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define the representation of a TFBS hit.</p>
+<dl class="method">
+<dt id="hit_module.HIT.__eq__">
+<tt class="descname">__eq__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__eq__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the <strong>==</strong> operator. The comparison looks at the score.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.__ge__">
+<tt class="descname">__ge__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__ge__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__ge__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the <strong>&gt;=</strong> operator. The comparison looks at the score.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.__gt__">
+<tt class="descname">__gt__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__gt__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__gt__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the <strong>&gt;</strong> operator. The comparison looks at the score.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>seq_record</em>, <em>start</em>, <em>end</em>, <em>strand</em>, <em>score</em>, <em>tffm=None</em>, <em>tffm_matched_state=-1</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an instance of the <a class="reference internal" href="#hit_module.HIT" title="hit_module.HIT"><tt class="xref py py-class docutils literal"><span class="pre">HIT</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq_record</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.SeqRecord</span></tt>) &#8211; Sequence containing the hit.</li>
+<li><strong>start</strong> (<em>int</em>) &#8211; Start position of the hit.</li>
+<li><strong>end</strong> (<em>int</em>) &#8211; End position of the hit.</li>
+<li><strong>strand</strong> (<em>str</em>) &#8211; Strand of the hit on the sequence. It should be either &#8216;+&#8217;
+or &#8216;-&#8216;).</li>
+<li><strong>score</strong> (<em>float</em>) &#8211; TFFM score of the hit.</li>
+<li><strong>tffm</strong> (<tt class="xref py py-class docutils literal"><span class="pre">TFFM</span></tt>) &#8211; TFFM used to predict the hit (default: None).</li>
+<li><strong>tffm_matched_state</strong> (<em>int</em>) &#8211; Matching state in the TFFM to predict the hit
+(default: -1, i.e. no TFFM).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Warning :</th><td class="field-body"><p class="first">start and end are 1-based.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Warning :</th><td class="field-body"><p class="first">The seq_record attribute is not the actual sequence of the
+hit but the whole sequence containing the hit.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Todo :</th><td class="field-body"><p class="first last">Raise an error when the strand is wrong.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.__le__">
+<tt class="descname">__le__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__le__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__le__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the <strong>&lt;=</strong> operator. The comparison looks at the score.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.__len__">
+<tt class="descname">__len__</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give the length of the TFBS hit.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The length of the TFBS hit.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.__lt__">
+<tt class="descname">__lt__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__lt__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__lt__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the <strong>&lt;</strong> operator. The comparison looks at the score.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hit_module.HIT.__module__">
+<tt class="descname">__module__</tt><em class="property"> = 'hit_module'</em><a class="headerlink" href="#hit_module.HIT.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.__ne__">
+<tt class="descname">__ne__</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__ne__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__ne__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the <strong>!=</strong> operator. The comparison looks at the score.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.__str__">
+<tt class="descname">__str__</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give the string representation of the TFBS hit.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The string representing the hit in the following format:
+start       end     strand  sequence        tffm-name       tffm-state      score</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hit_module.HIT.sequence">
+<tt class="descname">sequence</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/hit_module.html#HIT.sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.HIT.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give the sequence of the TFBS hit.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The sequence of the TFBS hit.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="hit_module.get_start_end_strand">
+<tt class="descclassname">hit_module.</tt><tt class="descname">get_start_end_strand</tt><big>(</big><em>position</em>, <em>seq_record</em>, <em>tffm</em>, <em>negative</em><big>)</big><a class="reference internal" href="_modules/hit_module.html#get_start_end_strand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hit_module.get_start_end_strand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the start and end positions of a TFBS hit given its end position on the
+positive strand.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>position</strong> (<em>int</em>) &#8211; End position of the TFBS hit on the positive strand of the
+sequence.</li>
+<li><strong>seq_record</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.SeqRecord</span></tt>) &#8211; The actual sequence.</li>
+<li><strong>tffm</strong> (<tt class="xref py py-class docutils literal"><span class="pre">TFFM</span></tt>) &#8211; The TFFM used to predict the TFBS hit.</li>
+<li><strong>negative</strong> &#8211; Boolean set to True if the TFBS hit is on the negative
+strand of the sequence and False otherwise.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The start and end positions and the strand.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">tuple(int, int, str)</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first">The strand is &#8216;+&#8217; if the hit is on the positive strand and &#8216;-&#8216;
+otherwise.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Warning :</th><td class="field-body"><p class="first last">The input <em>position</em> is given 0-based as extracted from TFFM
+computations but the output start and end are 1-based since it is a
+more conventionnal way to print the TFBS hit positions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><em>Module author: Anthony Mathelier &lt;<a class="reference external" href="mailto:amathelier&#37;&#52;&#48;cmmt&#46;ubc&#46;ca">amathelier<span>&#64;</span>cmmt<span>&#46;</span>ubc<span>&#46;</span>ca</a>&gt;</em></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tffm_module.html"
+                        title="previous chapter">tffm Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="drawing.html"
+                        title="next chapter">drawing Module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/hit_module.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="drawing.html" title="drawing Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tffm_module.html" title="tffm Module"
+             >previous</a> |</li>
+        <li><a href="index.html">TFFM  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Anthony Mathelier.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

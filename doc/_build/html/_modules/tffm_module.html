@@ -1,0 +1,902 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tffm_module &mdash; TFFM  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="TFFM  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">TFFM  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for tffm_module</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :platform: Unix</span>
+<span class="sd">    :synopsis: Define the class representing the Transcription Factor Flexible</span>
+<span class="sd">        Models and the necessary functions to manipulate them.</span>
+<span class="sd">    :todo: Allow the construction of TFFMs using a different *de novo* motif</span>
+<span class="sd">        finding tool than MEME.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="c"># TODO Allow the construction of TFFMs using a different *de novo* motif</span>
+<span class="c"># finding tool.</span>
+
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">Bio.Motif.Parsers</span> <span class="kn">import</span> <span class="n">MEME</span>
+<span class="kn">import</span> <span class="nn">ghmm</span>
+
+<span class="kn">import</span> <span class="nn">drawing</span>
+<span class="kn">import</span> <span class="nn">exceptions_errors</span>
+<span class="kn">import</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">hit_module</span>
+
+<span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">ALPHABET</span><span class="p">,</span> <span class="n">EXTENDED_ALPHABET</span>
+
+
+<div class="viewcode-block" id="TFFM"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM">[docs]</a><span class="k">class</span> <span class="nc">TFFM</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">DiscreteEmissionHMM</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define the Transcription Factor Flexible Models.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Instances of this class have to be created through the</span>
+<span class="sd">        functions :func:`tffm_from_xml` or :func:`tffm_from_meme`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TFFM.__init__"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emission_domain</span><span class="p">,</span> <span class="n">distribution</span><span class="p">,</span> <span class="n">cmodel</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s">&quot;TFFM&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct an instance of the TFFM class.</span>
+
+<span class="sd">        :arg emission_domain: The emission domain of the</span>
+<span class="sd">            underlying :class:`ghmm.HMM`.</span>
+<span class="sd">        :type emission_domain: ghmm.EmissionDomain</span>
+<span class="sd">        :arg distribution: The distribution over the emission domain.</span>
+<span class="sd">        :type distribution: :class:`ghmm.Distribution`</span>
+<span class="sd">        :arg cmodel: The cmodel (HMM itself implemented in C) of the underlying</span>
+<span class="sd">            :class:`ghmm.HMM`.</span>
+<span class="sd">        :arg kind: The TFFM can be either a 1st-order or a detailed TFFM, use</span>
+<span class="sd">            &#39;1st-order&#39; or &#39;detailed&#39; respectively.</span>
+<span class="sd">        :type kind: str</span>
+<span class="sd">        :arg name: Give the name of the TFFM. &#39;TFFM&#39; is given by default.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :raises: :class:`exceptions.TFFMKindError` when the given kind is</span>
+<span class="sd">            neither &#39;1st-order&#39; nor &#39;detailed&#39;.</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">DiscreteEmissionHMM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">emission_domain</span><span class="p">,</span>
+            <span class="n">distribution</span><span class="p">,</span> <span class="n">cmodel</span><span class="p">)</span>  <span class="c"># Construct the underlying ghmm.EmissionHMM</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s">&quot;1st-order&quot;</span> <span class="ow">and</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions_errors</span><span class="o">.</span><span class="n">TFFMKindError</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">kind</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</div>
+<div class="viewcode-block" id="TFFM.__del__"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.__del__">[docs]</a>    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the underlying C structures.</span>
+
+<span class="sd">        :note: The destruction is made using</span>
+<span class="sd">            the :class:`ghmm.DiscreteEmissionHMM` destructor.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">DiscreteEmissionHMM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__del__</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TFFM.__len__"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Give the length of the TFFM, i.e. the number of nucleotides in the</span>
+<span class="sd">        model excluding the background.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="TFFM.background_emission_proba"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.background_emission_proba">[docs]</a>    <span class="k">def</span> <span class="nf">background_emission_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the emission probabilities of the nucleotides in the background</span>
+<span class="sd">        state.</span>
+
+<span class="sd">        :returns: A dictionnary with characters &#39;A&#39;, &#39;C&#39;, &#39;G&#39;, and &#39;T&#39; as keys</span>
+<span class="sd">            and the corresponding probabilities as values.</span>
+<span class="sd">        :rtype: dict</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">emissions</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+            <span class="n">last_emissions</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+            <span class="c"># Retrieve emission proba for the first state which is not</span>
+            <span class="c"># 1st-order</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="n">last_emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEmission</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span>
+            <span class="c"># Compute emission proba for the background</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                    <span class="n">proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEmission</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span>
+                    <span class="n">proba</span> <span class="o">*=</span> <span class="n">last_emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                    <span class="n">emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">proba</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+            <span class="c"># Compute emission proba for the background</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                    <span class="n">proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTransition</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span>
+                    <span class="n">emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">proba</span>
+            <span class="n">somme</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">emissions</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="c"># Need to divide by somme since four states are representing</span>
+                <span class="c"># the same position within a detailed TFFM</span>
+                <span class="n">emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">/=</span> <span class="n">somme</span>
+        <span class="k">return</span> <span class="n">emissions</span>
+</div>
+<div class="viewcode-block" id="TFFM.print_summary_logo"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.print_summary_logo">[docs]</a>    <span class="k">def</span> <span class="nf">print_summary_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print the svg code of the corresponding summary logo (i.e. similar to a</span>
+<span class="sd">        regular sequence logo).</span>
+
+<span class="sd">        :arg output: Stream where to output the svg</span>
+<span class="sd">            (defaut: :class:`sys.stdout`).</span>
+<span class="sd">        :type output: file</span>
+
+<span class="sd">        :note: The *output* argument is not a file name but it is an</span>
+<span class="sd">            **already** open file stream.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">drawing</span><span class="o">.</span><span class="n">draw_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;summary&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.print_dense_logo"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.print_dense_logo">[docs]</a>    <span class="k">def</span> <span class="nf">print_dense_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print the svg code of the corresponding dense logo (i.e. displaying the</span>
+<span class="sd">        dinucleotide dependencies captured by the TFFM).</span>
+
+<span class="sd">        :arg output: Stream where to output the svg</span>
+<span class="sd">            (defaut: :class:`sys.stdout`).</span>
+<span class="sd">        :type output: file</span>
+
+<span class="sd">        :note: The *output* argument is not a file name but it is an</span>
+<span class="sd">            **already** open file stream.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">drawing</span><span class="o">.</span><span class="n">draw_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;dense&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.get_positions_ic"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.get_positions_ic">[docs]</a>    <span class="k">def</span> <span class="nf">get_positions_ic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Give the information content for every positions of the motif modeled</span>
+<span class="sd">        by the TFFM.</span>
+
+<span class="sd">        :returns: A list of floats giving the information contents of the</span>
+<span class="sd">            positions.</span>
+<span class="sd">        :rtype: list</span>
+
+<span class="sd">        :note: The output is an ordered list following the order of the</span>
+<span class="sd">            positions within the motif.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">previous_position_proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_emission_proba</span><span class="p">()</span>
+        <span class="n">positions_information_content</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c"># Get the position of the first matching state in the TFFM.</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">drawing</span><span class="o">.</span><span class="n">get_position_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c"># Iterate over all matching position in the TFFM.</span>
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="n">start</span><span class="p">):</span>
+            <span class="n">position_proba</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+            <span class="c"># Compute the emission probabilities for each nucleotide at the</span>
+            <span class="c"># current position</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="n">emissions</span> <span class="o">=</span> <span class="n">get_emission_update_pos_proba</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="n">position_proba</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">previous_position_proba</span> <span class="o">=</span> <span class="n">position_proba</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+                <span class="n">somme</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">previous_position_proba</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="c"># For a detailed TFFM, one position is composed of 4 states so</span>
+                <span class="c"># we need to use proportions to compute proba.</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                    <span class="n">previous_position_proba</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">/=</span> <span class="n">somme</span>
+            <span class="c"># Compute the entropy given the corresponding probabilites and then</span>
+            <span class="c"># the underlying information content</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">previous_position_proba</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="n">previous_position_proba</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="n">emissions</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">keys</span><span class="p">)</span>
+            <span class="n">entropy</span> <span class="o">=</span> <span class="n">compute_entropy</span><span class="p">(</span><span class="n">emissions</span><span class="p">)</span>
+            <span class="n">positions_information_content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="n">entropy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">positions_information_content</span>
+</div>
+<div class="viewcode-block" id="TFFM.get_information_content"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.get_information_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_information_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Give the information content of the whole TFFM.</span>
+
+<span class="sd">        :returns: A float corresponding to the information content of the TFFM.</span>
+<span class="sd">        :rtype: float</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">pos_ic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_positions_ic</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pos_ic</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.final_states"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.final_states">[docs]</a>    <span class="k">def</span> <span class="nf">final_states</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Give the list of final states in the HMM (i.e. corresponding to the</span>
+<span class="sd">        last matching position in the TFFM).</span>
+
+<span class="sd">        :returns: A list of final states as int.</span>
+<span class="sd">        :rtype: list</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="TFFM.train"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_file</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the TFFM using the fasta sequences to learn emission and</span>
+<span class="sd">        transition probabilities.</span>
+
+<span class="sd">        :note: The training of the underlying HMM is made using the Baum-Welsh</span>
+<span class="sd">            algorithm.</span>
+
+<span class="sd">        :arg training_file: The fasta file of the sequences to train the TFFM</span>
+<span class="sd">            on.</span>
+<span class="sd">        :type training_file: str</span>
+<span class="sd">        :arg epsilon: The least relative improvement cut-off in likelihood</span>
+<span class="sd">            compared to the previous iteration of the Baum-Welsh algorithm</span>
+<span class="sd">            (default: 0.0001).</span>
+<span class="sd">        :type epsilon: float</span>
+<span class="sd">        :arg max_iter: The maximum number of iteration of the Baum-Welsh</span>
+<span class="sd">            algorithm to reestimate the probabilities (default: 500).</span>
+<span class="sd">        :type max_iter: int</span>
+
+<span class="sd">        :todo: Check file and raise error if does not exist.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># TODO Check file and raise error if does not exist.</span>
+        <span class="n">training_sequences</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">SequenceSet</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">ALPHABET</span><span class="p">),</span>
+                <span class="n">training_file</span><span class="p">)</span>
+        <span class="c"># Need to give the same weight to all the sequences since it does not</span>
+        <span class="c"># seem to be done by default by ghmm.</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">set_sequences_weight</span><span class="p">(</span><span class="n">training_sequences</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baumWelch</span><span class="p">(</span><span class="n">training_sequences</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.scan_sequence"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.scan_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">scan_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_file</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">only_best</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply the TFFM on the fasta sequences and return the TFBS hits.</span>
+
+<span class="sd">        :arg seq_file: Fasta file giving the DNA sequences to apply the TFFM</span>
+<span class="sd">            on.</span>
+<span class="sd">        :type seq_file: str</span>
+<span class="sd">        :arg threshold: The threshold used to predict a hit (i.e. the minimal</span>
+<span class="sd">            probability value for a position to be considered a TFBS hit)</span>
+<span class="sd">            (default: 0.0).</span>
+<span class="sd">        :type threshold: float</span>
+<span class="sd">        :arg only_best: Argument to be set to :class:`True` if only the best</span>
+<span class="sd">            TFBS hit per sequence is to be reported (default: :class:`False`)</span>
+<span class="sd">        :type only_best: bool</span>
+<span class="sd">        :returns: TFBS hits through a generator.</span>
+<span class="sd">        :rtype: :class:`Generator` of :class:`HIT`</span>
+
+<span class="sd">        :note:  (**0.0&lt;=** *threshold* **&lt;=1.0**)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">sequence_list</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_fasta</span><span class="p">(</span><span class="n">seq_file</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">seq_record</span> <span class="ow">in</span> <span class="n">sequence_list</span><span class="p">:</span>
+            <span class="c"># Retrieve the hits on both the positive and the negative strands.</span>
+            <span class="n">hits_positive_strand</span> <span class="o">=</span> <span class="n">_get_hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+            <span class="n">hits_negative_strand</span> <span class="o">=</span> <span class="n">_get_hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span>
+                    <span class="n">negative</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">hits</span> <span class="o">=</span> <span class="n">merge_hits</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span>
+                    <span class="n">hits_negative_strand</span><span class="p">,</span> <span class="n">only_best</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">hits</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">hit</span>
+
+    <span class="c"># Not sure it is a good habit to trim in-place</span></div>
+<div class="viewcode-block" id="TFFM.trim_in_place"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.trim_in_place">[docs]</a>    <span class="k">def</span> <span class="nf">trim_in_place</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trim the current TFFM by removing edges with low information content.</span>
+
+<span class="sd">        :arg threshold: The minimal information content value for an edge TFFM</span>
+<span class="sd">            match position to be kept.</span>
+<span class="sd">        :type threshold: float</span>
+
+<span class="sd">        :warning: Trims the TFFM in place. To preserve the TFFM, use</span>
+<span class="sd">            the :func:`get_trimmed` method which returns a trimmed copy of the</span>
+<span class="sd">            TFFM but does not alter this TFFM. </span>
+
+<span class="sd">        :see also: :func:`get_trimmed`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">get_significant_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+        <span class="c"># Only the underlying HMM is to be trimmed by trimming the</span>
+        <span class="c"># corresponding transition and emission probability matrices</span>
+        <span class="n">new_hmm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_trimmed_hmm</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span>
+        <span class="c"># The trimming is made in-place so the instance attributes have to be</span>
+        <span class="c"># updated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmodel</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="o">.</span><span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="o">.</span><span class="n">M</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_type</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="o">.</span><span class="n">model_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxorder</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="o">.</span><span class="n">maxorder</span>
+</div>
+<div class="viewcode-block" id="TFFM.get_trimmed"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.get_trimmed">[docs]</a>    <span class="k">def</span> <span class="nf">get_trimmed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">new_name</span><span class="o">=</span><span class="s">&quot;TFFM&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trim the current TFFM by removing edges with low information content.</span>
+
+<span class="sd">        :arg threshold: The minimal information content value for an edge TFFM</span>
+<span class="sd">            match position to be kept.</span>
+<span class="sd">        :type threshold: float</span>
+<span class="sd">        :arg new_name: Name of the new TFFM to create (default:&#39;TFFM&#39;).</span>
+<span class="sd">        :type new_name: str</span>
+
+<span class="sd">        :returns: A TFFM corresponding to the current TFFM trimmed.</span>
+<span class="sd">        :rtype: :class:`TFFM`</span>
+
+<span class="sd">        :see also: :func:`trim_in_place`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">get_significant_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+        <span class="c"># Only the underlying HMM is to be trimmed by trimming the</span>
+        <span class="c"># corresponding transition and emission probability matrices</span>
+        <span class="n">new_hmm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_trimmed_hmm</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TFFM</span><span class="p">(</span><span class="n">new_hmm</span><span class="o">.</span><span class="n">emissionDomain</span><span class="p">,</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span>
+                <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="p">,</span> <span class="n">new_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM._get_trimmed_hmm"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM._get_trimmed_hmm">[docs]</a>    <span class="k">def</span> <span class="nf">_get_trimmed_hmm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the new trimmed HMM.</span>
+<span class="sd">    </span>
+<span class="sd">        :arg first: Position of the new first matching position.</span>
+<span class="sd">        :type first: int</span>
+<span class="sd">        :arg last: Position of the new last matching position.</span>
+<span class="sd">        :type last: int</span>
+<span class="sd">        :returns: The new trimmed HMM.</span>
+<span class="sd">        :rtype: :class:`ghmm.DiscreteEmissionHMM`</span>
+<span class="sd">    </span>
+<span class="sd">        :todo: Raise an error rather than a :func:`sys.exit` when the trimmed HMM</span>
+<span class="sd">            becomes empty.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">nb_states</span> <span class="o">=</span> <span class="n">last</span> <span class="o">-</span> <span class="n">first</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">nb_states</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c"># TODO raise an error rather than a sys.exit</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Trimmed HMM is empty!!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="c"># Retrieve the matrices of the current HMM</span>
+        <span class="n">matrices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asMatrices</span><span class="p">()</span>
+        <span class="n">transitions</span> <span class="o">=</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">emissions</span> <span class="o">=</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c"># Trim the transition matrices and update the emission matrices wrt the new</span>
+        <span class="c"># first and last positions by iterating through all the states</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">transitions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">transitions</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">nb_states</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">emissions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="n">first</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">first</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c"># Only keep the probabilities lying in the new matching positions</span>
+        <span class="n">transitions</span> <span class="o">=</span> <span class="n">transitions</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">transitions</span><span class="p">[</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">transitions</span><span class="p">[</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">emissions</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">initials</span> <span class="o">=</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">HMMFromMatrices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">emissionDomain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span>
+                <span class="n">transitions</span><span class="p">,</span> <span class="n">emissions</span><span class="p">,</span> <span class="n">initials</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.get_significant_positions"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.get_significant_positions">[docs]</a>    <span class="k">def</span> <span class="nf">get_significant_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the first and last significant position the TFFM where the</span>
+<span class="sd">        unsignificant positions are the ones on the edges with low information</span>
+<span class="sd">        content.</span>
+<span class="sd">    </span>
+<span class="sd">        :arg threshold: The minimal information content to consider a position to</span>
+<span class="sd">            be significant.</span>
+<span class="sd">        :type threshold: float</span>
+<span class="sd">        </span>
+<span class="sd">        :returns: The positions of the first and last positions that are to be</span>
+<span class="sd">            considered significant (given in this order).</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">    </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">pos_ic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_positions_ic</span><span class="p">()</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">first</span> <span class="o">&lt;=</span> <span class="n">last</span> <span class="ow">and</span> <span class="n">pos_ic</span><span class="p">[</span><span class="n">first</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="n">first</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">last</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">pos_ic</span><span class="p">[</span><span class="n">last</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="n">last</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span>
+</div>
+<div class="viewcode-block" id="TFFM._get_posterior_proba"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM._get_posterior_proba">[docs]</a>    <span class="k">def</span> <span class="nf">_get_posterior_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence_split</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the posterior probabilities at each nucleotide position given the TFFM.</span>
+<span class="sd">    </span>
+<span class="sd">        :arg sequence_split: The sequence splitted in subsequences to not consider</span>
+<span class="sd">            non ACGT nucleotides.</span>
+<span class="sd">        :type sequence_split: list</span>
+<span class="sd">    </span>
+<span class="sd">        :returns: The posterior probabilities at each position of the sequence.</span>
+<span class="sd">        :rtype: list of list</span>
+<span class="sd">    </span>
+<span class="sd">        :note: One example of a sequence_split is [&quot;ACT&quot;, &quot;N&quot;, &quot;ATC&quot;].</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">ghmm_extended_alphabet</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">EXTENDED_ALPHABET</span><span class="p">)</span>
+        <span class="n">posterior_proba</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">null_proba</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>  <span class="c"># null probabilities for non ACGT nucleotides.</span>
+        <span class="k">for</span> <span class="n">sequence</span> <span class="ow">in</span> <span class="n">sequence_split</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&quot;[ACGT]&quot;</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
+                <span class="n">emission_sequence</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">SequenceSet</span><span class="p">(</span><span class="n">ghmm_extended_alphabet</span><span class="p">,</span>
+                        <span class="p">[</span><span class="n">sequence</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">posterior_proba</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">posterior</span><span class="p">(</span><span class="n">emission_sequence</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)):</span>
+                    <span class="n">posterior_proba</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">null_proba</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">posterior_proba</span>
+</div>
+<div class="viewcode-block" id="TFFM._get_hits"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM._get_hits">[docs]</a>    <span class="k">def</span> <span class="nf">_get_hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">negative</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict TFBS hits in the sequence given the TFFM.</span>
+<span class="sd">    </span>
+<span class="sd">        :arg seq_record: The sequence on which to predict TFBS hits.</span>
+<span class="sd">        :type seq_record: :class:`Bio.SeqRecord`</span>
+<span class="sd">        :arg threshold: The minimal probability to predict a position as a TFBS</span>
+<span class="sd">            hit.</span>
+<span class="sd">        :type threshold: float</span>
+<span class="sd">        :arg negative: A boolean stating if the TFBS hits are to be predicted on</span>
+<span class="sd">            the positive or the negative strand of the sequence. Set to True when</span>
+<span class="sd">            on the negative strand (default: False).</span>
+<span class="sd">        :type negative: bool</span>
+<span class="sd">    </span>
+<span class="sd">        :returns: The list of TFBS hits predicted on the sequence strand.</span>
+<span class="sd">        :rtype: list of :class:`HIT`</span>
+<span class="sd">    </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">sequence</span> <span class="o">=</span> <span class="n">seq_record</span><span class="o">.</span><span class="n">seq</span>
+        <span class="k">if</span> <span class="n">negative</span><span class="p">:</span>
+            <span class="n">sequence</span> <span class="o">=</span> <span class="n">seq_record</span><span class="o">.</span><span class="n">reverse_complement</span><span class="p">()</span><span class="o">.</span><span class="n">seq</span>
+        <span class="n">sequence_split</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;([ACGT]+)&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+        <span class="n">posterior_proba</span> <span class="o">=</span> <span class="n">_get_posterior_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence_split</span><span class="p">)</span>
+        <span class="n">hits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_construct_hits</span><span class="p">(</span><span class="n">posterior_proba</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span>
+                <span class="n">negative</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">hits</span>
+</div>
+<div class="viewcode-block" id="TFFM._get_emission_update_pos_proba"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM._get_emission_update_pos_proba">[docs]</a>    <span class="k">def</span> <span class="nf">_get_emission_update_pos_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position_proba</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span>
+            <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the emission probabilities of ACGT at position *position* and update</span>
+<span class="sd">        the emission probabilities in *position_proba* given the emission</span>
+<span class="sd">        probabilities at the previous position (*previous_position_proba*).</span>
+<span class="sd">    </span>
+<span class="sd">        :note: This function is used state by state and several states represent</span>
+<span class="sd">            the same position in detailed TFFM, this is why we need to update the</span>
+<span class="sd">            probabilities listed in position_proba.</span>
+<span class="sd">    </span>
+<span class="sd">        :arg position_proba: Probabilities of getting ACGT at the current position</span>
+<span class="sd">            that need to be updated.</span>
+<span class="sd">        :type position_proba: dict</span>
+<span class="sd">        :arg position: Current position in the motif.</span>
+<span class="sd">        :type position: int</span>
+<span class="sd">        :arg previous_position_proba: Probabilities of getting ACGT at the previous</span>
+<span class="sd">            position.</span>
+<span class="sd">        :type previous_position_proba: dict</span>
+<span class="sd">        :arg index: Represents the index of the state of the TFFM to be analyzed at</span>
+<span class="sd">            the current position.</span>
+<span class="sd">    </span>
+<span class="sd">        :returns: The emission probabilities of ACGT by the state indexed by</span>
+<span class="sd">            *index* at position *position* in the TFFM.</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">    </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">emissions_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="n">letter</span> <span class="o">=</span> <span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">emissions_dic</span><span class="p">[</span><span class="n">letter</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEmission</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">index</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+                <span class="n">proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEmission</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">index</span><span class="p">]</span>
+                <span class="n">proba</span> <span class="o">*=</span> <span class="n">previous_position_proba</span><span class="p">[</span><span class="n">letter</span><span class="p">]</span>
+                <span class="n">position_proba</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">proba</span>
+            <span class="n">emissions</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">emissions_dic</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">emissions_dic</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="n">start_state</span> <span class="o">=</span> <span class="p">(</span><span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">index</span>
+                <span class="n">end_state</span> <span class="o">=</span> <span class="n">position</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">j</span>
+                <span class="n">emissions_dic</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTransition</span><span class="p">(</span><span class="n">start_state</span><span class="p">,</span>
+                        <span class="n">end_state</span><span class="p">)</span>
+                <span class="n">proba</span> <span class="o">=</span> <span class="n">previous_position_proba</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
+                <span class="n">proba</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTransition</span><span class="p">(</span><span class="n">start_state</span><span class="p">,</span> <span class="n">end_state</span><span class="p">)</span>
+                <span class="n">position_proba</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">proba</span>
+            <span class="n">somme</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">emissions_dic</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="n">emissions</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">emissions_dic</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">emissions_dic</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">emissions</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">somme</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">emissions</span><span class="p">)</span>
+        <span class="n">emissions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">emissions</span>
+</div>
+<div class="viewcode-block" id="TFFM._construct_hits"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM._construct_hits">[docs]</a>    <span class="k">def</span> <span class="nf">_construct_hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">posterior_proba</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span>
+            <span class="n">negative</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the TFBS hits on a sequence given the posterior probabilities</span>
+<span class="sd">        and construct the corresponding instances of</span>
+<span class="sd">        :class:`HIT`.</span>
+<span class="sd">    </span>
+<span class="sd">        :arg posterior_proba: The posterior probabilities at each position of the</span>
+<span class="sd">            sequence computed given the tffm.</span>
+<span class="sd">        :type posterior_proba: list of list of float</span>
+<span class="sd">        :arg seq_record: The sequence on which to predict TFBS hits.</span>
+<span class="sd">        :type seq_record: :class:`Bio.SeqRecord`</span>
+<span class="sd">        :arg threshold: The minimal probability to predict a position as a TFBS</span>
+<span class="sd">            hit.</span>
+<span class="sd">        :type threshold: float</span>
+<span class="sd">        :arg negative: A boolean stating if the TFBS hits are to be predicted on</span>
+<span class="sd">            the positive or the negative strand of the sequence. Set to True when</span>
+<span class="sd">            on the negative strand.</span>
+<span class="sd">        :type negative: bool</span>
+<span class="sd">    </span>
+<span class="sd">        :returns: The list of TFBS hits predicted on the sequence strand.</span>
+<span class="sd">        :rtype: list of :class:`HIT`</span>
+<span class="sd">    </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    
+        <span class="n">hits</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq_record</span><span class="p">)</span>
+        <span class="c"># Iterate over all the positions of the sequences by starting at the</span>
+        <span class="c"># len(self) position since we need to read at least len(self) nucleotides</span>
+        <span class="c"># to predict a potential TFBS hit.</span>
+        <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">posterior_proba</span><span class="p">)):</span>
+            <span class="n">best_proba</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="c"># Iterate over the final states of the TFFM to predict TFBS hits by</span>
+            <span class="c"># looking at the posterior probabilities for these states only at this</span>
+            <span class="c"># specific position</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_states</span><span class="p">():</span>
+                <span class="n">proba</span> <span class="o">=</span> <span class="n">posterior_proba</span><span class="p">[</span><span class="n">position</span><span class="p">][</span><span class="n">state</span><span class="p">]</span>
+                <span class="c"># We want to only keep the final state giving the maximal posterior</span>
+                <span class="c"># probability.</span>
+                <span class="k">if</span> <span class="n">proba</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="ow">and</span> <span class="n">proba</span> <span class="o">&gt;</span> <span class="n">best_proba</span><span class="p">:</span>
+                    <span class="n">best_proba</span> <span class="o">=</span> <span class="n">proba</span>
+                    <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">strand</span> <span class="o">=</span> <span class="n">hit_module</span><span class="o">.</span><span class="n">get_start_end_strand</span><span class="p">(</span><span class="n">position</span><span class="p">,</span>
+                            <span class="n">seq_record</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">negative</span><span class="p">)</span>
+                    <span class="n">hits</span><span class="p">[</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hit_module</span><span class="o">.</span><span class="n">HIT</span><span class="p">(</span><span class="n">seq_record</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span>
+                            <span class="n">end</span><span class="p">,</span> <span class="n">strand</span><span class="p">,</span> <span class="n">proba</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">hits</span>
+
+</div></div>
+<div class="viewcode-block" id="best_hit"><a class="viewcode-back" href="../tffm_module.html#tffm_module.best_hit">[docs]</a><span class="k">def</span> <span class="nf">best_hit</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span> <span class="n">hits_negative_strand</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Give the best hit in a sequence by considering both positive and negative</span>
+<span class="sd">    strands.</span>
+
+<span class="sd">    :arg hits_positive_strand: The list of hits on the positive strand.</span>
+<span class="sd">    :type hits_positive_strand: list of :class:`HIT`</span>
+<span class="sd">    :arg hits_negative_strand: The list of hits on the negative strand.</span>
+<span class="sd">    :type hits_negative_strand: list of :class:`HIT`</span>
+
+<span class="sd">    :returns: The best hit (None if no hit).</span>
+<span class="sd">    :rtype: :class:`HIT`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">max_positive_strand</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">)</span>
+    <span class="n">max_negative_strand</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">hits_negative_strand</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_positive_strand</span> <span class="ow">or</span> <span class="n">max_negative_strand</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">max_positive_strand</span><span class="p">,</span> <span class="n">max_negative_strand</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+</div>
+<div class="viewcode-block" id="merge_hits"><a class="viewcode-back" href="../tffm_module.html#tffm_module.merge_hits">[docs]</a><span class="k">def</span> <span class="nf">merge_hits</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span> <span class="n">hits_negative_strand</span><span class="p">,</span> <span class="n">only_best</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merges the hits from both strands.</span>
+
+<span class="sd">    :arg hits_positive_strand: The list of hits on the positive strand.</span>
+<span class="sd">    :type hits_positive_strand: list of :class:`HIT`</span>
+<span class="sd">    :arg hits_negative_strand: The list of hits on the negative strand.</span>
+<span class="sd">    :type hits_negative_strand: list of :class:`HIT`</span>
+<span class="sd">    :arg only_best: Boolean set to True if only the best TFBS hit in the</span>
+<span class="sd">        sequence is to be kept.</span>
+<span class="sd">    :type only_best: bool</span>
+
+<span class="sd">    :returns: A list containing the TFBS hits (empty if no hit).</span>
+<span class="sd">    :rtype: list</span>
+
+<span class="sd">    :note: The two input lists are ordered since it gives the hits in the order</span>
+<span class="sd">        of appearance in the sequence with None when no hit is to be found.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">only_best</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">best_hit</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span> <span class="n">hits_negative_strand</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">hit</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">roundrobin</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span>
+                                                <span class="n">hits_negative_strand</span><span class="p">)]</span>
+
+</div>
+<div class="viewcode-block" id="compute_entropy"><a class="viewcode-back" href="../tffm_module.html#tffm_module.compute_entropy">[docs]</a><span class="k">def</span> <span class="nf">compute_entropy</span><span class="p">(</span><span class="n">emissions</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the entropy given the emission probabilities of the ACGT</span>
+<span class="sd">    nucleotides.</span>
+
+<span class="sd">    :arg emissions: Emission probabilities of the ACGT nucleotides.</span>
+<span class="sd">    :type emissions: list of float</span>
+
+<span class="sd">    :returns: The computed entropy.</span>
+<span class="sd">    :rtype: float</span>
+
+<span class="sd">    :warning: The list gives the probabilities corresponding to A, C, G, and T</span>
+<span class="sd">        **in this order**.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">entropy</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">proba</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">proba</span> <span class="o">!=</span> <span class="mf">0.</span><span class="p">:</span>
+            <span class="n">entropy</span> <span class="o">+=</span> <span class="n">proba</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">proba</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">entropy</span>
+
+</div>
+<div class="viewcode-block" id="tffm_from_xml"><a class="viewcode-back" href="../tffm_module.html#tffm_module.tffm_from_xml">[docs]</a><span class="k">def</span> <span class="nf">tffm_from_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct a TFFM described in an XML file.</span>
+
+<span class="sd">    :arg xml: File containing the TFFM description in XML format.</span>
+<span class="sd">    :type xml: str</span>
+<span class="sd">    :arg kind: Type of TFFM to construct between &#39;1st-order&#39; and &#39;detailed&#39;.</span>
+<span class="sd">    :type kind: str</span>
+
+<span class="sd">    :returns: The TFFM described in the XML file.</span>
+<span class="sd">    :rtype: :class:`TFFM`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">hmm</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">HMMOpen</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TFFM</span><span class="p">(</span><span class="n">hmm</span><span class="o">.</span><span class="n">emissionDomain</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="p">,</span> <span class="n">kind</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="create_1storder_hmm"><a class="viewcode-back" href="../tffm_module.html#tffm_module.create_1storder_hmm">[docs]</a><span class="k">def</span> <span class="nf">create_1storder_hmm</span><span class="p">(</span><span class="n">nb_seq</span><span class="p">,</span> <span class="n">nb_residues</span><span class="p">,</span> <span class="n">first_letters</span><span class="p">,</span> <span class="n">motif</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a 1st-order HMM initialized from MEME result</span>
+
+<span class="sd">    :arg nb_seq: Number of sequences used by MEME</span>
+<span class="sd">    :type nb_seq: int</span>
+<span class="sd">    :arg nb_residues: Number of residues used by MEME</span>
+<span class="sd">    :type nb_residues: int</span>
+<span class="sd">    :arg first_letters: Number of occurrences of ACGT at the begining of</span>
+<span class="sd">        sequences used by MEME</span>
+<span class="sd">    :type first_letters: dic of str-&gt;int</span>
+<span class="sd">    :arg motif_counts: PFM of the motif</span>
+<span class="sd">    :type motif_counts: dic of int-&gt;list of int</span>
+
+<span class="sd">    :returns: The constructed HMM</span>
+<span class="sd">    :rtype: :class:`ghmm.DiscreteEmissionHMM`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># Very first state is created with the initial nt frequencies</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="p">[[(</span><span class="n">first_letters</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_seq</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">),</span> 
+                <span class="p">(</span><span class="n">first_letters</span><span class="p">[</span><span class="s">&#39;C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_seq</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">first_letters</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_seq</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">first_letters</span><span class="p">[</span><span class="s">&#39;T&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_seq</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">)]]</span>
+    <span class="c"># The second state is random</span>
+    <span class="n">emissions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span>
+        <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
+    <span class="c"># Complete the emissions with the actual motif frequencies</span>
+    <span class="n">motif_counts</span> <span class="o">=</span> <span class="n">motif</span><span class="o">.</span><span class="n">make_counts_from_instances</span><span class="p">()</span>
+    <span class="n">nb_hits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)):</span>
+        <span class="n">frequencies</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s">&quot;ACGT&quot;</span><span class="p">:</span>
+            <span class="n">freq</span> <span class="o">=</span> <span class="p">(</span><span class="n">motif_counts</span><span class="p">[</span><span class="n">letter</span><span class="p">][</span><span class="n">position</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_hits</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">)</span>
+            <span class="n">frequencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+        <span class="n">emissions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frequencies</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="c"># Background transitions</span>
+    <span class="n">transitions</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)]</span>
+    <span class="n">background_to_background</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">nb_seq</span><span class="p">)</span> <span class="o">/</span> <span class="n">nb_residues</span>
+    <span class="n">background_to_foreground</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">background_to_background</span>
+    <span class="c"># Core transitions</span>
+    <span class="n">transitions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="n">background_to_background</span><span class="p">,</span> <span class="n">background_to_foreground</span><span class="p">]</span>
+            <span class="o">+</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)):</span>
+        <span class="n">transitions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">position</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mf">1.</span><span class="p">]</span> <span class="o">+</span> 
+                <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">-</span> <span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c"># Final transitions now</span>
+    <span class="n">transitions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">))</span>
+
+    <span class="c"># Starting proba</span>
+    <span class="n">initials</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">HMMFromMatrices</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">ALPHABET</span><span class="p">),</span>
+            <span class="n">ghmm</span><span class="o">.</span><span class="n">DiscreteDistribution</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">ALPHABET</span><span class="p">)),</span> <span class="n">transitions</span><span class="p">,</span>
+            <span class="n">emissions</span><span class="p">,</span> <span class="n">initials</span><span class="p">)</span>
+
+
+</div>
+<div class="viewcode-block" id="create_detailed_hmm"><a class="viewcode-back" href="../tffm_module.html#tffm_module.create_detailed_hmm">[docs]</a><span class="k">def</span> <span class="nf">create_detailed_hmm</span><span class="p">(</span><span class="n">nb_seq</span><span class="p">,</span> <span class="n">nb_residues</span><span class="p">,</span> <span class="n">first_letters</span><span class="p">,</span> <span class="n">motif</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a detailed HMM initialized from MEME result</span>
+
+<span class="sd">    :arg nb_seq: Number of sequences used by MEME</span>
+<span class="sd">    :type nb_seq: int</span>
+<span class="sd">    :arg nb_residues: Number of residues used by MEME</span>
+<span class="sd">    :type nb_residues: int</span>
+<span class="sd">    :arg first_letters: Number of occurrences of ACGT at the begining of</span>
+<span class="sd">        sequences used by MEME</span>
+<span class="sd">    :type first_letters: dic of str-&gt;int</span>
+<span class="sd">    :arg motif_counts: PFM of the motif</span>
+<span class="sd">    :type motif_counts: dic of int-&gt;list of int</span>
+
+<span class="sd">    :returns: The constructed HMM</span>
+<span class="sd">    :rtype: :class:`ghmm.DiscreteEmissionHMM`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># Starting proba</span>
+    <span class="n">initials</span> <span class="o">=</span> <span class="p">[(</span><span class="n">first_letters</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_seq</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">),</span> 
+                <span class="p">(</span><span class="n">first_letters</span><span class="p">[</span><span class="s">&#39;C&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_seq</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">first_letters</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_seq</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">first_letters</span><span class="p">[</span><span class="s">&#39;T&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_seq</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">),</span>
+                <span class="mf">1.</span> <span class="o">/</span> <span class="n">nb_seq</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">nb_seq</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">nb_seq</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">nb_seq</span><span class="p">]</span>
+    <span class="n">initials</span> <span class="o">+=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c"># Emission proba</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> 
+            <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c"># Background transitions proba</span>
+    <span class="n">motif_counts</span> <span class="o">=</span> <span class="n">motif</span><span class="o">.</span><span class="n">make_counts_from_instances</span><span class="p">()</span>
+    <span class="n">nb_hits</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="o">.</span><span class="n">instances</span><span class="p">)</span>
+    <span class="n">background_to_background</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">nb_seq</span><span class="p">)</span> <span class="o">/</span> <span class="n">nb_residues</span>
+    <span class="n">background_to_foreground</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">background_to_background</span>
+    <span class="n">background_to_background</span> <span class="o">/=</span> <span class="mf">4.</span>
+    <span class="n">transi</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s">&quot;ACGT&quot;</span><span class="p">:</span>
+        <span class="n">freq</span> <span class="o">=</span>  <span class="p">(</span><span class="n">motif_counts</span><span class="p">[</span><span class="n">letter</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_hits</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">)</span>
+        <span class="n">transi</span><span class="p">[</span><span class="n">letter</span><span class="p">]</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">*</span> <span class="n">background_to_foreground</span>
+    <span class="n">transitions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">transitions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">background_to_background</span><span class="p">,</span> 
+                            <span class="n">background_to_background</span><span class="p">,</span>
+                            <span class="n">background_to_background</span><span class="p">,</span>
+                            <span class="n">background_to_background</span><span class="p">,</span> 
+                            <span class="n">transi</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">],</span> <span class="n">transi</span><span class="p">[</span><span class="s">&#39;C&#39;</span><span class="p">],</span>
+                            <span class="n">transi</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">],</span> <span class="n">transi</span><span class="p">[</span><span class="s">&#39;T&#39;</span><span class="p">]]</span>
+                            <span class="o">+</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">pfm</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">letter</span> <span class="ow">in</span> <span class="s">&quot;ACGT&quot;</span><span class="p">:</span>
+        <span class="n">pfm</span><span class="o">.</span><span class="n">extend</span><span class="p">([(</span><span class="n">v</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nb_hits</span> <span class="o">+</span> <span class="mf">4.</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">motif_counts</span><span class="p">[</span><span class="n">letter</span><span class="p">]])</span>
+    <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">transitions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">5</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">position</span> <span class="o">+</span> <span class="mi">5</span><span class="p">):</span>
+                <span class="n">transitions</span><span class="p">[</span><span class="n">line</span> <span class="o">+</span> <span class="mi">3</span><span class="p">][</span><span class="n">column</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">pfm</span><span class="p">[(</span><span class="n">column</span> <span class="o">-</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">+</span> <span class="n">position</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">motif</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">index</span>
+        <span class="n">transitions</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.25</span>
+        <span class="n">transitions</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.25</span>
+        <span class="n">transitions</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.25</span>
+        <span class="n">transitions</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.25</span>
+    <span class="k">return</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">HMMFromMatrices</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">ALPHABET</span><span class="p">),</span>
+            <span class="n">ghmm</span><span class="o">.</span><span class="n">DiscreteDistribution</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">ALPHABET</span><span class="p">)),</span> <span class="n">transitions</span><span class="p">,</span>
+            <span class="n">emissions</span><span class="p">,</span> <span class="n">initials</span><span class="p">)</span>
+
+ 
+</div>
+<div class="viewcode-block" id="tffm_from_meme"><a class="viewcode-back" href="../tffm_module.html#tffm_module.tffm_from_meme">[docs]</a><span class="k">def</span> <span class="nf">tffm_from_meme</span><span class="p">(</span><span class="n">meme_output</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;TFFM&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct a TFFM from the output of MEME on ChIP-seq data.</span>
+
+<span class="sd">    :arg meme_output: File containing the output of MEME.</span>
+<span class="sd">    :type meme_output: str</span>
+<span class="sd">    :arg kind: Type of TFFM to construct between &#39;1st-order&#39; and &#39;detailed&#39;.</span>
+<span class="sd">    :type kind: str</span>
+
+<span class="sd">    :returns: The TFFM constructed from MEME results.</span>
+<span class="sd">    :rtype: :class:`TFFM`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">record</span> <span class="o">=</span> <span class="n">MEME</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">meme_output</span><span class="p">))</span>
+    <span class="n">motif</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">motifs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">nb_seq</span><span class="p">,</span> <span class="n">nb_res</span><span class="p">,</span> <span class="n">first_letters</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_sequences_info</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">datafile</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+        <span class="n">hmm</span> <span class="o">=</span> <span class="n">create_1storder_hmm</span><span class="p">(</span><span class="n">nb_seq</span><span class="p">,</span> <span class="n">nb_res</span><span class="p">,</span> <span class="n">first_letters</span><span class="p">,</span> <span class="n">motif</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">hmm</span> <span class="o">=</span> <span class="n">create_detailed_hmm</span><span class="p">(</span><span class="n">nb_seq</span><span class="p">,</span> <span class="n">nb_res</span><span class="p">,</span> <span class="n">first_letters</span><span class="p">,</span> <span class="n">motif</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TFFM</span><span class="p">(</span><span class="n">hmm</span><span class="o">.</span><span class="n">emissionDomain</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">TFFM  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Anthony Mathelier.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

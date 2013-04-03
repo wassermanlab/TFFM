@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tffm &mdash; TFFM  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="TFFM  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">TFFM  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for tffm</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">import</span> <span class="nn">ghmm</span>
+
+<span class="kn">import</span> <span class="nn">drawing</span>
+<span class="kn">import</span> <span class="nn">exceptions</span>
+<span class="kn">import</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">hit</span> <span class="kn">as</span> <span class="nn">hit_module</span>
+
+<span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">ALPHABET</span><span class="p">,</span> <span class="n">EXTENDED_ALPHABET</span>
+
+
+<div class="viewcode-block" id="TFFM"><a class="viewcode-back" href="../tffm.html#tffm.TFFM">[docs]</a><span class="k">class</span> <span class="nc">TFFM</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">DiscreteEmissionHMM</span><span class="p">):</span>
+<div class="viewcode-block" id="TFFM.__init__"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emission_domain</span><span class="p">,</span> <span class="n">distribution</span><span class="p">,</span> <span class="n">cmodel</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s">&quot;TFFM&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">DiscreteEmissionHMM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">emission_domain</span><span class="p">,</span>
+            <span class="n">distribution</span><span class="p">,</span> <span class="n">cmodel</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s">&quot;1st-order&quot;</span> <span class="ow">and</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">TFFMKindError</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">kind</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</div>
+<div class="viewcode-block" id="TFFM.__del__"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.__del__">[docs]</a>    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">DiscreteEmissionHMM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__del__</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TFFM.__len__"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">-</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">-</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="TFFM.background_emission_proba"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.background_emission_proba">[docs]</a>    <span class="k">def</span> <span class="nf">background_emission_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">emissions</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+            <span class="n">last_emissions</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+            <span class="c"># Retrieve emission proba for the first state</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="n">last_emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEmission</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span>
+            <span class="c"># Compute emission proba for the background</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                    <span class="n">proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getEmission</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span>
+                    <span class="n">proba</span> <span class="o">*=</span> <span class="n">last_emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                    <span class="n">emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">proba</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                    <span class="n">proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getTransition</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span>
+                    <span class="n">emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">proba</span>
+            <span class="n">somme</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">emissions</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="n">emissions</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">/=</span> <span class="n">somme</span>
+        <span class="k">return</span> <span class="n">emissions</span>
+</div>
+<div class="viewcode-block" id="TFFM.print_summary_logo"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.print_summary_logo">[docs]</a>    <span class="k">def</span> <span class="nf">print_summary_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="n">drawing</span><span class="o">.</span><span class="n">draw_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;summary&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.print_dense_logo"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.print_dense_logo">[docs]</a>    <span class="k">def</span> <span class="nf">print_dense_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="n">drawing</span><span class="o">.</span><span class="n">draw_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;dense&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.get_positions_ic"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.get_positions_ic">[docs]</a>    <span class="k">def</span> <span class="nf">get_positions_ic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">previous_position_proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_emission_proba</span><span class="p">()</span>
+        <span class="n">positions_information_content</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">drawing</span><span class="o">.</span><span class="n">get_position_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="n">start</span><span class="p">):</span>
+            <span class="n">position_proba</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                <span class="n">emissions</span> <span class="o">=</span> <span class="n">get_emission_update_pos_proba</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="n">position_proba</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">previous_position_proba</span> <span class="o">=</span> <span class="n">position_proba</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+                <span class="n">somme</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">previous_position_proba</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+                    <span class="n">previous_position_proba</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">/=</span> <span class="n">somme</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">previous_position_proba</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="n">previous_position_proba</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="n">emissions</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">keys</span><span class="p">)</span>
+            <span class="n">entropy</span> <span class="o">=</span> <span class="n">compute_entropy</span><span class="p">(</span><span class="n">emissions</span><span class="p">)</span>
+            <span class="n">positions_information_content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">-</span> <span class="n">entropy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">positions_information_content</span>
+</div>
+<div class="viewcode-block" id="TFFM.get_information_content"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.get_information_content">[docs]</a>    <span class="k">def</span> <span class="nf">get_information_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">pos_ic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_positions_ic</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pos_ic</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.final_states"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.final_states">[docs]</a>    <span class="k">def</span> <span class="nf">final_states</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="TFFM.train"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.train">[docs]</a>    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">training_file</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+        <span class="n">training_sequences</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">SequenceSet</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">ALPHABET</span><span class="p">),</span>
+                <span class="n">training_file</span><span class="p">)</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">set_sequences_weight</span><span class="p">(</span><span class="n">training_sequences</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">baumWelch</span><span class="p">(</span><span class="n">training_sequences</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TFFM.test"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_file</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">only_best</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="n">sequence_list</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_fasta</span><span class="p">(</span><span class="n">seq_file</span><span class="p">)</span>
+        <span class="n">all_hits</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">seq_record</span> <span class="ow">in</span> <span class="n">sequence_list</span><span class="p">:</span>
+            <span class="n">hits_positive_strand</span> <span class="o">=</span> <span class="n">get_hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+            <span class="n">hits_negative_strand</span> <span class="o">=</span> <span class="n">get_hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span>
+                    <span class="n">negative</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">hits</span> <span class="o">=</span> <span class="n">merge_hits</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span>
+                    <span class="n">hits_negative_strand</span><span class="p">,</span> <span class="n">only_best</span><span class="p">)</span>
+            <span class="n">all_hits</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">hits</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">all_hits</span>
+</div>
+<div class="viewcode-block" id="TFFM.trim"><a class="viewcode-back" href="../tffm.html#tffm.TFFM.trim">[docs]</a>    <span class="k">def</span> <span class="nf">trim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+        <span class="n">first</span><span class="p">,</span> <span class="n">last</span> <span class="o">=</span> <span class="n">get_significant_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+        <span class="n">transitions</span><span class="p">,</span> <span class="n">emissions</span><span class="p">,</span> <span class="n">starts</span> <span class="o">=</span> <span class="n">trim_hmm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">)</span>
+        <span class="n">new_hmm</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">HMMFromMatrices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">emissionDomain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span>
+                <span class="n">transitions</span><span class="p">,</span> <span class="n">emissions</span><span class="p">,</span> <span class="n">starts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmodel</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="o">.</span><span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="o">.</span><span class="n">M</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_type</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="o">.</span><span class="n">model_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxorder</span> <span class="o">=</span> <span class="n">new_hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="o">.</span><span class="n">maxorder</span>
+
+</div></div>
+<div class="viewcode-block" id="trim_hmm"><a class="viewcode-back" href="../tffm.html#tffm.trim_hmm">[docs]</a><span class="k">def</span> <span class="nf">trim_hmm</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span><span class="p">):</span>
+    <span class="n">nb_states</span> <span class="o">=</span> <span class="n">last</span> <span class="o">-</span> <span class="n">first</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">nb_states</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c"># TODO raise an error rather than a sys.exit</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Trimmed HMM is empty!!!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">matrices</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">asMatrices</span><span class="p">()</span>
+    <span class="n">transitions</span> <span class="o">=</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">tffm</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">transitions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">transitions</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">nb_states</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">emissions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="n">first</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">first</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">transitions</span> <span class="o">=</span> <span class="n">transitions</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">transitions</span><span class="p">[</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">transitions</span><span class="p">[</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">starts</span> <span class="o">=</span> <span class="n">matrices</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="n">nb_states</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">transitions</span><span class="p">,</span> <span class="n">emissions</span><span class="p">,</span> <span class="n">starts</span>
+
+</div>
+<div class="viewcode-block" id="get_significant_positions"><a class="viewcode-back" href="../tffm.html#tffm.get_significant_positions">[docs]</a><span class="k">def</span> <span class="nf">get_significant_positions</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="n">pos_ic</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">get_positions_ic</span><span class="p">()</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">first</span> <span class="o">&lt;=</span> <span class="n">last</span> <span class="ow">and</span> <span class="n">pos_ic</span><span class="p">[</span><span class="n">first</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">:</span>
+        <span class="n">first</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">last</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">pos_ic</span><span class="p">[</span><span class="n">last</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">:</span>
+        <span class="n">last</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">first</span><span class="p">,</span> <span class="n">last</span>
+
+</div>
+<div class="viewcode-block" id="best_hit"><a class="viewcode-back" href="../tffm.html#tffm.best_hit">[docs]</a><span class="k">def</span> <span class="nf">best_hit</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span> <span class="n">hits_negative_strand</span><span class="p">):</span>
+    <span class="n">max_positive_strand</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">)</span>
+    <span class="n">max_negative_strand</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">hits_negative_strand</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_positive_strand</span> <span class="ow">or</span> <span class="n">max_negative_strand</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">max_positive_strand</span><span class="p">,</span> <span class="n">max_negative_strand</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+</div>
+<div class="viewcode-block" id="merge_hits"><a class="viewcode-back" href="../tffm.html#tffm.merge_hits">[docs]</a><span class="k">def</span> <span class="nf">merge_hits</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span> <span class="n">hits_negative_strand</span><span class="p">,</span> <span class="n">only_best</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">only_best</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">best_hit</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span> <span class="n">hits_negative_strand</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">hit</span> <span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">roundrobin</span><span class="p">(</span><span class="n">hits_positive_strand</span><span class="p">,</span>
+                                                <span class="n">hits_negative_strand</span><span class="p">)]</span>
+
+</div>
+<div class="viewcode-block" id="split_sequence"><a class="viewcode-back" href="../tffm.html#tffm.split_sequence">[docs]</a><span class="k">def</span> <span class="nf">split_sequence</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+    <span class="n">ghmm_extended_alphabet</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">EXTENDED_ALPHABET</span><span class="p">)</span>
+    <span class="n">sequence_str</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ghmm_extended_alphabet</span><span class="o">.</span><span class="n">externalSequence</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">SequenceSet</span><span class="p">(</span><span class="n">ghmm_extended_alphabet</span><span class="p">,</span>
+            <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;([ACGT]+)&quot;</span><span class="p">,</span> <span class="n">sequence_str</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="get_posterior_proba"><a class="viewcode-back" href="../tffm.html#tffm.get_posterior_proba">[docs]</a><span class="k">def</span> <span class="nf">get_posterior_proba</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">sequence_split</span><span class="p">):</span>
+    <span class="n">ghmm_extended_alphabet</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">EXTENDED_ALPHABET</span><span class="p">)</span>
+    <span class="n">posterior_proba</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">null_proba</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="n">tffm</span><span class="o">.</span><span class="n">N</span>
+    <span class="k">for</span> <span class="n">sequence</span> <span class="ow">in</span> <span class="n">sequence_split</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&quot;[ACGT]&quot;</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
+            <span class="n">emission_sequence</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">SequenceSet</span><span class="p">(</span><span class="n">ghmm_extended_alphabet</span><span class="p">,</span>
+                    <span class="p">[</span><span class="n">sequence</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">posterior_proba</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">tffm</span><span class="o">.</span><span class="n">posterior</span><span class="p">(</span><span class="n">emission_sequence</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)):</span>
+                <span class="n">posterior_proba</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">null_proba</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">posterior_proba</span>
+
+</div>
+<div class="viewcode-block" id="get_start_end_strand"><a class="viewcode-back" href="../tffm.html#tffm.get_start_end_strand">[docs]</a><span class="k">def</span> <span class="nf">get_start_end_strand</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">tffm</span><span class="p">,</span> <span class="n">negative</span><span class="p">):</span>
+    <span class="c"># position is 0-based and we need 1-based coordinates</span>
+    <span class="k">if</span> <span class="n">negative</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq_record</span><span class="p">)</span> <span class="o">-</span> <span class="n">position</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq_record</span><span class="p">)</span> <span class="o">-</span> <span class="n">position</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">strand</span> <span class="o">=</span> <span class="s">&quot;-&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">position</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">position</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+        <span class="n">strand</span> <span class="o">=</span> <span class="s">&quot;+&quot;</span>
+    <span class="k">return</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">strand</span>
+
+</div>
+<div class="viewcode-block" id="construct_hits"><a class="viewcode-back" href="../tffm.html#tffm.construct_hits">[docs]</a><span class="k">def</span> <span class="nf">construct_hits</span><span class="p">(</span><span class="n">posterior_proba</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">tffm</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span>
+        <span class="n">negative</span><span class="p">):</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq_record</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">posterior_proba</span><span class="p">)):</span>
+        <span class="n">best_proba</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">tffm</span><span class="o">.</span><span class="n">final_states</span><span class="p">():</span>
+            <span class="n">proba</span> <span class="o">=</span> <span class="n">posterior_proba</span><span class="p">[</span><span class="n">position</span><span class="p">][</span><span class="n">state</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">proba</span> <span class="o">&gt;</span> <span class="n">threshold</span> <span class="ow">and</span> <span class="n">proba</span> <span class="o">&gt;</span> <span class="n">best_proba</span><span class="p">:</span>
+                <span class="n">best_proba</span> <span class="o">=</span> <span class="n">proba</span>
+                <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">strand</span> <span class="o">=</span> <span class="n">get_start_end_strand</span><span class="p">(</span><span class="n">position</span><span class="p">,</span>
+                        <span class="n">seq_record</span><span class="p">,</span> <span class="n">tffm</span><span class="p">,</span> <span class="n">negative</span><span class="p">)</span>
+                <span class="n">hits</span><span class="p">[</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">hit_module</span><span class="o">.</span><span class="n">HIT</span><span class="p">(</span><span class="n">seq_record</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span>
+                        <span class="n">end</span><span class="p">,</span> <span class="n">strand</span><span class="p">,</span> <span class="n">proba</span><span class="p">,</span> <span class="n">tffm</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hits</span>
+
+</div>
+<div class="viewcode-block" id="get_hits"><a class="viewcode-back" href="../tffm.html#tffm.get_hits">[docs]</a><span class="k">def</span> <span class="nf">get_hits</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">negative</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="n">seq_record</span><span class="o">.</span><span class="n">seq</span>
+    <span class="k">if</span> <span class="n">negative</span><span class="p">:</span>
+        <span class="n">sequence</span> <span class="o">=</span> <span class="n">seq_record</span><span class="o">.</span><span class="n">reverse_complement</span><span class="p">()</span><span class="o">.</span><span class="n">seq</span>
+    <span class="n">sequence_split</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;([ACGT]+)&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+    <span class="n">posterior_proba</span> <span class="o">=</span> <span class="n">get_posterior_proba</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">sequence_split</span><span class="p">)</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="n">construct_hits</span><span class="p">(</span><span class="n">posterior_proba</span><span class="p">,</span> <span class="n">seq_record</span><span class="p">,</span> <span class="n">tffm</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span>
+            <span class="n">negative</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hits</span>
+
+</div>
+<div class="viewcode-block" id="compute_entropy"><a class="viewcode-back" href="../tffm.html#tffm.compute_entropy">[docs]</a><span class="k">def</span> <span class="nf">compute_entropy</span><span class="p">(</span><span class="n">emissions</span><span class="p">):</span>
+    <span class="n">entropy</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">proba</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">proba</span> <span class="o">!=</span> <span class="mf">0.</span><span class="p">:</span>
+            <span class="n">entropy</span> <span class="o">+=</span> <span class="n">proba</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">proba</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">entropy</span>
+
+</div>
+<div class="viewcode-block" id="get_emission_update_pos_proba"><a class="viewcode-back" href="../tffm.html#tffm.get_emission_update_pos_proba">[docs]</a><span class="k">def</span> <span class="nf">get_emission_update_pos_proba</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">position_proba</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span>
+        <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="n">emissions_dic</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">tffm</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+            <span class="n">letter</span> <span class="o">=</span> <span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">emissions_dic</span><span class="p">[</span><span class="n">letter</span><span class="p">]</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">getEmission</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">index</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">proba</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">getEmission</span><span class="p">(</span><span class="n">position</span><span class="p">)[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">index</span><span class="p">]</span>
+            <span class="n">proba</span> <span class="o">*=</span> <span class="n">previous_position_proba</span><span class="p">[</span><span class="n">letter</span><span class="p">]</span>
+            <span class="n">position_proba</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">proba</span>
+        <span class="n">emissions</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">emissions_dic</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">emissions_dic</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">elif</span> <span class="n">tffm</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+            <span class="n">start_state</span> <span class="o">=</span> <span class="p">(</span><span class="n">position</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">index</span>
+            <span class="n">end_state</span> <span class="o">=</span> <span class="n">position</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">j</span>
+            <span class="n">emissions_dic</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">getTransition</span><span class="p">(</span><span class="n">start_state</span><span class="p">,</span>
+                    <span class="n">end_state</span><span class="p">)</span>
+            <span class="n">proba</span> <span class="o">=</span> <span class="n">previous_position_proba</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
+            <span class="n">proba</span> <span class="o">*=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">getTransition</span><span class="p">(</span><span class="n">start_state</span><span class="p">,</span> <span class="n">end_state</span><span class="p">)</span>
+            <span class="n">position_proba</span><span class="p">[</span><span class="n">ALPHABET</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">proba</span>
+        <span class="n">somme</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">emissions_dic</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">emissions</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">emissions_dic</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">emissions_dic</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">emissions</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">somme</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">emissions</span><span class="p">)</span>
+    <span class="n">emissions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">emissions</span>
+
+</div>
+<div class="viewcode-block" id="tffm_from_xml"><a class="viewcode-back" href="../tffm.html#tffm.tffm_from_xml">[docs]</a><span class="k">def</span> <span class="nf">tffm_from_xml</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+    <span class="n">hmm</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">HMMOpen</span><span class="p">(</span><span class="n">xml</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TFFM</span><span class="p">(</span><span class="n">hmm</span><span class="o">.</span><span class="n">emissionDomain</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">distribution</span><span class="p">,</span> <span class="n">hmm</span><span class="o">.</span><span class="n">cmodel</span><span class="p">,</span> <span class="n">kind</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="tffm_from_meme"><a class="viewcode-back" href="../tffm.html#tffm.tffm_from_meme">[docs]</a><span class="k">def</span> <span class="nf">tffm_from_meme</span><span class="p">(</span><span class="n">meme_output</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&quot;Not implemented yet&quot;</span>
+
+</div>
+<div class="viewcode-block" id="tffm_from_fasta"><a class="viewcode-back" href="../tffm.html#tffm.tffm_from_fasta">[docs]</a><span class="k">def</span> <span class="nf">tffm_from_fasta</span><span class="p">(</span><span class="n">fasta_file</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&quot;Not implemented yet&quot;</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">TFFM  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Anthony Mathelier.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

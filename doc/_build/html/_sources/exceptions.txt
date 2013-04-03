@@ -1,0 +1,9 @@
+exceptions Module
+=================
+
+.. automodule:: exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. moduleauthor:: Anthony Mathelier <amathelier@cmmt.ubc.ca>

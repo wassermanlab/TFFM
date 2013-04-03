@@ -1,0 +1,583 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>drawing Module &mdash; TFFM  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="TFFM  documentation" href="index.html" />
+    <link rel="next" title="utils Module" href="utils.html" />
+    <link rel="prev" title="hit Module" href="hit_module.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="utils Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="hit_module.html" title="hit Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TFFM  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-drawing">
+<span id="drawing-module"></span><h1>drawing Module<a class="headerlink" href="#module-drawing" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">platform:</th><td class="field-body">Unix</td>
+</tr>
+<tr class="field-even field"><th class="field-name">synopsis:</th><td class="field-body">Define a lot of functions necessary to draw the logos.</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="drawing.draw_axis">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_axis</tt><big>(</big><em>output</em>, <em>length</em>, <em>x_coord</em>, <em>y_coord</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the axis to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>length</strong> (<em>float</em>) &#8211; Number of positions in the logo.</li>
+<li><strong>x_coord</strong> (<em>float</em>) &#8211; x-coordinate where to write the axis in the svg.</li>
+<li><strong>y_coord</strong> (<em>float</em>) &#8211; y-coordinate where to write the axis in the svg.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_dense_letters">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_dense_letters</tt><big>(</big><em>output</em>, <em>probabilities</em>, <em>width</em>, <em>xposition</em>, <em>yposition</em>, <em>step</em>, <em>previous_position_proba</em>, <em>index_letter</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_dense_letters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_dense_letters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the four nucleotides in the dense logo
+with respect to their probability of appearance at the current position,
+and return the y-coordinate position for the next box where to draw
+letters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>probabilities</strong> (<em>list of tuple (float, str)</em>) &#8211; Probabilities of appearance of the four nucleotides.
+The given probabilities are given for A, C, G, and T in this order.</li>
+<li><strong>width</strong> (<em>float</em>) &#8211; Width of box containing the letters to draw.</li>
+<li><strong>xposition</strong> (<em>float</em>) &#8211; x-coordinate of the bottom left corner of the box
+containing the letters to draw.</li>
+<li><strong>yposition</strong> (<em>float</em>) &#8211; y-coordinate of the bottom left corner of the box
+containing the letters to draw.</li>
+<li><strong>step</strong> (<em>float</em>) &#8211; Distance between two boxes containing the letters for the same
+position (it is a dense logo!).</li>
+<li><strong>previous_position_proba</strong> (<em>dict</em>) &#8211; Probabilities of getting ACGT at the
+previous position of the motif.</li>
+<li><strong>index_letter</strong> (<em>int</em>) &#8211; Index of the letter in the alphabet from A:0, C:1, G:2,
+T:3 (i.e. -1&lt;index_letter&lt;4).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The y-coordinate for the next box where to draw letters.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_ellipse">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_ellipse</tt><big>(</big><em>output</em>, <em>x_center</em>, <em>y_center</em>, <em>x_radius</em>, <em>y_radius</em>, <em>colour=(0</em>, <em>0</em>, <em>0)</em>, <em>opacity=1.0</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_ellipse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw an ellipse to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>x_center</strong> (<em>float</em>) &#8211; x-coordinate of the center of the ellipse.</li>
+<li><strong>y_center</strong> (<em>float</em>) &#8211; y-coordinate of the center of the ellipse.</li>
+<li><strong>x_radius</strong> (<em>float</em>) &#8211; Radius of the ellipse on the x-axis.</li>
+<li><strong>y_radius</strong> (<em>float</em>) &#8211; Radius of the ellipse on the y-ayis.</li>
+<li><strong>colour</strong> (<em>tuple (int, int, int)</em>) &#8211; Color of the ellipse (default: black). The colour is given in
+RGB.</li>
+<li><strong>opacity</strong> (<em>float</em>) &#8211; Opacity of the ellipse (default: 1.0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">Look at the ellipse statement of an svg file for more information.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_frame">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_frame</tt><big>(</big><em>output</em>, <em>header_width</em>, <em>header_height</em>, <em>axis_length</em>, <em>axis_width</em>, <em>axis_height</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the frame of the logo (i.e. Y- and X-axis).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>header_width</strong> (<em>float</em>) &#8211; Width of the svg.</li>
+<li><strong>header_height</strong> (<em>float</em>) &#8211; Height of the svg.</li>
+<li><strong>axis_length</strong> (<em>float</em>) &#8211; number of positions in the motif.</li>
+<li><strong>axis_width</strong> (<em>float</em>) &#8211; Width of the logo x-axis.</li>
+<li><strong>axis_height</strong> (<em>float</em>) &#8211; Height of the logo y-axis.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_left_letters">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_left_letters</tt><big>(</big><em>output</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_left_letters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_left_letters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the big four nucleotides on the left side of the svg to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_letter_a">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_letter_a</tt><big>(</big><em>output</em>, <em>x_coord</em>, <em>y_coord</em>, <em>width</em>, <em>height</em>, <em>colour=(178</em>, <em>34</em>, <em>34)</em>, <em>opacity=1.0</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_letter_a"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_letter_a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the letter &#8216;A&#8217; to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>x_coord</strong> (<em>float</em>) &#8211; x-coordinate of the bottom left corner of the box containing
+the &#8216;A&#8217;.</li>
+<li><strong>y_coord</strong> (<em>float</em>) &#8211; y-coordinate of the bottom left corner ot the box containing
+the &#8216;A&#8217;.</li>
+<li><strong>width</strong> (<em>float</em>) &#8211; Width of the box containing the &#8216;A&#8217;.</li>
+<li><strong>height</strong> (<em>float</em>) &#8211; Height of the box containing the &#8216;A&#8217;.</li>
+<li><strong>colour</strong> (<em>tuple (int, int, int)</em>) &#8211; Color of the &#8216;A&#8217; (default: black). The colour is given in
+RGB.</li>
+<li><strong>opacity</strong> (<em>float</em>) &#8211; Opacity of the &#8216;A&#8217; (default: 1.0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">The &#8216;A&#8217; is drawn by creating a red polygon giving the shape and a
+white internal triangle above to make the bar in the middle of the &#8216;A&#8217;
+appear.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_letter_c">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_letter_c</tt><big>(</big><em>output</em>, <em>x_coord</em>, <em>y_coord</em>, <em>width</em>, <em>height</em>, <em>colour=(0</em>, <em>0</em>, <em>128)</em>, <em>opacity=1.0</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_letter_c"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_letter_c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the letter &#8216;C&#8217; to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>x_coord</strong> (<em>float</em>) &#8211; x-coordinate of the bottom left corner of the box containing the &#8216;C&#8217;.</li>
+<li><strong>y_coord</strong> (<em>float</em>) &#8211; y-coordinate of the bottom left corner ot the box containing the &#8216;C&#8217;.</li>
+<li><strong>width</strong> (<em>float</em>) &#8211; Width of the box containing the &#8216;C&#8217;.</li>
+<li><strong>height</strong> (<em>float</em>) &#8211; Height of the box containing the &#8216;C&#8217;.</li>
+<li><strong>colour</strong> (<em>tuple (int, int, int)</em>) &#8211; Color of the box containing the &#8216;C&#8217; (default: black). The colour is given in
+RGB.</li>
+<li><strong>opacity</strong> (<em>float</em>) &#8211; Opacity of the box containing the &#8216;C&#8217; (default: 1.0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">The &#8216;C&#8217; is drawn by creating the surrounding ellipse with the right
+colour and then superposing an smaller white ellipse and a white
+rectangle on the right side of the ellipe to create the &#8216;C&#8217;.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_letter_g">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_letter_g</tt><big>(</big><em>output</em>, <em>x_coord</em>, <em>y_coord</em>, <em>width</em>, <em>height</em>, <em>colour=(255</em>, <em>165</em>, <em>0)</em>, <em>opacity=1.0</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_letter_g"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_letter_g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the letter &#8216;G&#8217; to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>x_coord</strong> (<em>float</em>) &#8211; x-coordinate of the bottom left corner of the box containing the &#8216;G&#8217;.</li>
+<li><strong>y_coord</strong> (<em>float</em>) &#8211; y-coordinate of the bottom left corner ot the box containing the &#8216;G&#8217;.</li>
+<li><strong>width</strong> (<em>float</em>) &#8211; Width of the box containing the &#8216;G&#8217;.</li>
+<li><strong>height</strong> (<em>float</em>) &#8211; Height of the box containing the &#8216;G&#8217;.</li>
+<li><strong>colour</strong> (<em>tuple (int, int, int)</em>) &#8211; Color of the box containing the &#8216;G&#8217; (default: black). The colour is given in
+RGB.</li>
+<li><strong>opacity</strong> (<em>float</em>) &#8211; Opacity of the box containing the &#8216;G&#8217; (default: 1.0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">The &#8216;G&#8217; is drawn by creating a &#8216;C&#8217; and then adding the two other
+rectangles.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_letter_t">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_letter_t</tt><big>(</big><em>output</em>, <em>x_coord</em>, <em>y_coord</em>, <em>width</em>, <em>height</em>, <em>colour=(0</em>, <em>100</em>, <em>0)</em>, <em>opacity=1.0</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_letter_t"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_letter_t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the letter &#8216;T&#8217; to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>x_coord</strong> (<em>float</em>) &#8211; x-coordinate of the bottom left corner of the box containing the &#8216;T&#8217;.</li>
+<li><strong>y_coord</strong> (<em>float</em>) &#8211; y-coordinate of the bottom left corner ot the box containing the &#8216;T&#8217;.</li>
+<li><strong>width</strong> (<em>float</em>) &#8211; Width of the box containing the &#8216;T&#8217;.</li>
+<li><strong>height</strong> (<em>float</em>) &#8211; Height of the box containing the &#8216;T&#8217;.</li>
+<li><strong>colour</strong> (<em>tuple (int, int, int)</em>) &#8211; Color of the box containing the &#8216;T&#8217; (default: black). The colour is given in
+RGB.</li>
+<li><strong>opacity</strong> (<em>float</em>) &#8211; Opacity of the box containing the &#8216;T&#8217; (default: 1.0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">The &#8216;T&#8217; is drawn by using two rectangles.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_logo">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_logo</tt><big>(</big><em>output</em>, <em>tffm</em>, <em>logo_type</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the logo to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write the svg instruction to draw the logo.</li>
+<li><strong>tffm</strong> (<tt class="xref py py-class docutils literal"><span class="pre">TFFM</span></tt>) &#8211; TFFM from which to draw the logo.</li>
+<li><strong>logo_type</strong> (<em>Enum</em>) &#8211; Kind of logo to draw (either LOGO_TYPE.SUMMARY or
+LOGO_TYPE.DENSE)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Todo :</th><td class="field-body"><p class="first last">raise an error if the logo type is wrong.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_logo_letters">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_logo_letters</tt><big>(</big><em>output</em>, <em>tffm</em>, <em>logo_type</em>, <em>xposition=90.0</em>, <em>width=50.0</em>, <em>step=10.0</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_logo_letters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_logo_letters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the letters of the logo and return the
+information content to be printed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write the svg instruction to draw the logo.</li>
+<li><strong>tffm</strong> (<tt class="xref py py-class docutils literal"><span class="pre">TFFM</span></tt>) &#8211; The TFFM for which drawing the logo.</li>
+<li><strong>logo_type</strong> (<em>str</em>) &#8211; Kind of logo to draw (either &#8216;summary&#8217; or &#8216;dense&#8217;)</li>
+<li><strong>xposition</strong> (<em>float</em>) &#8211; x-coordinate where to start the logo (default: 90.)</li>
+<li><strong>width</strong> &#8211; Width of the logo.</li>
+<li><strong>step</strong> (<em>float</em>) &#8211; Distance between two boxes containing letters in the logo.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">The computation of the information content is done within the
+drawing since it follows the same algorithm computing the emission
+probabilities. So we do not call the get_information_content method for
+an algorithmic improvement.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_polygon">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_polygon</tt><big>(</big><em>output</em>, <em>pts</em>, <em>colour=(0</em>, <em>0</em>, <em>0)</em>, <em>opacity=1.0</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_polygon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw an polygon to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>pts</strong> (<em>list of tuple (float, float)</em>) &#8211; Coordinates of the points defining the polygon. For each point in
+the list, its coordinates are given by the couple
+(x-coordinate, y-coordinate).</li>
+<li><strong>colour</strong> (<em>tuple (int, int, int)</em>) &#8211; Color of the polygon (default: black). The colour is given in
+RGB.</li>
+<li><strong>opacity</strong> (<em>float</em>) &#8211; Opacity of the polygon (default: 1.0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">Look at the polygon statement of an svg file for more information.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_rectangle">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_rectangle</tt><big>(</big><em>output</em>, <em>x_coord</em>, <em>y_coord</em>, <em>height</em>, <em>width</em>, <em>colour=(0</em>, <em>0</em>, <em>0)</em>, <em>opacity=1.0</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_rectangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw an rectangle to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>x_coord</strong> (<em>float</em>) &#8211; x-coordinate of the bottom-left corner of the rectangle.</li>
+<li><strong>y_coord</strong> (<em>float</em>) &#8211; y-coordinate of the bottom-left corner of the rectangle.</li>
+<li><strong>height</strong> (<em>float</em>) &#8211; Height of the rectangle.</li>
+<li><strong>width</strong> (<em>float</em>) &#8211; Width of the rectangle.</li>
+<li><strong>colour</strong> (<em>tuple (int, int, int)</em>) &#8211; Color of the rectangle (default: black). The colour is given in
+RGB.</li>
+<li><strong>opacity</strong> (<em>float</em>) &#8211; Opacity of the rectangle (default: 1.0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">Look at the rectangle statement of an svg file for more information.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_summary_letters">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_summary_letters</tt><big>(</big><em>output</em>, <em>probabilities</em>, <em>width</em>, <em>xposition</em>, <em>yposition</em>, <em>step</em>, <em>entropy</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_summary_letters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_summary_letters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instruction to writh the ACGT letters at the current position
+and return the x-coordinate and y-coordinate for the box containing the
+letters at the next position.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>probabilities</strong> (<em>list of tuple (float, str)</em>) &#8211; Probabilities of appearance of the four nucleotides.
+The given probabilities are given for A, C, G, and T in this order.</li>
+<li><strong>width</strong> (<em>float</em>) &#8211; Width of box containing the letters to draw.</li>
+<li><strong>xposition</strong> (<em>float</em>) &#8211; x-coordinate of the bottom left corner of the box
+containing the letters to draw.</li>
+<li><strong>yposition</strong> (<em>float</em>) &#8211; y-coordinate of the bottom left corner of the box
+containing the letters to draw.</li>
+<li><strong>step</strong> (<em>float</em>) &#8211; Distance between two boxes containing the letters for the same
+position (it is a dense logo!).</li>
+<li><strong>entropy</strong> (<em>float</em>) &#8211; Entropy of the current position to determine the height of
+the letters.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The coordinates (x, y) of the box that will be drawn with letters
+at the next position.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple (float, float).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.draw_y_axis">
+<tt class="descclassname">drawing.</tt><tt class="descname">draw_y_axis</tt><big>(</big><em>output</em>, <em>x_coord=80</em>, <em>y_coord=120</em><big>)</big><a class="reference internal" href="_modules/drawing.html#draw_y_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.draw_y_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the svg instructions to draw the axis to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>x_coord</strong> (<em>float</em>) &#8211; x-coordinate where to start (bottom) the Y-axis in the svg.</li>
+<li><strong>y_coord</strong> (<em>float</em>) &#8211; y-coordinate where to start (bottom) the Y-axis in the svg.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.print_footer">
+<tt class="descclassname">drawing.</tt><tt class="descname">print_footer</tt><big>(</big><em>output</em><big>)</big><a class="reference internal" href="_modules/drawing.html#print_footer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.print_footer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the footer of the svg to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.print_header">
+<tt class="descclassname">drawing.</tt><tt class="descname">print_header</tt><big>(</big><em>output</em>, <em>height</em>, <em>width</em><big>)</big><a class="reference internal" href="_modules/drawing.html#print_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.print_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the header of the svg to the output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>height</strong> (<em>int</em>) &#8211; Height of the final svg.</li>
+<li><strong>width</strong> (<em>int</em>) &#8211; Width of the final svg.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="drawing.print_ic">
+<tt class="descclassname">drawing.</tt><tt class="descname">print_ic</tt><big>(</big><em>output</em>, <em>length</em>, <em>information_content</em>, <em>x_coord</em>, <em>y_coord</em><big>)</big><a class="reference internal" href="_modules/drawing.html#print_ic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#drawing.print_ic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the information content underneath the logo.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output</strong> (<em>file</em>) &#8211; Stream where to write.</li>
+<li><strong>length</strong> (<em>int</em>) &#8211; Number of positions in the logo.</li>
+<li><strong>information_content</strong> (<em>float</em>) &#8211; Value of the information content.</li>
+<li><strong>x_coord</strong> (<em>float</em>) &#8211; x-coordinate where to write the information content value in
+the svg.</li>
+<li><strong>y_coord</strong> (<em>float</em>) &#8211; y-coordinate where to write the information content value in
+the svg.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><em>Module author: Anthony Mathelier &lt;<a class="reference external" href="mailto:amathelier&#37;&#52;&#48;cmmt&#46;ubc&#46;ca">amathelier<span>&#64;</span>cmmt<span>&#46;</span>ubc<span>&#46;</span>ca</a>&gt;</em></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="hit_module.html"
+                        title="previous chapter">hit Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="next chapter">utils Module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/drawing.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="utils Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="hit_module.html" title="hit Module"
+             >previous</a> |</li>
+        <li><a href="index.html">TFFM  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Anthony Mathelier.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

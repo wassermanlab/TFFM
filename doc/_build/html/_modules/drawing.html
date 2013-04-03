@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>drawing &mdash; TFFM  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="TFFM  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">TFFM  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for drawing</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">BLACK</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">,</span> <span class="n">RED</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">YELLOW</span><span class="p">,</span> <span class="n">ALPHABET</span>
+<span class="kn">import</span> <span class="nn">tffm</span> <span class="kn">as</span> <span class="nn">tffm_module</span>
+
+
+<div class="viewcode-block" id="print_header"><a class="viewcode-back" href="../drawing.html#drawing.print_header">[docs]</a><span class="k">def</span> <span class="nf">print_header</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="n">dtd_url</span> <span class="o">=</span> <span class="s">&quot;http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd&quot;</span>
+    <span class="n">svg_url</span> <span class="o">=</span> <span class="s">&quot;http://www.w3.org/2000/svg&quot;</span>
+    <span class="n">xlink_url</span> <span class="o">=</span> <span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">                 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="s">                 &lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.0//EN&quot; &quot;</span><span class="si">%s</span><span class="s">&quot;&gt;</span>
+<span class="s">                 &lt;svg height=&quot;</span><span class="si">%d</span><span class="s">&quot; width=&quot;</span><span class="si">%d</span><span class="s">&quot; xmlns=&quot;</span><span class="si">%s</span><span class="s">&quot; xmlns:xlink=&quot;</span><span class="si">%s</span><span class="s">&quot;&gt;</span>
+<span class="s">                 &quot;&quot;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">dtd_url</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">svg_url</span><span class="p">,</span> <span class="n">xlink_url</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="print_footer"><a class="viewcode-back" href="../drawing.html#drawing.print_footer">[docs]</a><span class="k">def</span> <span class="nf">print_footer</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&lt;/svg&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="print_ic"><a class="viewcode-back" href="../drawing.html#drawing.print_ic">[docs]</a><span class="k">def</span> <span class="nf">print_ic</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span>
+        <span class="n">x_coord</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="p">(</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">45</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;IC = </span><span class="si">%.2f</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">information_content</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="draw_axis"><a class="viewcode-back" href="../drawing.html#drawing.draw_axis">[docs]</a><span class="k">def</span> <span class="nf">draw_axis</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;line x1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span>
+        <span class="n">x_coord</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">length</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;style=</span><span class="se">\&quot;</span><span class="s">stroke:rgb(99,99,99);stroke-width:2</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">27</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span>
+                                                       <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">20</span><span class="p">))</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%d</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="draw_y_axis"><a class="viewcode-back" href="../drawing.html#drawing.draw_y_axis">[docs]</a><span class="k">def</span> <span class="nf">draw_y_axis</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">y_coord</span><span class="o">=</span><span class="mi">120</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;line x1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">110</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;style=</span><span class="se">\&quot;</span><span class="s">stroke:rgb(99,99,99);stroke-width:2</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">0</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
+                                                           <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">1</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
+                                                           <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">55</span><span class="p">))</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">2</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
+                                                           <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">105</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">55</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;transform=</span><span class="se">\&quot;</span><span class="s">rotate(-90, </span><span class="si">%d</span><span class="s">, </span><span class="si">%d</span><span class="s">)</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span>
+                                                         <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">50</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;bits</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="draw_ellipse"><a class="viewcode-back" href="../drawing.html#drawing.draw_ellipse">[docs]</a><span class="k">def</span> <span class="nf">draw_ellipse</span><span class="p">(</span><span class="n">x_center</span><span class="p">,</span> <span class="n">y_center</span><span class="p">,</span> <span class="n">x_radius</span><span class="p">,</span> <span class="n">y_radius</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;ellipse cx=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> cy=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> rx=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> ry=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_center</span><span class="p">,</span>
+        <span class="n">y_center</span><span class="p">,</span> <span class="n">x_radius</span><span class="p">,</span> <span class="n">y_radius</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
+        <span class="n">opacity</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="draw_polygon"><a class="viewcode-back" href="../drawing.html#drawing.draw_polygon">[docs]</a><span class="k">def</span> <span class="nf">draw_polygon</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;polygon points=</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
+        <span class="n">opacity</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="draw_rectangle"><a class="viewcode-back" href="../drawing.html#drawing.draw_rectangle">[docs]</a><span class="k">def</span> <span class="nf">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;rect height=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> width=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
+        <span class="n">opacity</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="draw_letter_a"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_a">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_a</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">RED</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- Begin &#39;A&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span><span class="p">)</span>
+    <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">*</span> <span class="mf">0.42</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">)</span>
+    <span class="n">pt3</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">*</span> <span class="mf">0.58</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">)</span>
+    <span class="n">pt4</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span><span class="p">)</span>
+    <span class="n">pt5</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.85</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span><span class="p">)</span>
+    <span class="n">pt6</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.725</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">)</span>
+    <span class="n">pt7</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.275</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">)</span>
+    <span class="n">pt8</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">pt3</span><span class="p">,</span> <span class="n">pt4</span><span class="p">,</span> <span class="n">pt5</span><span class="p">,</span> <span class="n">pt6</span><span class="p">,</span> <span class="n">pt7</span><span class="p">,</span> <span class="n">pt8</span><span class="p">]</span>
+    <span class="n">draw_polygon</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ysize</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">)</span>
+        <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.34</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pt3</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.64</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">draw_polygon</span><span class="p">([</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">pt3</span><span class="p">],</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- End &#39;A&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="draw_letter_c"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_c">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_c</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- Begin &#39;C&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">ysize</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">,</span>
+            <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- End &#39;C&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="draw_letter_g"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_g">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_g</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">YELLOW</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- Begin &#39;G&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">ysize</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
+            <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
+            <span class="n">ysize</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- End &#39;G&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="draw_letter_t"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_t">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_t</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">,</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- Begin &#39;T&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="mf">0.16</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span>
+            <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- End &#39;T&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="draw_left_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_left_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_left_letters</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+    <span class="n">draw_letter_a</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">draw_letter_c</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">120.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">draw_letter_g</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">230.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">draw_letter_t</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">340.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="draw_dense_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_dense_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_dense_letters</span><span class="p">(</span><span class="n">emissions</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span>
+        <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">index_letter</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">proba</span><span class="p">,</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ysize</span> <span class="o">=</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">proba</span>
+        <span class="k">if</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;A&#39;</span><span class="p">:</span>
+            <span class="n">draw_letter_a</span><span class="p">(</span>
+                <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span>
+                <span class="n">opacity</span><span class="o">=</span><span class="n">previous_position_proba</span><span class="p">[</span><span class="n">index_letter</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;C&#39;</span><span class="p">:</span>
+            <span class="n">draw_letter_c</span><span class="p">(</span>
+                <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span>
+                <span class="n">opacity</span><span class="o">=</span><span class="n">previous_position_proba</span><span class="p">[</span><span class="n">index_letter</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;G&#39;</span><span class="p">:</span>
+            <span class="n">draw_letter_g</span><span class="p">(</span>
+                <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span>
+                <span class="n">opacity</span><span class="o">=</span><span class="n">previous_position_proba</span><span class="p">[</span><span class="n">index_letter</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;T&#39;</span><span class="p">:</span>
+            <span class="n">draw_letter_t</span><span class="p">(</span>
+                <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span>
+                <span class="n">opacity</span><span class="o">=</span><span class="n">previous_position_proba</span><span class="p">[</span><span class="n">index_letter</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">yposition</span> <span class="o">+=</span> <span class="n">ysize</span>
+    <span class="n">yposition</span> <span class="o">+=</span> <span class="n">ysize</span> <span class="o">+</span> <span class="n">step</span>
+    <span class="k">return</span> <span class="n">yposition</span>
+
+</div>
+<div class="viewcode-block" id="draw_summary_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_summary_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_summary_letters</span><span class="p">(</span><span class="n">emissions</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span>
+        <span class="n">output</span><span class="p">):</span>
+    <span class="n">max_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">entropy</span><span class="p">)</span> <span class="o">*</span> <span class="mf">50.</span>
+    <span class="n">yposition</span> <span class="o">=</span> <span class="mf">10.</span> <span class="o">+</span> <span class="mf">100.</span> <span class="o">-</span> <span class="n">max_size</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">proba</span><span class="p">,</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">ysize</span> <span class="o">=</span> <span class="n">max_size</span> <span class="o">*</span> <span class="n">proba</span>
+        <span class="k">if</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;A&#39;</span><span class="p">:</span>
+            <span class="n">draw_letter_a</span><span class="p">(</span><span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;C&#39;</span><span class="p">:</span>
+            <span class="n">draw_letter_c</span><span class="p">(</span><span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;G&#39;</span><span class="p">:</span>
+            <span class="n">draw_letter_g</span><span class="p">(</span><span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;T&#39;</span><span class="p">:</span>
+            <span class="n">draw_letter_t</span><span class="p">(</span><span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">yposition</span> <span class="o">+=</span> <span class="n">ysize</span>
+    <span class="k">return</span> <span class="n">xposition</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">yposition</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">+</span> <span class="n">step</span>
+
+</div>
+<div class="viewcode-block" id="draw_frame"><a class="viewcode-back" href="../drawing.html#drawing.draw_frame">[docs]</a><span class="k">def</span> <span class="nf">draw_frame</span><span class="p">(</span><span class="n">header_x_coord</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="n">axis_length</span><span class="p">,</span> <span class="n">axis_x_coord</span><span class="p">,</span>
+        <span class="n">axis_y_coord</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="n">print_header</span><span class="p">(</span><span class="n">header_x_coord</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="n">draw_axis</span><span class="p">(</span><span class="n">axis_length</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">axis_x_coord</span><span class="p">,</span> <span class="n">axis_y_coord</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="get_position_start"><a class="viewcode-back" href="../drawing.html#drawing.get_position_start">[docs]</a><span class="k">def</span> <span class="nf">get_position_start</span><span class="p">(</span><span class="n">tffm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the position (0-based) of the first matching state of the tffm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tffm</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+
+<span class="c"># The computation of the information content is done within the drawing since</span>
+<span class="c"># it follows the same algorithm computing the emission probabilities. So we do</span>
+<span class="c"># not call the get_information_content method for an algorithmic improvement.</span></div>
+<div class="viewcode-block" id="draw_logo_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_logo_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_logo_letters</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="o">=</span><span class="mf">90.</span><span class="p">,</span> <span class="n">xsize</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span>
+        <span class="n">step</span><span class="o">=</span><span class="mf">10.</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw the letters of the logo and return the IC to be printed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">previous_position_proba</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">background_emission_proba</span><span class="p">()</span>
+    <span class="n">information_content</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">get_position_start</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="n">start</span><span class="p">):</span>
+        <span class="n">position_proba</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
+        <span class="n">yposition</span> <span class="o">=</span> <span class="mf">10.</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="s">&quot;summary&quot;</span><span class="p">:</span>
+                <span class="n">__</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">get_emission_update_pos_proba</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span>
+                        <span class="n">position_proba</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">emissions</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">get_emission_update_pos_proba</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span>
+                        <span class="n">position_proba</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="n">yposition</span> <span class="o">=</span> <span class="n">draw_dense_letters</span><span class="p">(</span><span class="n">emissions</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span>
+                        <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                        <span class="n">output</span><span class="p">)</span>
+        <span class="n">previous_position_proba</span> <span class="o">=</span> <span class="n">position_proba</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">tffm</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+            <span class="n">somme</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">previous_position_proba</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">nucleotide</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">previous_position_proba</span><span class="p">):</span>
+                <span class="n">previous_position_proba</span><span class="p">[</span><span class="n">nucleotide</span><span class="p">]</span> <span class="o">/=</span> <span class="n">somme</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">previous_position_proba</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">previous_position_proba</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">emissions_tuple</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">keys</span><span class="p">)</span>
+        <span class="n">entropy</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">compute_entropy</span><span class="p">(</span><span class="n">emissions_tuple</span><span class="p">)</span>
+        <span class="n">information_content</span> <span class="o">+=</span> <span class="mf">2.</span> <span class="o">-</span> <span class="n">entropy</span>
+        <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="s">&quot;summary&quot;</span><span class="p">:</span>
+            <span class="n">emissions_tuple</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span> <span class="o">=</span> <span class="n">draw_summary_letters</span><span class="p">(</span><span class="n">emissions_tuple</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span>
+                    <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">xposition</span> <span class="o">+=</span> <span class="n">xsize</span> <span class="o">+</span> <span class="n">step</span>
+    <span class="k">return</span> <span class="n">information_content</span>
+
+</div>
+<div class="viewcode-block" id="draw_logo"><a class="viewcode-back" href="../drawing.html#drawing.draw_logo">[docs]</a><span class="k">def</span> <span class="nf">draw_logo</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Print the logo in svg format to the output file &quot;&quot;&quot;</span>
+    <span class="c"># Print the header.</span>
+    <span class="n">header_y_coord</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="s">&quot;summary&quot;</span><span class="p">:</span>
+        <span class="n">draw_frame</span><span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">),</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="n">draw_y_axis</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">draw_frame</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">),</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="n">draw_left_letters</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="n">information_content</span> <span class="o">=</span> <span class="n">draw_logo_letters</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="s">&quot;summary&quot;</span><span class="p">:</span>
+        <span class="n">print_ic</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">print_ic</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+    <span class="n">print_footer</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">TFFM  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Anthony Mathelier.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
