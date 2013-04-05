@@ -16,7 +16,13 @@ import sys
 import math
 import re
 
-from Bio.Motif.Parsers import MEME
+#
+# Changed to use the newer Bio.motifs package
+# DJA 2013/04/05
+# 
+#from Bio.Motif.Parsers import MEME
+from Bio import motifs
+
 import ghmm
 
 import drawing
@@ -755,7 +761,13 @@ def create_1storder_hmm(nb_seq, nb_residues, first_letters, motif):
         0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25])
     # Complete the emissions with the actual motif frequencies
     if motif.instances:
-        motif.counts = motif.make_counts_from_instances()
+        #
+        # The Motif class from the newer Bio.motifs package does not appear
+        # to have a make_counts_from_instances() method, but it doesn't seem
+        # as if we really need this (the else statement never sets counts).
+        # DJA 2013/04/05
+        #
+        #motif.counts = motif.make_counts_from_instances()
         nb_hits = len(motif.instances)
     else:
         nb_hits = nb_seq
@@ -820,7 +832,13 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
 
     # Background transitions proba
     if motif.instances:
-        motif.counts = motif.make_counts_from_instances()
+        #
+        # The Motif class from the newer Bio.motifs package does not appear
+        # to have a make_counts_from_instances() method, but it doesn't seem
+        # as if we really need this (the else statement never sets counts).
+        # DJA 2013/04/05
+        #
+        #motif.counts = motif.make_counts_from_instances()
         nb_hits = len(motif.instances)
     else:
         nb_hits = nb_seq
@@ -879,8 +897,15 @@ def tffm_from_meme(meme_output, kind, name="TFFM"):
 
     """
 
-    record = MEME.read(open(meme_output))
-    motif = record.motifs[0]
+    #
+    # Changed to use the newer Bio.motifs package
+    # DJA 2013/04/05
+    #
+    #record = MEME.read(open(meme_output))
+    #motif = record.motifs[0]
+    #
+    record = motifs.parse(open(meme_output), 'MEME')
+    motif = record[0]
     nb_seq, nb_res, first_letters = utils.get_sequences_info(record.datafile)
     if kind == TFFM_KIND.FIRST_ORDER:
         hmm = create_1storder_hmm(nb_seq, nb_res, first_letters, motif)
