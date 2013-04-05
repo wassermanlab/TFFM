@@ -754,7 +754,7 @@ def create_1storder_hmm(nb_seq, nb_residues, first_letters, motif):
     emissions.append([0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25,
         0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25])
     # Complete the emissions with the actual motif frequencies
-    if motif.has_instances:
+    if motif.instances:
         motif.counts = motif.make_counts_from_instances()
         nb_hits = len(motif.instances)
     else:
@@ -819,7 +819,7 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
             [0., 0., 0., 1.]] * (len(motif) + 1)
 
     # Background transitions proba
-    if motif.has_instances:
+    if motif.instances:
         motif.counts = motif.make_counts_from_instances()
         nb_hits = len(motif.instances)
     else:
