@@ -743,8 +743,8 @@ def create_1storder_hmm(nb_seq, nb_residues, first_letters, motif):
     :arg first_letters: Number of occurrences of ACGT at the begining of
         sequences used by MEME
     :type first_letters: dic of str->int
-    :arg motif: PFM of the motif
-    :type motif: dic of int->list of int
+    :arg motif: PFM as a Biopython motif to be used to initialize the TFFFM
+    :type motif: :class:`Bio.motifs`
 
     :returns: The constructed HMM
     :rtype: :class:`ghmm.DiscreteEmissionHMM`
@@ -761,13 +761,8 @@ def create_1storder_hmm(nb_seq, nb_residues, first_letters, motif):
         0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25])
     # Complete the emissions with the actual motif frequencies
     if motif.instances:
-        #
-        # The Motif class from the newer Bio.motifs package does not appear
-        # to have a make_counts_from_instances() method, but it doesn't seem
-        # as if we really need this (the else statement never sets counts).
-        # DJA 2013/04/05
-        #
-        #motif.counts = motif.make_counts_from_instances()
+        # The motif.counts is computed directly when creating the motif from
+        # instances
         nb_hits = len(motif.instances)
     else:
         nb_hits = nb_seq
@@ -810,8 +805,8 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
     :arg first_letters: Number of occurrences of ACGT at the begining of
         sequences used by MEME
     :type first_letters: dic of str->int
-    :arg motif: PFM of the motif
-    :type motif: dic of int->list of int
+    :arg motif: PFM as a Biopython motif to be used to initialize the TFFFM
+    :type motif: :class:`Bio.motifs`
 
     :returns: The constructed HMM
     :rtype: :class:`ghmm.DiscreteEmissionHMM`
@@ -832,13 +827,8 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
 
     # Background transitions proba
     if motif.instances:
-        #
-        # The Motif class from the newer Bio.motifs package does not appear
-        # to have a make_counts_from_instances() method, but it doesn't seem
-        # as if we really need this (the else statement never sets counts).
-        # DJA 2013/04/05
-        #
-        #motif.counts = motif.make_counts_from_instances()
+        # The motif.counts is computed directly when creating the motif from
+        # instances
         nb_hits = len(motif.instances)
     else:
         nb_hits = nb_seq
@@ -897,13 +887,6 @@ def tffm_from_meme(meme_output, kind, name="TFFM"):
 
     """
 
-    #
-    # Changed to use the newer Bio.motifs package
-    # DJA 2013/04/05
-    #
-    #record = MEME.read(open(meme_output))
-    #motif = record.motifs[0]
-    #
     record = motifs.parse(open(meme_output), 'MEME')
     motif = record[0]
     nb_seq, nb_res, first_letters = utils.get_sequences_info(record.datafile)
@@ -919,7 +902,7 @@ def tffm_from_motif(motif, kind, name="TFFM", nb_res=None, first_letters=None):
     Construct an initialized TFFM from a PFM.
 
     :arg motif: PFM as a Biopython motif to be used to initialize the TFFFM
-    :type motif: :class:`Biopython.Motif`
+    :type motif: :class:`Bio.motifs`
     :arg kind: Type of TFFM to construct between '1st-order' and 'detailed'
     :type kind: str
     :arg name: Name of the TFFM (default: "TFFM")
