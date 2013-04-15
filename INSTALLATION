@@ -1,0 +1,6 @@
+* Python should be installed on your machine (version 2.4 and 2.7 have been
+    tested). The TFFM-framework will not work with Python v.3.
+* Biopython should be installed and accessible from your Python executable. See
+    http://biopython.org for instructions on how to install it.
+* The GHMM library should be installed and accessible from Python. See
+    http://ghmm.org for instructions on how to install it.

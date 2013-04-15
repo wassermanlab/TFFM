@@ -1,0 +1,94 @@
+#################################
+##                             ##
+##  TFFM-framework version 2.0 ##
+##         ??/??/2013          ##
+##                             ##
+#################################
+
+
+We provide here the documentation of the TFFM-framework developed in Python.
+The Transcription Factor Flexible Models (TFFMs) represent TFBSs and are based
+on hidden Markov models (HMM). They are flexible and are able to model both
+position interdependence within TFBSs and variable length motifs within a
+single dedicated framework. Using TFFMs, you can predict TFBSs within
+DNA sequences and also compute probability of occupancy of a TF within DNA
+sequences.
+
+The framework also implements methods to generate a new graphical
+representation of the modeled motifs that convey properties of position
+interdependence.
+
+TFFMs have been assessed on ChIP-seq data sets coming from the ENCODE project,
+revealing that the new HMM-based framework performs better than both PWMs and
+the dinucleotide weight matrix (DWM) extension in discriminating motifs within
+ChIP-seq sequences from background sequences. Under the assumption that
+ChIP-seq signal values are correlated with the affinity of the TF-DNA binding,
+we find that HMM scores correlate with ChIP-seq peak signals. Moreover, using
+available TF-DNA affinity measurements for the Max TF, we demonstrate that
+TFFMs constructed from ChIP-seq data better correlate with published
+experimentally measured DNA-binding affinities than PWMs and DWMs. These
+results demonstrate the capacity of TFFMs to accurately model DNA-protein
+interactions, while providing a single unified framework suitable for the next
+generation of TFBS prediction. All the details have been published in Mathelier
+and Wasserman, The next generation of transcription binding site prediction.
+
+TFFMs can be saved and opened from files using the XML format already used by
+the GHMM library (http://ghmm.org).
+
+You can get more information at http://cisreg.cmmt.ubc.ca.
+
+###############################################################################
+Authors: Anthony Mathelier and Wyeth W. Wasserman
+         Centre for Molecular Medicine and Therapeutics
+         950 West 28th Avenue
+         Vancouver, BC
+         V5Z 4H4 Canada
+
+         anthony.mathelier@gmail.com
+         wyeth@cmmt.ubc.ca
+
+         Refer to the AUTHORS file.
+###############################################################################
+
+         
+
+###############################################################################
+System requirements:
+
+* The TFFM-framework 2.0 has been developed and tested under Ubuntu
+    Linux operating system. It has also been tested on CentOS.
+* Python should be installed (version 2.4 and 2.7 have been used
+    successfully).
+* Biopython should be installed and accessible from your Python
+    executable. See http://biopython.org for instructions on how to install it.
+* The GHMM library should be installed and accessible from Python. See
+    http://ghmm.org for instructions on how to install it.
+
+###############################################################################
+Tutorial:
+
+For a brief tutorial on how to use the TFFMs, go to
+http://cisreg.cmmt.ubc.ca/TFFM.
+
+###############################################################################
+Download:
+
+The TFFM-framework can be downloaded at
+http://cisreg.cmmt.ubc.ca/TFFM/TFFM-framework_v2.0.tar.bz2.
+You can also go to https://github.com/wassermanlab/TFFM.
+
+###############################################################################
+Reference:
+
+The TFFMs and the TFFM-framework have been described in Mathelier and
+Wasserman, The next generation of transcription binding site prediction, ???,
+2013.
+
+
+###############################################################################
+Licence:
+
+* The TFFM-framework has been developed under the GNU Lesser General
+    Public Licence (see http://www.gnu.org/copyleft/lesser.html).
+* The TFFM-framework uses the GHMM library which is also licenced
+    under the GNU LGPL.
