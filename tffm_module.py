@@ -57,7 +57,7 @@ class TFFM(ghmm.DiscreteEmissionHMM):
             :class:`ghmm.HMM`.
         :arg kind: The TFFM can be either a 0-order, a 1st-order, or a detailed
             TFFM, use `TFFM_KIND.ZERO_ORDER, or `TFFM_KIND.FIRST_ORDER`, or
-        `   TFFM_KIND.DETAILED` respectively.
+            `TFFM_KIND.DETAILED` respectively.
         :type kind: Enum
         :arg name: Give the name of the TFFM. 'TFFM' is given by default.
         :type name: str
@@ -69,8 +69,8 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         # Construct the underlying ghmm.EmissionHMM
         super(ghmm.DiscreteEmissionHMM, self).__init__(emission_domain,
                                                        distribution, cmodel)
-        if (kind != TFFM_KIND.FIRST_ORDER and kind != TFFM_KIND.DETAILED
-                and kind != TFFM_KIND.ZERO_ORDER):
+        if(kind != TFFM_KIND.FIRST_ORDER and kind != TFFM_KIND.DETAILED and
+           kind != TFFM_KIND.ZERO_ORDER):
             raise exceptions_errors.TFFMKindError(kind)
         self.kind = kind
         self.name = name

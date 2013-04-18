@@ -109,8 +109,8 @@ underlying <tt class="xref py py-class docutils literal"><span class="pre">ghmm.
 <li><strong>distribution</strong> (<tt class="xref py py-class docutils literal"><span class="pre">ghmm.Distribution</span></tt>) &#8211; The distribution over the emission domain.</li>
 <li><strong>cmodel</strong> &#8211; The cmodel (HMM itself implemented in C) of the underlying
 <tt class="xref py py-class docutils literal"><span class="pre">ghmm.HMM</span></tt>.</li>
-<li><strong>kind</strong> (<em>Enum</em>) &#8211; The TFFM can be either a 0-order, a 1st-order, or a detailed TFFM, use
-<cite>TFFM_KIND.ZERO_ORDER, or `TFFM_KIND.FIRST_ORDER</cite>, or
+<li><strong>kind</strong> (<em>Enum</em>) &#8211; The TFFM can be either a 0-order, a 1st-order, or a detailed
+TFFM, use <cite>TFFM_KIND.ZERO_ORDER, or `TFFM_KIND.FIRST_ORDER</cite>, or
 <cite>TFFM_KIND.DETAILED</cite> respectively.</li>
 <li><strong>name</strong> (<em>str</em>) &#8211; Give the name of the TFFM. &#8216;TFFM&#8217; is given by default.</li>
 </ul>
@@ -147,14 +147,14 @@ and construct the corresponding instances of
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>posterior_proba</strong> (<em>list of list of float</em>) &#8211; The posterior probabilities at each position of the
-sequence computed given the tffm.</li>
+<li><strong>posterior_proba</strong> (<em>list of list of float</em>) &#8211; The posterior probabilities at each position of
+the sequence computed given the tffm.</li>
 <li><strong>seq_record</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.SeqRecord</span></tt>) &#8211; The sequence on which to predict TFBS hits.</li>
 <li><strong>threshold</strong> (<em>float</em>) &#8211; The minimal probability to predict a position as a TFBS
 hit.</li>
-<li><strong>negative</strong> (<em>bool</em>) &#8211; A boolean stating if the TFBS hits are to be predicted on
-the positive or the negative strand of the sequence. Set to True when
-on the negative strand.</li>
+<li><strong>negative</strong> (<em>bool</em>) &#8211; A boolean stating if the TFBS hits are to be predicted
+on the positive or the negative strand of the sequence. Set to True
+when on the negative strand.</li>
 </ul>
 </td>
 </tr>
@@ -180,9 +180,9 @@ on the negative strand.</li>
 <li><strong>seq_record</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.SeqRecord</span></tt>) &#8211; The sequence on which to predict TFBS hits.</li>
 <li><strong>threshold</strong> (<em>float</em>) &#8211; The minimal probability to predict a position as a TFBS
 hit.</li>
-<li><strong>negative</strong> (<em>bool</em>) &#8211; A boolean stating if the TFBS hits are to be predicted on
-the positive or the negative strand of the sequence. Set to True when
-on the negative strand (default: False).</li>
+<li><strong>negative</strong> (<em>bool</em>) &#8211; A boolean stating if the TFBS hits are to be predicted
+on the positive or the negative strand of the sequence. Set to True
+when on the negative strand (default: False).</li>
 </ul>
 </td>
 </tr>
@@ -199,13 +199,14 @@ on the negative strand (default: False).</li>
 <dl class="method">
 <dt id="tffm_module.TFFM._get_posterior_proba">
 <tt class="descname">_get_posterior_proba</tt><big>(</big><em>sequence_split</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM._get_posterior_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM._get_posterior_proba" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the posterior probabilities at each nucleotide position given the TFFM.</p>
+<dd><p>Get the posterior probabilities at each nucleotide position given the
+TFFM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sequence_split</strong> (<em>list</em>) &#8211; The sequence splitted in subsequences to not consider
-non ACGT nucleotides.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sequence_split</strong> (<em>list</em>) &#8211; The sequence splitted in subsequences to not
+consider non ACGT nucleotides.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The posterior probabilities at each position of the sequence.</td>
 </tr>
@@ -237,8 +238,8 @@ non ACGT nucleotides.</td>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">ghmm.DiscreteEmissionHMM</span></tt></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Todo :</th><td class="field-body"><p class="first last">Raise an error rather than a <tt class="xref py py-func docutils literal"><span class="pre">sys.exit()</span></tt> when the trimmed HMM
-becomes empty.</p>
+<tr class="field-even field"><th class="field-name">Todo :</th><td class="field-body"><p class="first last">Raise an error rather than a <tt class="xref py py-func docutils literal"><span class="pre">sys.exit()</span></tt> when the trimmed
+HMM becomes empty.</p>
 </td>
 </tr>
 </tbody>
@@ -283,26 +284,27 @@ last matching position in the TFFM).</p>
 <dl class="method">
 <dt id="tffm_module.TFFM.get_emission_update_pos_proba">
 <tt class="descname">get_emission_update_pos_proba</tt><big>(</big><em>position_proba</em>, <em>position</em>, <em>previous_position_proba</em>, <em>index</em><big>)</big><a class="headerlink" href="#tffm_module.TFFM.get_emission_update_pos_proba" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the emission probabilities of ACGT at position <em>position</em> and update
-the emission probabilities in <em>position_proba</em> given the emission
-probabilities at the previous position (<em>previous_position_proba</em>).</p>
+<dd><p>Get the emission probabilities of ACGT at position <em>position</em> and
+update the emission probabilities in <em>position_proba</em> given the
+emission probabilities at the previous position
+(<em>previous_position_proba</em>).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note :</th><td class="field-body"><p class="first">This function is used state by state and several states represent
-the same position in detailed TFFM, this is why we need to update the
-probabilities listed in position_proba.</p>
+<tr class="field-odd field"><th class="field-name">Note :</th><td class="field-body"><p class="first">This function is used state by state and several states
+represent the same position in detailed TFFM, this is why we need
+to update the probabilities listed in position_proba.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>position_proba</strong> (<em>dict</em>) &#8211; Probabilities of getting ACGT at the current position
-that need to be updated.</li>
+<li><strong>position_proba</strong> (<em>dict</em>) &#8211; Probabilities of getting ACGT at the current
+position that need to be updated.</li>
 <li><strong>position</strong> (<em>int</em>) &#8211; Current position in the motif.</li>
-<li><strong>previous_position_proba</strong> (<em>dict</em>) &#8211; Probabilities of getting ACGT at the previous
-position.</li>
-<li><strong>index</strong> &#8211; Represents the index of the state of the TFFM to be analyzed at
-the current position.</li>
+<li><strong>previous_position_proba</strong> (<em>dict</em>) &#8211; Probabilities of getting ACGT at the
+previous position.</li>
+<li><strong>index</strong> &#8211; Represents the index of the state of the TFFM to be
+analyzed at the current position.</li>
 </ul>
 </td>
 </tr>
@@ -382,8 +384,8 @@ content.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>threshold</strong> (<em>float</em>) &#8211; The minimal information content to consider a position to
-be significant.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>threshold</strong> (<em>float</em>) &#8211; The minimal information content to consider a position
+to be significant.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The positions of the first and last positions that are to be
 considered significant (given in this order).</td>
@@ -454,7 +456,7 @@ compute the Pocc (default: 0.0).</li>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.print_dense_logo">
-<tt class="descname">print_dense_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ad1bd6561e0&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_dense_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_dense_logo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">print_dense_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ac21c8941e0&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_dense_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_dense_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the svg code of the corresponding dense logo (i.e. displaying the
 dinucleotide dependencies captured by the TFFM).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -473,7 +475,7 @@ dinucleotide dependencies captured by the TFFM).</p>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.print_summary_logo">
-<tt class="descname">print_summary_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ad1bd6561e0&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_summary_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_summary_logo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">print_summary_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ac21c8941e0&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_summary_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_summary_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the svg code of the corresponding summary logo (i.e. similar to a
 regular sequence logo).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -606,6 +608,16 @@ TFFM but does not alter this TFFM.</td>
 </dd></dl>
 
 </dd></dl>
+
+<dl class="function">
+<dt id="tffm_module.background_emission_proba_1storder">
+<tt class="descclassname">tffm_module.</tt><tt class="descname">background_emission_proba_1storder</tt><big>(</big><em>tffm</em><big>)</big><a class="headerlink" href="#tffm_module.background_emission_proba_1storder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="tffm_module.background_emission_proba_detailed">
+<tt class="descclassname">tffm_module.</tt><tt class="descname">background_emission_proba_detailed</tt><big>(</big><em>tffm</em><big>)</big><a class="headerlink" href="#tffm_module.background_emission_proba_detailed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="tffm_module.best_hit">
