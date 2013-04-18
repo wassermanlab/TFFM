@@ -20,7 +20,6 @@ class TFFMKindError(Exception):
         :type value: str
 
         """
-        Exception.__init__()
         self.value = value
 
     def __str__(self):

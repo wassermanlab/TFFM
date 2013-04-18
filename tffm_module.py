@@ -858,7 +858,12 @@ def create_0order_hmm(nb_seq, nb_residues, first_letters, motif):
     # The first state is random
     emissions = [[0.25, 0.25, 0.25, 0.25]]
     # Complete the emissions with the actual motif frequencies
-    nb_hits = len(motif.instances)
+    if motif.instances:
+        # The motif.counts is computed directly when creating the motif from
+        # instances
+        nb_hits = len(motif.instances)
+    else:
+        nb_hits = nb_seq
     for position in xrange(len(motif)):
         frequencies = []
         for letter in "ACGT":
@@ -1033,6 +1038,8 @@ def tffm_from_motif(motif, kind, name="TFFM", nb_res=None, first_letters=None):
         nb_res = nb_seq * 100
     if kind == TFFM_KIND.FIRST_ORDER:
         hmm = create_1storder_hmm(nb_seq, nb_res, first_letters, motif)
-    else:
+    elif kind == TFFM_KIND.DETAILED:
         hmm = create_detailed_hmm(nb_seq, nb_res, first_letters, motif)
+    else:  # 0-order TFFM here
+        hmm = create_0order_hmm(nb_seq, nb_res, first_letters, motif)
     return TFFM(hmm.emissionDomain, hmm.distribution, hmm.cmodel, kind, name)
