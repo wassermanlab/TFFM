@@ -8,8 +8,8 @@ class HIT:
     """ Define the representation of a TFBS hit. """
 
     # TODO raise an error when the strand is wrong
-    def __init__(self, seq_record, start, end, strand, score,
-            tffm=None, tffm_matched_state=-1):
+    def __init__(self, seq_record, start, end, strand, score, tffm=None,
+                 tffm_matched_state=-1):
         """
         Create an instance of the :class:`HIT`.
 
@@ -29,7 +29,7 @@ class HIT:
         :arg tffm_matched_state: Matching state in the TFFM to predict the hit
             (default: -1, i.e. no TFFM).
         :type tffm_matched_state: int
-        
+
         :warning: start and end are 1-based.
         :warning: The seq_record attribute is not the actual sequence of the
             hit but the whole sequence containing the hit.
@@ -66,9 +66,13 @@ class HIT:
 
         """
 
-        string = "%s\t%d\t%d\t%s\t%s\t%s\t%d\t%s"%(self.seq_record.id,
-                self.start, self.end, self.strand, self.sequence(),
-                self.tffm.name, self.tffm_matched_state, repr(self.score))
+        string = "%s\t%d\t%d\t%s\t%s\t%s\t%d\t%s" % (self.seq_record.id,
+                                                     self.start, self.end,
+                                                     self.strand,
+                                                     self.sequence(),
+                                                     self.tffm.name,
+                                                     self.tffm_matched_state,
+                                                     repr(self.score))
         return string
 
     def __lt__(self, other):
@@ -140,7 +144,7 @@ class HIT:
 
         """
 
-        seq = self.seq_record.seq[self.start-1:self.end]
+        seq = self.seq_record.seq[self.start - 1:self.end]
         if self.strand == "+" or not self.strand:
             return seq
         else:

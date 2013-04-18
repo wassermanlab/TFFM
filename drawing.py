@@ -26,17 +26,16 @@ def print_header(output, height, width):
     dtd_url = "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd"
     svg_url = "http://www.w3.org/2000/svg"
     xlink_url = "http://www.w3.org/1999/xlink"
-    output.write(
-    """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "%s">
-<svg height="%d" width="%d" xmlns="%s" xmlns:xlink="%s">
-"""%(dtd_url, height, width, svg_url, xlink_url))
+    output.write("""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "%s">
+                 <svg height="%d" width="%d" xmlns="%s" xmlns:xlink="%s">
+                 """ % (dtd_url, height, width, svg_url, xlink_url))
 
 
 def print_footer(output):
     """
     Print the footer of the svg to the output.
-    
+
     :arg output: Stream where to write.
     :type output: file
 
@@ -64,9 +63,9 @@ def print_ic(output, length, information_content, x_coord, y_coord):
 
     """
 
-    output.write("<text x=\"%f\" y=\"%d\">\n"%(
+    output.write("<text x=\"%f\" y=\"%d\">\n" % (
         x_coord / 2 + 30 * (length - 1), y_coord + 45))
-    output.write("IC = %.2f\n</text>\n"%(information_content))
+    output.write("IC = %.2f\n</text>\n" % (information_content))
 
 
 def draw_axis(output, length, x_coord, y_coord):
@@ -84,16 +83,16 @@ def draw_axis(output, length, x_coord, y_coord):
 
     """
 
-    output.write("<line x1=\"%d\" y1=\"%d\" "%(x_coord + 5, y_coord))
-    output.write("x2=\"%d\" y2=\"%d\" "%(
+    output.write("<line x1=\"%d\" y1=\"%d\" " % (x_coord + 5, y_coord))
+    output.write("x2=\"%d\" y2=\"%d\" " % (
         x_coord + 7 + 60 * length, y_coord))
     output.write("style=\"stroke:rgb(99,99,99);stroke-width:2\" />\n")
     for i in xrange(length + 1):
         draw_rectangle(output, x_coord + 5 + 60 * i, y_coord, 7, 2)
         if i < length:
-            output.write("<text x=\"%f\" y=\"%d\">\n"%(x_coord + 27 + 60 * i,
-                                                       y_coord + 20))
-            output.write("%d\n</text>\n"%(i+1))
+            output.write("<text x=\"%f\" y=\"%d\">\n" % (x_coord + 27 + 60 * i,
+                                                         y_coord + 20))
+            output.write("%d\n</text>\n" % (i + 1))
 
 
 def draw_y_axis(output, x_coord=80, y_coord=120):
@@ -108,27 +107,27 @@ def draw_y_axis(output, x_coord=80, y_coord=120):
     :type y_coord: float
 
     """
-    
-    output.write("<line x1=\"%d\" y1=\"%d\" "%(x_coord, y_coord - 8))
-    output.write("x2=\"%d\" y2=\"%d\" "%(x_coord, y_coord - 110))
+
+    output.write("<line x1=\"%d\" y1=\"%d\" " % (x_coord, y_coord - 8))
+    output.write("x2=\"%d\" y2=\"%d\" " % (x_coord, y_coord - 110))
     output.write("style=\"stroke:rgb(99,99,99);stroke-width:2\" />\n")
     draw_rectangle(output, x_coord - 7, y_coord - 10, 2, 7)
-    output.write("<text x=\"%d\" y=\"%d\">\n0\n</text>\n"%(x_coord - 17,
-                                                           y_coord - 5))
+    output.write("<text x=\"%d\" y=\"%d\">\n0\n</text>\n" % (x_coord - 17,
+                                                             y_coord - 5))
     draw_rectangle(output, x_coord - 7, y_coord - 60, 2, 7)
-    output.write("<text x=\"%d\" y=\"%d\">\n1\n</text>\n"%(x_coord - 17,
-                                                           y_coord - 55))
+    output.write("<text x=\"%d\" y=\"%d\">\n1\n</text>\n" % (x_coord - 17,
+                                                             y_coord - 55))
     draw_rectangle(output, x_coord - 7, y_coord - 110, 2, 7)
-    output.write("<text x=\"%d\" y=\"%d\">\n2\n</text>\n"%(x_coord - 17,
-                                                           y_coord - 105))
-    output.write("<text x=\"%d\" y=\"%d\"\n"%(x_coord - 30, y_coord - 55))
-    output.write("transform=\"rotate(-90, %d, %d)\">\n"%(x_coord - 30,
-                                                         y_coord - 50))
+    output.write("<text x=\"%d\" y=\"%d\">\n2\n</text>\n" % (x_coord - 17,
+                                                             y_coord - 105))
+    output.write("<text x=\"%d\" y=\"%d\"\n" % (x_coord - 30, y_coord - 55))
+    output.write("transform=\"rotate(-90, %d, %d)\">\n" % (x_coord - 30,
+                                                           y_coord - 50))
     output.write("bits\n</text>\n")
 
 
 def draw_ellipse(output, x_center, y_center, x_radius, y_radius, colour=BLACK,
-        opacity=1.0):
+                 opacity=1.0):
     """
     Print the svg instructions to draw an ellipse to the output.
 
@@ -152,10 +151,10 @@ def draw_ellipse(output, x_center, y_center, x_radius, y_radius, colour=BLACK,
 
     """
 
-    output.write("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" "%(x_center,
-        y_center, x_radius, y_radius))
-    output.write("fill=\"rgb%s\" style=\"fill-opacity:%.2f\" />\n"%(str(colour),
-        opacity))
+    output.write("<ellipse cx=\"%f\" cy=\"%f\" rx=\"%f\" ry=\"%f\" " %
+                 (x_center, y_center, x_radius, y_radius))
+    output.write("fill=\"rgb%s\" style=\"fill-opacity:%.2f\" />\n" %
+                 (str(colour), opacity))
 
 
 def draw_polygon(output, pts, colour=BLACK, opacity=1.0):
@@ -180,14 +179,14 @@ def draw_polygon(output, pts, colour=BLACK, opacity=1.0):
 
     output.write("<polygon points=\" ")
     for i in xrange(len(pts) - 1):
-        output.write("%f, %f, "%(pts[i][0], pts[i][1]))
-    output.write("%f, %f\" "%(pts[len(pts)-1][0], pts[len(pts)-1][1]))
-    output.write("fill=\"rgb%s\" style=\"fill-opacity:%.2f\" />\n"%(str(colour),
-        opacity))
+        output.write("%f, %f, " % (pts[i][0], pts[i][1]))
+    output.write("%f, %f\" " % (pts[len(pts) - 1][0], pts[len(pts) - 1][1]))
+    output.write("fill=\"rgb%s\" style=\"fill-opacity:%.2f\" />\n" %
+                 (str(colour), opacity))
 
 
 def draw_rectangle(output, x_coord, y_coord, height, width, colour=BLACK,
-        opacity=1.0):
+                   opacity=1.0):
     """
     Print the svg instructions to draw an rectangle to the output.
 
@@ -201,8 +200,8 @@ def draw_rectangle(output, x_coord, y_coord, height, width, colour=BLACK,
     :type height: float
     :arg width: Width of the rectangle.
     :type width: float
-    :arg colour: Color of the rectangle (default: black). The colour is given in
-        RGB.
+    :arg colour: Color of the rectangle (default: black). The colour is given
+        in RGB.
     :type colour: tuple (int, int, int)
     :arg opacity: Opacity of the rectangle (default: 1.0)
     :type opacity: float
@@ -211,14 +210,14 @@ def draw_rectangle(output, x_coord, y_coord, height, width, colour=BLACK,
 
     """
 
-    output.write("<rect height=\"%f\" width=\"%f\" "%(height, width))
-    output.write("x=\"%f\" y=\"%f\" "%(x_coord, y_coord))
-    output.write("fill=\"rgb%s\" style=\"fill-opacity:%.2f\" />\n"%(str(colour),
-        opacity))
+    output.write("<rect height=\"%f\" width=\"%f\" " % (height, width))
+    output.write("x=\"%f\" y=\"%f\" " % (x_coord, y_coord))
+    output.write("fill=\"rgb%s\" style=\"fill-opacity:%.2f\" />\n" %
+                 (str(colour), opacity))
 
 
 def draw_letter_a(output, x_coord, y_coord, width, height, colour=RED,
-        opacity=1.0):
+                  opacity=1.0):
     """
     Print the svg instructions to draw the letter 'A' to the output.
 
@@ -266,22 +265,24 @@ def draw_letter_a(output, x_coord, y_coord, width, height, colour=RED,
 
 
 def draw_letter_c(output, x_coord, y_coord, width, height, colour=BLUE,
-        opacity=1.0):
+                  opacity=1.0):
     """
     Print the svg instructions to draw the letter 'C' to the output.
 
     :arg output: Stream where to write.
     :type output: file
-    :arg x_coord: x-coordinate of the bottom left corner of the box containing the 'C'.
+    :arg x_coord: x-coordinate of the bottom left corner of the box containing
+        the 'C'.
     :type x_coord: float
-    :arg y_coord: y-coordinate of the bottom left corner ot the box containing the 'C'.
+    :arg y_coord: y-coordinate of the bottom left corner ot the box containing
+        the 'C'.
     :type y_coord: float
     :arg width: Width of the box containing the 'C'.
     :type width: float
     :arg height: Height of the box containing the 'C'.
     :type height: float
-    :arg colour: Color of the box containing the 'C' (default: black). The colour is given in
-        RGB.
+    :arg colour: Color of the box containing the 'C' (default: black). The
+        colour is given in RGB.
     :type colour: tuple (int, int, int)
     :arg opacity: Opacity of the box containing the 'C' (default: 1.0)
     :type opacity: float
@@ -294,31 +295,33 @@ def draw_letter_c(output, x_coord, y_coord, width, height, colour=BLUE,
 
     output.write("<!-- Begin 'C' -->\n")
     draw_ellipse(output, x_coord + width / 2, y_coord + height / 2, width / 2,
-            height / 2, colour, opacity)
+                 height / 2, colour, opacity)
     draw_ellipse(output, x_coord + width / 2, y_coord + height / 2, width / 3,
-            height / 3, WHITE)
-    draw_rectangle(output, x_coord + width / 2, y_coord + height / 4, 
-            0.5 * height, width / 2, WHITE)
+                 height / 3, WHITE)
+    draw_rectangle(output, x_coord + width / 2, y_coord + height / 4,
+                   0.5 * height, width / 2, WHITE)
     output.write("<!-- End 'C' -->\n")
 
 
 def draw_letter_g(output, x_coord, y_coord, width, height, colour=YELLOW,
-        opacity=1.0):
+                  opacity=1.0):
     """
     Print the svg instructions to draw the letter 'G' to the output.
 
     :arg output: Stream where to write.
     :type output: file
-    :arg x_coord: x-coordinate of the bottom left corner of the box containing the 'G'.
+    :arg x_coord: x-coordinate of the bottom left corner of the box containing
+        the 'G'.
     :type x_coord: float
-    :arg y_coord: y-coordinate of the bottom left corner ot the box containing the 'G'.
+    :arg y_coord: y-coordinate of the bottom left corner ot the box containing
+        the 'G'.
     :type y_coord: float
     :arg width: Width of the box containing the 'G'.
     :type width: float
     :arg height: Height of the box containing the 'G'.
     :type height: float
-    :arg colour: Color of the box containing the 'G' (default: black). The colour is given in
-        RGB.
+    :arg colour: Color of the box containing the 'G' (default: black). The
+        colour is given in RGB.
     :type colour: tuple (int, int, int)
     :arg opacity: Opacity of the box containing the 'G' (default: 1.0)
     :type opacity: float
@@ -330,35 +333,37 @@ def draw_letter_g(output, x_coord, y_coord, width, height, colour=YELLOW,
 
     output.write("<!-- Begin 'G' -->\n")
     draw_ellipse(output, x_coord + width / 2, y_coord + height / 2, width / 2,
-            height / 2, colour, opacity)
+                 height / 2, colour, opacity)
     draw_ellipse(output, x_coord + width / 2, y_coord + height / 2, width / 3,
-            height / 3, WHITE)
-    draw_rectangle(output, x_coord + width / 2, y_coord + height / 4,
-            height / 2, width / 2, WHITE)
-    draw_rectangle(output, x_coord + width / 2, y_coord + 5 * height / 8, 
-            height / 8, width / 2, colour, opacity)
+                 height / 3, WHITE)
+    draw_rectangle(output, x_coord + width / 2, y_coord + height / 4, height /
+                   2, width / 2, WHITE)
+    draw_rectangle(output, x_coord + width / 2, y_coord + 5 * height / 8,
+                   height / 8, width / 2, colour, opacity)
     draw_rectangle(output, x_coord + 7 * width / 8, y_coord + 5 * height / 8,
-            height - 5 * height / 8, width / 8, colour, opacity)
+                   height - 5 * height / 8, width / 8, colour, opacity)
     output.write("<!-- End 'G' -->\n")
 
 
 def draw_letter_t(output, x_coord, y_coord, width, height, colour=GREEN,
-        opacity=1.0):
+                  opacity=1.0):
     """
     Print the svg instructions to draw the letter 'T' to the output.
 
     :arg output: Stream where to write.
     :type output: file
-    :arg x_coord: x-coordinate of the bottom left corner of the box containing the 'T'.
+    :arg x_coord: x-coordinate of the bottom left corner of the box containing
+        the 'T'.
     :type x_coord: float
-    :arg y_coord: y-coordinate of the bottom left corner ot the box containing the 'T'.
+    :arg y_coord: y-coordinate of the bottom left corner ot the box containing
+        the 'T'.
     :type y_coord: float
     :arg width: Width of the box containing the 'T'.
     :type width: float
     :arg height: Height of the box containing the 'T'.
     :type height: float
-    :arg colour: Color of the box containing the 'T' (default: black). The colour is given in
-        RGB.
+    :arg colour: Color of the box containing the 'T' (default: black). The
+        colour is given in RGB.
     :type colour: tuple (int, int, int)
     :arg opacity: Opacity of the box containing the 'T' (default: 1.0)
     :type opacity: float
@@ -369,9 +374,9 @@ def draw_letter_t(output, x_coord, y_coord, width, height, colour=GREEN,
 
     output.write("<!-- Begin 'T' -->\n")
     draw_rectangle(output, x_coord, y_coord, 0.16 * height, width, colour,
-            opacity)
+                   opacity)
     draw_rectangle(output, x_coord + 0.4 * width, y_coord, height, .2 * width,
-            colour, opacity)
+                   colour, opacity)
     output.write("<!-- End 'T' -->\n")
 
 
@@ -389,8 +394,8 @@ def draw_left_letters(output):
     draw_letter_t(output, 10., 340., 60., 100.)
 
 
-def draw_dense_letters(output, probabilities, width, xposition, yposition, step,
-        previous_position_proba, index_letter):
+def draw_dense_letters(output, probabilities, width, xposition, yposition,
+                       step, previous_position_proba, index_letter):
     """
     Print the svg instructions to draw the four nucleotides in the dense logo
     with respect to their probability of appearance at the current position,
@@ -451,7 +456,7 @@ def draw_dense_letters(output, probabilities, width, xposition, yposition, step,
 
 
 def draw_summary_letters(output, probabilities, width, xposition, yposition,
-        step, entropy):
+                         step, entropy):
     """
     Print the svg instruction to writh the ACGT letters at the current position
     and return the x-coordinate and y-coordinate for the box containing the
@@ -502,9 +507,10 @@ def draw_summary_letters(output, probabilities, width, xposition, yposition,
 
 
 def draw_frame(output, header_width, header_height, axis_length, axis_width,
-        axis_height):
+               axis_height):
     """
-    Print the svg instructions to draw the frame of the logo (i.e. Y- and X-axis).
+    Print the svg instructions to draw the frame of the logo (i.e. Y- and
+    X-axis).
 
     :arg output: Stream where to write.
     :type output: file
@@ -526,7 +532,7 @@ def draw_frame(output, header_width, header_height, axis_length, axis_width,
 
 
 def draw_logo_letters(output, tffm, logo_type, xposition=90., width=50.,
-        step=10.):
+                      step=10.):
     """
     Print the svg instructions to draw the letters of the logo and return the
     information content to be printed.
@@ -557,19 +563,22 @@ def draw_logo_letters(output, tffm, logo_type, xposition=90., width=50.,
         position_proba = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
         yposition = 10.
         if tffm.kind == TFFM_KIND.ZERO_ORDER:
-            __ = tffm.get_emission_update_pos_proba(
-                    position_proba, position, previous_position_proba, 0)
+            __ = tffm.get_emission_update_pos_proba(position_proba, position,
+                                                    previous_position_proba, 0)
         else:
             for i in range(0, 4):
                 if logo_type == LOGO_TYPE.SUMMARY:
-                    __ = tffm.get_emission_update_pos_proba(
-                            position_proba, position, previous_position_proba, i)
+                    __ = tffm.get_emission_update_pos_proba(position_proba,
+                                                            position,
+                                                            previous_position_proba,
+                                                            i)
                 else:
                     emissions = tffm.get_emission_update_pos_proba(
-                            position_proba, position, previous_position_proba, i)
+                        position_proba, position, previous_position_proba, i)
                     yposition = draw_dense_letters(output, emissions, width,
-                            xposition, yposition, step, previous_position_proba,
-                            ALPHABET[i])
+                                                   xposition, yposition, step,
+                                                   previous_position_proba,
+                                                   ALPHABET[i])
         previous_position_proba = position_proba.copy()
         if tffm.kind == TFFM_KIND.DETAILED:
             somme = sum(previous_position_proba.values())
@@ -583,8 +592,9 @@ def draw_logo_letters(output, tffm, logo_type, xposition=90., width=50.,
         if logo_type == LOGO_TYPE.SUMMARY:
             emissions_tuple.sort(reverse=True)
             xposition, yposition = draw_summary_letters(output,
-                    emissions_tuple, width, xposition, yposition, step,
-                    entropy)
+                                                        emissions_tuple, width,
+                                                        xposition, yposition,
+                                                        step, entropy)
         else:
             xposition += width + step
     return information_content
@@ -606,7 +616,7 @@ def draw_logo(output, tffm, logo_type):
     :todo: raise an error if the logo type is wrong.
 
     """
-    
+
     header_y_coord = 60 * (len(tffm) + 2)
     if logo_type == LOGO_TYPE.SUMMARY:
         draw_frame(output, 170, header_y_coord, len(tffm), 80, 120)

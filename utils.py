@@ -15,8 +15,8 @@ def set_sequences_weight(sequences, weight):
     :class:`ghmm.SequenceSet`.
 
     :arg sequences: List of sequences to weight
-    :type sequences: :class:`ghmm.SequenceSet` 
-    
+    :type sequences: :class:`ghmm.SequenceSet`
+
     """
 
     for index in xrange(len(sequences)):
@@ -32,7 +32,7 @@ def parse_fasta(fasta_file):
 
     :returns: The set of Bio.SeqRecord instances found in the fasta file.
     :rtype: list of :class:`Bio.SeqRecord`
-    
+
     :todo: Check file and raise error if does not exist.
 
     """
