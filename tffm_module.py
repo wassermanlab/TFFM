@@ -19,7 +19,7 @@ import re
 #
 # Changed to use the newer Bio.motifs package
 # DJA 2013/04/05
-# 
+#
 #from Bio.Motif.Parsers import MEME
 from Bio import motifs
 
@@ -44,7 +44,7 @@ class TFFM(ghmm.DiscreteEmissionHMM):
     """
 
     def __init__(self, emission_domain, distribution, cmodel, kind,
-            name="TFFM"):
+                 name="TFFM"):
         """
         Construct an instance of the TFFM class.
 
@@ -55,19 +55,22 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         :type distribution: :class:`ghmm.Distribution`
         :arg cmodel: The cmodel (HMM itself implemented in C) of the underlying
             :class:`ghmm.HMM`.
-        :arg kind: The TFFM can be either a 1st-order or a detailed TFFM, use
-            `TFFM_KIND.FIRST_ORDER` or `TFFM_KIND.DETAILED` respectively.
+        :arg kind: The TFFM can be either a 0-order, a 1st-order, or a detailed
+            TFFM, use `TFFM_KIND.ZERO_ORDER, or `TFFM_KIND.FIRST_ORDER`, or
+        `   TFFM_KIND.DETAILED` respectively.
         :type kind: Enum
         :arg name: Give the name of the TFFM. 'TFFM' is given by default.
         :type name: str
         :raises: :class:`exceptions.TFFMKindError` when the given kind is
             neither '1st-order' nor 'detailed'.
-            
+
         """
 
+        # Construct the underlying ghmm.EmissionHMM
         super(ghmm.DiscreteEmissionHMM, self).__init__(emission_domain,
-            distribution, cmodel)  # Construct the underlying ghmm.EmissionHMM
-        if kind != TFFM_KIND.FIRST_ORDER and kind != TFFM_KIND.DETAILED:
+                                                       distribution, cmodel)
+        if (kind != TFFM_KIND.FIRST_ORDER and kind != TFFM_KIND.DETAILED
+                and kind != TFFM_KIND.ZERO_ORDER):
             raise exceptions_errors.TFFMKindError(kind)
         self.kind = kind
         self.name = name
@@ -92,7 +95,10 @@ class TFFM(ghmm.DiscreteEmissionHMM):
 
         if self.kind == TFFM_KIND.FIRST_ORDER:
             return self.N - 2
-        return self.N / 4 - 1
+        elif self.kind == TFFM_KIND.DETAILED:
+            return self.N / 4 - 1
+        else:  # 0-order HMM here
+            return self.N - 1
 
     def background_emission_proba(self):
         """
@@ -107,28 +113,13 @@ class TFFM(ghmm.DiscreteEmissionHMM):
 
         emissions = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
         if self.kind == TFFM_KIND.FIRST_ORDER:
-            last_emissions = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
-            # Retrieve emission proba for the first state which is not
-            # 1st-order
-            for i in xrange(4):
-                last_emissions[ALPHABET[i]] = self.getEmission(0)[i]
-            # Compute emission proba for the background
-            for i in xrange(4):
-                for j in xrange(4):
-                    proba = self.getEmission(1)[j * 4 + i]
-                    proba *= last_emissions[ALPHABET[j]]
-                    emissions[ALPHABET[i]] += proba
+            emissions = background_emission_proba_1storder(self)
         elif self.kind == TFFM_KIND.DETAILED:
-            # Compute emission proba for the background
+            emissions = background_emission_proba_detailed(self)
+        else:  # 0-order HMM here
+            emissions = background_emission_proba_detailed(self)
             for i in xrange(4):
-                for j in xrange(4):
-                    proba = self.getTransition(i, j) * 0.25
-                    emissions[ALPHABET[j]] += proba
-            somme = sum(emissions.values())
-            for i in xrange(4):
-                # Need to divide by somme since four states are representing
-                # the same position within a detailed TFFM
-                emissions[ALPHABET[i]] /= somme
+                emissions[ALPHABET[i]] = self.getEmission(0)[i]
         return emissions
 
     def print_summary_logo(self, output=sys.stdout):
@@ -161,6 +152,8 @@ class TFFM(ghmm.DiscreteEmissionHMM):
 
         """
 
+        if self.kind == TFFM_KIND.ZERO_ORDER:  # No dependencies in 0order TFFMs
+            raise exceptions_errors.TFFMKindError(kind)
         drawing.draw_logo(output, self, LOGO_TYPE.DENSE)
 
     def get_positions_ic(self):
@@ -186,9 +179,14 @@ class TFFM(ghmm.DiscreteEmissionHMM):
             position_proba = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
             # Compute the emission probabilities for each nucleotide at the
             # current position
-            for i in xrange(4):
+            if (self.kind == TFFM_KIND.DETAILED
+                    or self.kind == TFFM_KIND.FIRST_ORDER):
+                for i in xrange(4):
+                    emissions = self.get_emission_update_pos_proba(
+                            position_proba, pos, previous_position_proba, i)
+            else: # 0-order HMM here
                 emissions = self.get_emission_update_pos_proba(
-                    position_proba, pos, previous_position_proba, i)
+                        position_proba, pos, previous_position_proba, 0)
             previous_position_proba = position_proba.copy()
             if self.kind == TFFM_KIND.DETAILED:
                 somme = sum(previous_position_proba.values())
@@ -229,9 +227,11 @@ class TFFM(ghmm.DiscreteEmissionHMM):
 
         if self.kind == TFFM_KIND.FIRST_ORDER:
             return [len(self) + 1]
-        else:
+        elif self.kind == TFFM_KIND.DETAILED:
             size = len(self) * 4
             return [size, size + 1, size + 2, size + 3]
+        else: # 0-order HMM here
+            return [len(self)]
 
     def train(self, training_file, epsilon=0.0001, max_iter=500):
         """
@@ -284,7 +284,7 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         :note:  (**0.0<=** *threshold* **<=1.0**)
 
         """
-        
+
         # Retrieve the hits on both the positive and the negative strands.
         hits_positive_strand = self._get_hits(sequence, threshold)
         hits_negative_strand = self._get_hits(sequence, threshold,
@@ -359,7 +359,7 @@ class TFFM(ghmm.DiscreteEmissionHMM):
 
         :warning: Trims the TFFM in place. To preserve the TFFM, use
             the :func:`get_trimmed` method which returns a trimmed copy of the
-            TFFM but does not alter this TFFM. 
+            TFFM but does not alter this TFFM.
 
         :see also: :func:`get_trimmed`
 
@@ -405,18 +405,18 @@ class TFFM(ghmm.DiscreteEmissionHMM):
     def _get_trimmed_hmm(self, first, last):
         """
         Return the new trimmed HMM.
-    
+
         :arg first: Position of the new first matching position.
         :type first: int
         :arg last: Position of the new last matching position.
         :type last: int
         :returns: The new trimmed HMM.
         :rtype: :class:`ghmm.DiscreteEmissionHMM`
-    
+
         :todo: Raise an error rather than a :func:`sys.exit` when the trimmed HMM
             becomes empty.
         """
-    
+
         nb_states = last - first + 1
         if nb_states < 0:
             # TODO raise an error rather than a sys.exit
@@ -446,17 +446,17 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         Get the first and last significant position the TFFM where the
         insignificant positions are the ones on the edges with low information
         content.
-    
+
         :arg threshold: The minimal information content to consider a position to
             be significant.
         :type threshold: float
-        
+
         :returns: The positions of the first and last positions that are to be
             considered significant (given in this order).
         :rtype: tuple
-    
+
         """
-    
+
         pos_ic = self.get_positions_ic()
         first = 1
         last = len(self)
@@ -469,22 +469,22 @@ class TFFM(ghmm.DiscreteEmissionHMM):
     def _get_posterior_proba(self, sequence_split):
         """
         Get the posterior probabilities at each nucleotide position given the TFFM.
-    
+
         :arg sequence_split: The sequence splitted in subsequences to not consider
             non ACGT nucleotides.
         :type sequence_split: list
-    
+
         :returns: The posterior probabilities at each position of the sequence.
         :rtype: list of list
-    
+
         :note: One example of a sequence_split is ["ACT", "N", "ATC"].
-        
+
         """
-    
+
         ghmm_extended_alphabet = ghmm.Alphabet(EXTENDED_ALPHABET)
         posterior_proba = []
         # null probabilities for non ACGT nucleotides.
-        null_proba = [0.] * self.N 
+        null_proba = [0.] * self.N
         for sequence in sequence_split:
             if re.match("[ACGT]", sequence):
                 emission_sequence = ghmm.SequenceSet(ghmm_extended_alphabet,
@@ -498,7 +498,7 @@ class TFFM(ghmm.DiscreteEmissionHMM):
     def _get_hits(self, seq_record, threshold, negative=False):
         """
         Predict TFBS hits in the sequence given the TFFM.
-    
+
         :arg seq_record: The sequence on which to predict TFBS hits.
         :type seq_record: :class:`Bio.SeqRecord`
         :arg threshold: The minimal probability to predict a position as a TFBS
@@ -508,12 +508,12 @@ class TFFM(ghmm.DiscreteEmissionHMM):
             the positive or the negative strand of the sequence. Set to True when
             on the negative strand (default: False).
         :type negative: bool
-    
+
         :returns: The list of TFBS hits predicted on the sequence strand.
         :rtype: list of :class:`HIT`
-    
+
         """
-    
+
         sequence = seq_record.seq
         if negative:
             sequence = seq_record.reverse_complement().seq
@@ -529,11 +529,11 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         Get the emission probabilities of ACGT at position *position* and update
         the emission probabilities in *position_proba* given the emission
         probabilities at the previous position (*previous_position_proba*).
-    
+
         :note: This function is used state by state and several states represent
             the same position in detailed TFFM, this is why we need to update the
             probabilities listed in position_proba.
-    
+
         :arg position_proba: Probabilities of getting ACGT at the current position
             that need to be updated.
         :type position_proba: dict
@@ -544,13 +544,13 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         :type previous_position_proba: dict
         :arg index: Represents the index of the state of the TFFM to be analyzed at
             the current position.
-    
+
         :returns: The emission probabilities of ACGT by the state indexed by
             *index* at position *position* in the TFFM.
         :rtype: list
-    
+
         """
-    
+
         emissions_dic = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
         if self.kind == TFFM_KIND.FIRST_ORDER:
             for j in xrange(4):
@@ -572,6 +572,13 @@ class TFFM(ghmm.DiscreteEmissionHMM):
             somme = sum(emissions_dic.values())
             emissions = zip(emissions_dic.values(), emissions_dic.keys())
             emissions = map(lambda (x, y): (x / somme, y), emissions)
+        else: # 0-order HMM here
+            for j in xrange(4):
+                letter = ALPHABET[j]
+                emissions_dic[letter] = self.getEmission(position)[j]
+                proba = self.getEmission(position)[j]
+                position_proba[ALPHABET[j]] += proba
+            emissions = zip(emissions_dic.values(), emissions_dic.keys())
         emissions.sort(reverse=True)
         return emissions
 
@@ -581,7 +588,7 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         Compute the TFBS hits on a sequence given the posterior probabilities
         and construct the corresponding instances of
         :class:`HIT`.
-    
+
         :arg posterior_proba: The posterior probabilities at each position of the
             sequence computed given the tffm.
         :type posterior_proba: list of list of float
@@ -594,12 +601,12 @@ class TFFM(ghmm.DiscreteEmissionHMM):
             the positive or the negative strand of the sequence. Set to True when
             on the negative strand.
         :type negative: bool
-    
+
         :returns: The list of TFBS hits predicted on the sequence strand.
         :rtype: list of :class:`HIT`
-    
+
         """
-    
+
         hits = [None] * len(seq_record)
         # Iterate over all the positions of the sequences by starting at the
         # len(self) position since we need to read at least len(self)
@@ -624,19 +631,49 @@ class TFFM(ghmm.DiscreteEmissionHMM):
     def get_position_start(self):
         """
         Give the position of the first matching state.
-    
+
         :returns: The position of the first matching state of the TFFM.
         :rtype: float
-    
+
         :warning: The position is given 0-based.
-    
+
         """
-    
+
         if self.kind == TFFM_KIND.FIRST_ORDER:
             return 2
-        else:
+        else: # Both detailed and 0-order
             return 1
 
+
+def background_emission_proba_1storder(tffm):
+    emissions = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
+    last_emissions = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
+    # Retrieve emission proba for the first state which is not
+    # 1st-order
+    for i in xrange(4):
+        last_emissions[ALPHABET[i]] = tffm.getEmission(0)[i]
+    # Compute emission proba for the background
+    for i in xrange(4):
+        for j in xrange(4):
+            proba = tffm.getEmission(1)[j * 4 + i]
+            proba *= last_emissions[ALPHABET[j]]
+            emissions[ALPHABET[i]] += proba
+    return emissions
+
+
+def background_emission_proba_detailed(tffm):
+    emissions = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
+    # Compute emission proba for the background
+    for i in xrange(4):
+        for j in xrange(4):
+            proba = tffm.getTransition(i, j) * 0.25
+            emissions[ALPHABET[j]] += proba
+    somme = sum(emissions.values())
+    for i in xrange(4):
+        # Need to divide by somme since four states are representing
+        # the same position within a detailed TFFM
+        emissions[ALPHABET[i]] /= somme
+    return emissions
 
 
 def best_hit(hits_positive_strand, hits_negative_strand):
@@ -752,7 +789,7 @@ def create_1storder_hmm(nb_seq, nb_residues, first_letters, motif):
     """
 
     # Very first state is created with the initial nt frequencies
-    emissions = [[(first_letters['A'] + 1.) / (nb_seq + 4.), 
+    emissions = [[(first_letters['A'] + 1.) / (nb_seq + 4.),
                 (first_letters['C'] + 1.) / (nb_seq + 4.),
                 (first_letters['G'] + 1.) / (nb_seq + 4.),
                 (first_letters['T'] + 1.) / (nb_seq + 4.)]]
@@ -781,7 +818,7 @@ def create_1storder_hmm(nb_seq, nb_residues, first_letters, motif):
     transitions.append([0., background_to_background, background_to_foreground]
             + [0.] * (len(motif) - 1))
     for position in xrange(1, len(motif)):
-        transitions.append([0.] * (position + 2) + [1.] + 
+        transitions.append([0.] * (position + 2) + [1.] +
                 [0.] * (len(motif) - position - 1))
     # Final transitions now
     transitions.append([0., 1.] + [0.] * len(motif))
@@ -792,6 +829,55 @@ def create_1storder_hmm(nb_seq, nb_residues, first_letters, motif):
             ghmm.DiscreteDistribution(ghmm.Alphabet(ALPHABET)), transitions,
             emissions, initials)
 
+
+def create_0order_hmm(nb_seq, nb_residues, first_letters, motif):
+    """
+    Create a 0-order HMM initialized from MEME result
+
+    :arg nb_seq: Number of sequences used by MEME
+    :type nb_seq: int
+    :arg nb_residues: Number of residues used by MEME
+    :type nb_residues: int
+    :arg first_letters: Number of occurrences of ACGT at the begining of
+        sequences used by MEME
+    :type first_letters: dic of str->int
+    :arg motif: PFM as a Biopython motif to be used to initialize the TFFFM
+    :type motif: :class:`Bio.motifs`
+
+    :returns: The constructed HMM
+    :rtype: :class:`ghmm.DiscreteEmissionHMM`
+
+    """
+
+    # The first state is random
+    emissions = [[0.25, 0.25, 0.25, 0.25]]
+    # Complete the emissions with the actual motif frequencies
+    nb_hits = len(motif.instances)
+    for position in xrange(len(motif)):
+        frequencies = []
+        for letter in "ACGT":
+            freq = (motif.counts[letter][position] + 1.) / (nb_hits + 4.)
+            frequencies.append(freq)
+        emissions.append(frequencies)
+
+    # Background transitions
+    transitions = []
+    background_to_background = 1. - float(nb_seq) / nb_residues
+    background_to_foreground = 1. - background_to_background
+    transitions.append([background_to_background, background_to_foreground]
+            + [0.] * (len(motif) - 1))
+    # Core transitions
+    for position in xrange(1, len(motif)):
+        transitions.append([0.] * (position + 1) + [1.] +
+                [0.] * (len(motif) - position - 1))
+    # Final transitions now
+    transitions.append([1.] + [0.] * len(motif))
+
+    # Starting proba
+    initials = [1.] + [0.] * len(motif)
+    return ghmm.HMMFromMatrices(ghmm.Alphabet(ALPHABET),
+            ghmm.DiscreteDistribution(ghmm.Alphabet(ALPHABET)), transitions,
+            emissions, initials)
 
 
 def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
@@ -814,7 +900,7 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
     """
 
     # Starting proba
-    initials = [(first_letters['A'] + 1.) / (nb_seq + 4.), 
+    initials = [(first_letters['A'] + 1.) / (nb_seq + 4.),
                 (first_letters['C'] + 1.) / (nb_seq + 4.),
                 (first_letters['G'] + 1.) / (nb_seq + 4.),
                 (first_letters['T'] + 1.) / (nb_seq + 4.),
@@ -822,7 +908,7 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
     initials += [0.] * 4 * (len(motif) - 1)
 
     # Emission proba
-    emissions = [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], 
+    emissions = [[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.],
             [0., 0., 0., 1.]] * (len(motif) + 1)
 
     # Background transitions proba
@@ -841,10 +927,10 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
         transi[letter] = freq * background_to_foreground
     transitions = []
     for __ in xrange(4):
-        transitions.append([background_to_background, 
+        transitions.append([background_to_background,
                             background_to_background,
                             background_to_background,
-                            background_to_background, 
+                            background_to_background,
                             transi['A'], transi['C'],
                             transi['G'], transi['T']]
                             + [0.] * 4 * (len(motif) - 1))
@@ -866,7 +952,6 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
             ghmm.DiscreteDistribution(ghmm.Alphabet(ALPHABET)), transitions,
             emissions, initials)
 
- 
 
 def tffm_from_meme(meme_output, kind, name="TFFM"):
     """
@@ -892,8 +977,10 @@ def tffm_from_meme(meme_output, kind, name="TFFM"):
     nb_seq, nb_res, first_letters = utils.get_sequences_info(record.datafile)
     if kind == TFFM_KIND.FIRST_ORDER:
         hmm = create_1storder_hmm(nb_seq, nb_res, first_letters, motif)
-    else:
+    elif kind == TFFM_KIND.DETAILED:
         hmm = create_detailed_hmm(nb_seq, nb_res, first_letters, motif)
+    else: # 0-order HMM here
+        hmm = create_0order_hmm(nb_seq, nb_res, first_letters, motif)
     return TFFM(hmm.emissionDomain, hmm.distribution, hmm.cmodel, kind, name)
 
 

@@ -109,8 +109,9 @@ underlying <tt class="xref py py-class docutils literal"><span class="pre">ghmm.
 <li><strong>distribution</strong> (<tt class="xref py py-class docutils literal"><span class="pre">ghmm.Distribution</span></tt>) &#8211; The distribution over the emission domain.</li>
 <li><strong>cmodel</strong> &#8211; The cmodel (HMM itself implemented in C) of the underlying
 <tt class="xref py py-class docutils literal"><span class="pre">ghmm.HMM</span></tt>.</li>
-<li><strong>kind</strong> (<em>Enum</em>) &#8211; The TFFM can be either a 1st-order or a detailed TFFM, use
-<cite>TFFM_KIND.FIRST_ORDER</cite> or <cite>TFFM_KIND.DETAILED</cite> respectively.</li>
+<li><strong>kind</strong> (<em>Enum</em>) &#8211; The TFFM can be either a 0-order, a 1st-order, or a detailed TFFM, use
+<cite>TFFM_KIND.ZERO_ORDER, or `TFFM_KIND.FIRST_ORDER</cite>, or
+<cite>TFFM_KIND.DETAILED</cite> respectively.</li>
 <li><strong>name</strong> (<em>str</em>) &#8211; Give the name of the TFFM. &#8216;TFFM&#8217; is given by default.</li>
 </ul>
 </td>
@@ -422,8 +423,38 @@ match position to be kept.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="tffm_module.TFFM.pocc_sequences">
+<tt class="descname">pocc_sequences</tt><big>(</big><em>seq_file</em>, <em>threshold=0.0</em><big>)</big><a class="headerlink" href="#tffm_module.TFFM.pocc_sequences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the TFFM on the fasta sequences and return the Pocc value
+(probability of occupancy) for each sequence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>seq_file</strong> (<em>str</em>) &#8211; Fasta file giving the DNA sequences to apply the TFFM
+on.</li>
+<li><strong>threshold</strong> (<em>float</em>) &#8211; The threshold used to predict hits that will be used to
+compute the Pocc (default: 0.0).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Pocc values through a generator.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">Generator</span></tt> of <tt class="xref py py-class docutils literal"><span class="pre">HIT</span></tt></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">(<strong>0.0&lt;=</strong> <em>threshold</em> <strong>&lt;=1.0</strong>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="tffm_module.TFFM.print_dense_logo">
-<tt class="descname">print_dense_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b9cf6d0f1e0&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_dense_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_dense_logo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">print_dense_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ad1bd6561e0&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_dense_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_dense_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the svg code of the corresponding dense logo (i.e. displaying the
 dinucleotide dependencies captured by the TFFM).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -442,7 +473,7 @@ dinucleotide dependencies captured by the TFFM).</p>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.print_summary_logo">
-<tt class="descname">print_summary_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b9cf6d0f1e0&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_summary_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_summary_logo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">print_summary_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ad1bd6561e0&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_summary_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_summary_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the svg code of the corresponding summary logo (i.e. similar to a
 regular sequence logo).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -454,6 +485,37 @@ regular sequence logo).</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Note :</th><td class="field-body">The <em>output</em> argument is not a file name but it is an
 <strong>already</strong> open file stream.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="tffm_module.TFFM.scan_sequence">
+<tt class="descname">scan_sequence</tt><big>(</big><em>sequence</em>, <em>threshold</em>, <em>only_best</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.scan_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.scan_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the TFFM on the fasta sequence and return the TFBS hits.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sequence</strong> &#8211; DNA sequence to apply the TFFM on.</li>
+<li><strong>threshold</strong> (<em>float</em>) &#8211; The threshold used to predict a hit (i.e. the minimal
+probability value for a position to be considered a TFBS hit)
+(default: 0.0).</li>
+<li><strong>only_best</strong> (<em>bool</em>) &#8211; Argument to be set to <tt class="xref py py-class docutils literal"><span class="pre">True</span></tt> if only the best
+TFBS hit per sequence is to be reported (default: <tt class="xref py py-class docutils literal"><span class="pre">False</span></tt>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">TFBS hits.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">list of <tt class="xref py py-class docutils literal"><span class="pre">HIT</span></tt></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">(<strong>0.0&lt;=</strong> <em>threshold</em> <strong>&lt;=1.0</strong>)</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -593,6 +655,33 @@ nucleotides.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="tffm_module.create_0order_hmm">
+<tt class="descclassname">tffm_module.</tt><tt class="descname">create_0order_hmm</tt><big>(</big><em>nb_seq</em>, <em>nb_residues</em>, <em>first_letters</em>, <em>motif</em><big>)</big><a class="headerlink" href="#tffm_module.create_0order_hmm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a 0-order HMM initialized from MEME result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>nb_seq</strong> (<em>int</em>) &#8211; Number of sequences used by MEME</li>
+<li><strong>nb_residues</strong> (<em>int</em>) &#8211; Number of residues used by MEME</li>
+<li><strong>first_letters</strong> (<em>dic of str-&gt;int</em>) &#8211; Number of occurrences of ACGT at the begining of
+sequences used by MEME</li>
+<li><strong>motif</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.motifs</span></tt>) &#8211; PFM as a Biopython motif to be used to initialize the TFFFM</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The constructed HMM</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">ghmm.DiscreteEmissionHMM</span></tt></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="tffm_module.create_1storder_hmm">
 <tt class="descclassname">tffm_module.</tt><tt class="descname">create_1storder_hmm</tt><big>(</big><em>nb_seq</em>, <em>nb_residues</em>, <em>first_letters</em>, <em>motif</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#create_1storder_hmm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.create_1storder_hmm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a 1st-order HMM initialized from MEME result</p>
@@ -605,7 +694,7 @@ nucleotides.</p>
 <li><strong>nb_residues</strong> (<em>int</em>) &#8211; Number of residues used by MEME</li>
 <li><strong>first_letters</strong> (<em>dic of str-&gt;int</em>) &#8211; Number of occurrences of ACGT at the begining of
 sequences used by MEME</li>
-<li><strong>motif_counts</strong> (<em>dic of int-&gt;list of int</em>) &#8211; PFM of the motif</li>
+<li><strong>motif</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.motifs</span></tt>) &#8211; PFM as a Biopython motif to be used to initialize the TFFFM</li>
 </ul>
 </td>
 </tr>
@@ -632,7 +721,7 @@ sequences used by MEME</li>
 <li><strong>nb_residues</strong> (<em>int</em>) &#8211; Number of residues used by MEME</li>
 <li><strong>first_letters</strong> (<em>dic of str-&gt;int</em>) &#8211; Number of occurrences of ACGT at the begining of
 sequences used by MEME</li>
-<li><strong>motif_counts</strong> (<em>dic of int-&gt;list of int</em>) &#8211; PFM of the motif</li>
+<li><strong>motif</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.motifs</span></tt>) &#8211; PFM as a Biopython motif to be used to initialize the TFFFM</li>
 </ul>
 </td>
 </tr>
@@ -688,13 +777,57 @@ no hit has been found at a position, the constant None is used.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>meme_output</strong> (<em>str</em>) &#8211; File containing the output of MEME.</li>
 <li><strong>kind</strong> (<em>str</em>) &#8211; Type of TFFM to construct between &#8216;1st-order&#8217; and &#8216;detailed&#8217;.</li>
+<li><strong>name</strong> (<em>str</em>) &#8211; Name of the TFFM (default: &#8220;TFFM&#8221;)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The TFFM constructed from MEME results.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The TFFM initialized from MEME results.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#tffm_module.TFFM" title="tffm_module.TFFM"><tt class="xref py py-class docutils literal"><span class="pre">TFFM</span></tt></a></p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#tffm_module.TFFM" title="tffm_module.TFFM"><tt class="xref py py-class docutils literal"><span class="pre">TFFM</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">As the PFM is used to initialize the TFFM, a pseudocount of 1 is
+added to all the values in the PFM</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tffm_module.tffm_from_motif">
+<tt class="descclassname">tffm_module.</tt><tt class="descname">tffm_from_motif</tt><big>(</big><em>motif</em>, <em>kind</em>, <em>name='TFFM'</em>, <em>nb_res=None</em>, <em>first_letters=None</em><big>)</big><a class="headerlink" href="#tffm_module.tffm_from_motif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct an initialized TFFM from a PFM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>motif</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.motifs</span></tt>) &#8211; PFM as a Biopython motif to be used to initialize the TFFFM</li>
+<li><strong>kind</strong> (<em>str</em>) &#8211; Type of TFFM to construct between &#8216;1st-order&#8217; and &#8216;detailed&#8217;</li>
+<li><strong>name</strong> (<em>str</em>) &#8211; Name of the TFFM (default: &#8220;TFFM&#8221;)</li>
+<li><strong>nb_res</strong> &#8211; Number of residues to be used to compute the
+background-&gt;foreground transition probabilities
+(default: 0 meaning that we will assume a 100nt length for the ChIP-seq
+used to derive the PFM)</li>
+<li><strong>first_letters</strong> (<em>dic of str-&gt;int</em>) &#8211; Number of occurrences of ACGT at the begining of
+sequences in the background (default: default values will give
+equiprobabilities for A, C, G, and T</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The TFFM initialized from the PFM</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#tffm_module.TFFM" title="tffm_module.TFFM"><tt class="xref py py-class docutils literal"><span class="pre">TFFM</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">See also:</th><td class="field-body"><p class="first"><a class="reference internal" href="#tffm_module.tffm_from_meme" title="tffm_module.tffm_from_meme"><tt class="xref py py-func docutils literal"><span class="pre">tffm_from_meme()</span></tt></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">As the PFM is used to initialize the TFFM, a pseudocount of 1 is
+added to all the values in the PFM</p>
 </td>
 </tr>
 </tbody>

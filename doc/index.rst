@@ -36,12 +36,13 @@ the `GHMM library <http://ghmm.org>`_.
 System requirements
 ===================
 
-* The TFFM-framework 1.0 has been developed and tested under Ubuntu Linux
+* The TFFM-framework 2.0 has been developed and tested under Ubuntu Linux
   operating system. It has also been tested on CentOS.
-* **Python** should be installed (version 2.4 and 2.7 have been used
+* **Python** should be installed (version 2.7 has been used
   successfully).
-* **Biopython** should be installed and accessible from your Python executable.
-  See http://biopython.org for instructions on how to install it.
+* **Biopython** (at least version 1.61) should be installed and accessible from
+  your Python executable.  See http://biopython.org for instructions on how to
+  install it.
 * The **GHMM** library should be installed and accessible from Python. See
   http://ghmm.org for instructions on how to install it.
 

@@ -28,7 +28,7 @@ def enum(**enums):
     return type('Enum', (), enums)
 
 
-TFFM_KIND = enum(FIRST_ORDER="1st-order", DETAILED="detailed")
+TFFM_KIND = enum(FIRST_ORDER="1st-order", DETAILED="detailed", ZERO_ORDER="0-order")
 """ Defines the two kinds of TFFMs. """
 
 LOGO_TYPE = enum(SUMMARY="summary", DENSE="dense")

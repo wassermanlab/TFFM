@@ -556,16 +556,20 @@ def draw_logo_letters(output, tffm, logo_type, xposition=90., width=50.,
     for position in range(start, len(tffm) + start):
         position_proba = {'A': 0., 'C': 0., 'G': 0., 'T': 0.}
         yposition = 10.
-        for i in range(0, 4):
-            if logo_type == LOGO_TYPE.SUMMARY:
-                __ = tffm.get_emission_update_pos_proba(
-                        position_proba, position, previous_position_proba, i)
-            else:
-                emissions = tffm.get_emission_update_pos_proba(
-                        position_proba, position, previous_position_proba, i)
-                yposition = draw_dense_letters(output, emissions, width,
-                        xposition, yposition, step, previous_position_proba,
-                        ALPHABET[i])
+        if tffm.kind == TFFM_KIND.ZERO_ORDER:
+            __ = tffm.get_emission_update_pos_proba(
+                    position_proba, position, previous_position_proba, 0)
+        else:
+            for i in range(0, 4):
+                if logo_type == LOGO_TYPE.SUMMARY:
+                    __ = tffm.get_emission_update_pos_proba(
+                            position_proba, position, previous_position_proba, i)
+                else:
+                    emissions = tffm.get_emission_update_pos_proba(
+                            position_proba, position, previous_position_proba, i)
+                    yposition = draw_dense_letters(output, emissions, width,
+                            xposition, yposition, step, previous_position_proba,
+                            ALPHABET[i])
         previous_position_proba = position_proba.copy()
         if tffm.kind == TFFM_KIND.DETAILED:
             somme = sum(previous_position_proba.values())
