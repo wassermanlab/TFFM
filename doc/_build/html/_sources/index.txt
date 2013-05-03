@@ -6,29 +6,30 @@
 Welcome to TFFM's documentation!
 ================================
 
-We provide here the documentation of the TFFM-framework developed in Python.
-The **Transcription Factor Flexible Models (TFFMs)** represent TFBSs and are
-based on hidden Markov models (HMM). They are flexible and are able to model
-both position interdependence within TFBSs and variable length motifs within a
-single dedicated framework.
+We provide here the documentation of the TFFM-framework developed in `Python
+<http://docs.python.org/2.7/>`_.  The **Transcription Factor Flexible Models
+(TFFMs)** represent TFBSs and are based on hidden Markov models (HMM). They are
+flexible and are able to model both position interdependence within TFBSs and
+variable length motifs within a single dedicated framework.
 
 The framework also implements methods to generate a new graphical
 representation of the modeled motifs that convey properties of position
-interdependence.
+interdependences.
 
-TFFMs have been assessed on ChIP-seq data sets coming from the ENCODE project,
-revealing that the new HMM-based framework performs better than both PWMs and
-the dinucleotide weight matrix (DWM) extension in discriminating motifs within
-ChIP-seq sequences from background sequences. Under the assumption that
-ChIP-seq signal values are correlated with the affinity of the TF-DNA binding,
-we find that HMM scores correlate with ChIP-seq peak signals.  Moreover, using
-available TF-DNA affinity measurements for the Max TF, we demonstrate that
-TFFMs constructed from ChIP-seq data better correlate with published
-experimentally measured DNA-binding affinities than PWMs and DWMs.  These
-results demonstrate the capacity of TFFMs to accurately model DNA-protein
+TFFMs have been assessed on ChIP-seq data sets coming from the `ENCODE project
+<http://genome.ucsc.edu/ENCODE/>`_, revealing that the new HMM-based framework
+performs, in most cases, better than both PWMs and the dinucleotide weight
+matrix (DWM) extension in discriminating motifs within ChIP-seq sequences from
+background sequences. Under the assumption that ChIP-seq signal values are
+correlated with the affinity of the TF-DNA binding, we find that TFFM scores
+correlate with ChIP-seq peak signals. Moreover, using available TF-DNA affinity
+measurements for the Max TF, we observe that TFFMs constructed from ChIP-seq
+data correlate with published experimentally measured DNA-binding affinities.
+These results demonstrate the capacity of TFFMs to accurately model DNA-protein
 interactions, while providing a single unified framework suitable for the next
-generation of TFBS prediction. All the details have been published in Mathelier
-and Wasserman, The next generation of transcription binding site prediction.
+generation of TFBS predictions. All the details have been published in
+Mathelier and Wasserman, The next generation of transcription binding site
+prediction.
 
 TFFMs can be saved and opened from files using the XML format already used by
 the `GHMM library <http://ghmm.org>`_.
@@ -36,8 +37,9 @@ the `GHMM library <http://ghmm.org>`_.
 System requirements
 ===================
 
-* The TFFM-framework 2.0 has been developed and tested under Ubuntu Linux
-  operating system. It has also been tested on CentOS.
+* The TFFM-framework 2.0 has been developed and tested under `Ubuntu Linux
+  <http://www.ubuntu.com/>`_ operating system. It has also been tested on
+  `CentOS <http://www.centos.org>`_.
 * **Python** should be installed (version 2.7 has been used
   successfully).
 * **Biopython** (at least version 1.61) should be installed and accessible from
@@ -64,13 +66,13 @@ Tutorial
 
 Data for this tutorial can be found in the tutorial directory of the
 TFFM-framework package at
-http://mathelierweb.com/TFFM/tutorial.tar.bz2. To run this example, you need to
-be located in the tutorial directory. The location to be added to
+https://github.com/wassermanlab/TFFM/tree/master/tutorial. To run this example,
+you need to be located in the tutorial directory. The location to be added to
 `sys.path` (second line of the tutorial) corresponds to the directory
 containing the TFFM-framework.
 
 >>> import sys
->>> sys.path.append("/home/amathelier/TFFM-framework_v1.0")
+>>> sys.path.append(<TFFM-framework repository path>)
 >>> import tffm_module
 >>> from constants import TFFM_KIND
 >>> 
@@ -159,13 +161,15 @@ hg19_ct_UserTrack_3545_3739 29  43  +   CCTGCCCCCAGGGTG TFFM    62  0.9683269774
 Download
 ========
 
-The TFFM-framework can be downloaded `here <http://mathelierweb.com/TFFM/TFFM-framewor_v1.0.tar.bz2>`_.
+The TFFM-framework can be downloaded from `GitHub <https://github.com/>`_ at 
+https://github.com/wassermanlab/TFFM.
 
 Reference
 =========
 
 The TFFMs and the TFFM-framework have been described in Mathelier and
 Wasserman, The next generation of transcription binding site prediction.
+Please cite this publication when publishing results using the TFFM-framework.
 
 Licence
 =======

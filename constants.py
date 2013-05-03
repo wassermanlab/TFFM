@@ -30,7 +30,7 @@ def enum(**enums):
 
 TFFM_KIND = enum(FIRST_ORDER="1st-order", DETAILED="detailed",
                  ZERO_ORDER="0-order")
-""" Defines the two kinds of TFFMs. """
+""" Defines the three kinds of TFFMs (1st-order, detailed, 0-order). """
 
 LOGO_TYPE = enum(SUMMARY="summary", DENSE="dense")
 """ Defines the two kinds of logos. """
