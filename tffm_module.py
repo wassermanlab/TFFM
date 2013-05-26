@@ -792,7 +792,8 @@ def create_1storder_hmm(nb_seq, nb_residues, first_letters, motif):
 
     """
 
-    # Very first state is created with the initial nt frequencies
+    # Very first state is created with the initial nt frequencies and a '1'
+    # pseudocount
     emissions = [[(first_letters['A'] + 1.) / (nb_seq + 4.),
                   (first_letters['C'] + 1.) / (nb_seq + 4.),
                   (first_letters['G'] + 1.) / (nb_seq + 4.),
@@ -912,7 +913,8 @@ def create_detailed_hmm(nb_seq, nb_residues, first_letters, motif):
 
     """
 
-    # Starting proba
+    # Starting proba with the starting nucleotides of the sequences and a '1'
+    # pseudocount added
     initials = [(first_letters['A'] + 1.) / (nb_seq + 4.),
                 (first_letters['C'] + 1.) / (nb_seq + 4.),
                 (first_letters['G'] + 1.) / (nb_seq + 4.),
