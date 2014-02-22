@@ -1,9 +1,11 @@
 """
-    :platform: Unix
-    :synopsis: Define the class representing the Transcription Factor Flexible
-        Models and the necessary functions to manipulate them.
-    :todo: Allow the construction of TFFMs using a different *de novo* motif
-        finding tool than MEME.
+Module implementing the TFFMs.
+
+:platform: Unix
+:synopsis: Define the class representing the Transcription Factor Flexible
+    Models and the necessary functions to manipulate them.
+:todo: Allow the construction of TFFMs using a different *de novo* motif
+    finding tool than MEME.
 
 """
 
@@ -517,7 +519,7 @@ class TFFM(ghmm.DiscreteEmissionHMM):
 
         """
 
-        sequence = seq_record.seq
+        sequence = seq_record.seq.upper()
         if negative:
             sequence = seq_record.reverse_complement().seq
         sequence_split = re.split("([ACGT]+)", str(sequence))

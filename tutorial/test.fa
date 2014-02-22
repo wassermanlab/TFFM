@@ -4,3 +4,6 @@ AGCAACCGGGCCCAAACAGGCCTGTGGCCGGCCCTGGCTTC
 >hg19_ct_UserTrack_3545_3739 range=chr10:88412403-88412503 5'pad=0 3'pad=0 strand=+ repeatMasking=none
 GAAAGAAAAGCCGGCCCCTCAGCCTCACCCTGCCCCCAGGGTGGCCTCTGTGAGCCAAAG
 CCCTGAAGTGGAAGAGCCTCAGGAGGAAGGCAGTCTGAGCC
+>hg19_ct_UserTrack_3545_3740 range=chr10:88412403-88412503 5'pad=0 3'pad=0 strand=+ repeatMasking=none
+gaaagaaaagccggcccctcagcctcaccctgcccccagggtggcctctgtgagccaaag
+ccctgaagtggaagagcctcaggaggaaggcagtctgagcc

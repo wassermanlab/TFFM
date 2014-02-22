@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/anthony/PostDoc/HMM/GHMM/src/TFFM-framework_dev")
+sys.path.append("/home/amathelier/PostDoc/HMM/GHMM/src/TFFM-framework_github")
 import tffm_module
 from constants import TFFM_KIND
 
@@ -34,8 +34,7 @@ for hit in tffm_first_order.scan_sequences("test.fa"):
 
 print "1st-order best"
 for hit in tffm_first_order.scan_sequences("test.fa", only_best=True):
-    if hit:
-        print hit
+    print hit
 
 tffm_detailed = tffm_module.tffm_from_xml("tffm_detailed.xml",
         TFFM_KIND.DETAILED)
@@ -46,5 +45,4 @@ for hit in tffm_detailed.scan_sequences("test.fa"):
 
 print "detailed best"
 for hit in tffm_detailed.scan_sequences("test.fa", only_best=True):
-    if hit:
-        print hit
+    print hit
