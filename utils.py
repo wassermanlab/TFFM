@@ -1,6 +1,9 @@
 """
-    :platform: Unix
-    :synopsis: Give utility function for the analysis of TFFMs.
+Provide utilities.
+
+:platform: Unix
+:synopsis: Give utility function for the analysis of TFFMs.
+
 """
 import itertools
 import os
@@ -10,8 +13,9 @@ from Bio import SeqIO
 
 def set_sequences_weight(sequences, weight):
     """
-    Give the same weight *weight* to all the sequences in *sequences*. The
-    sequences are constructed using the ghmm module and form a
+    Give the same weight *weight* to all the sequences in *sequences*.
+
+    The sequences are constructed using the ghmm module and form a
     :class:`ghmm.SequenceSet`.
 
     :arg sequences: List of sequences to weight
@@ -39,17 +43,18 @@ def parse_fasta(fasta_file):
 
     # TODO Check file and raise error if does not exist.
     # We do not use "with" for python2.4 compatibility
-    stream = open(fasta_file)
-    record_list = []
-    for record in SeqIO.parse(stream, "fasta"):
-        record_list.append(record)
-    stream.close()
-    return record_list
+    with open(fasta_file) as stream:
+        record_list = []
+        for record in SeqIO.parse(stream, "fasta"):
+            record_list.append(record)
+        stream.close()
+        return record_list
 
 
 def roundrobin(*iterables):
     """
     Create a generator interlacing the iterables given in argument.
+
     For example, roundrobin('ABC', 'D', 'EF') --> A D E B F C
 
     :arg iterables: Pointer to the iterables.
@@ -73,8 +78,7 @@ def roundrobin(*iterables):
 
 def get_sequences_info(seq_file):
     """
-    Get the number of sequences, number of residues, and starting nucleotides
-    form a fasta file
+    Get the number of sequences, number of residues, and starting nucleotides.
 
     :arg seq_file: File containing the sequences in fasta format
     :type seq_file: str
