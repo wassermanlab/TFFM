@@ -17,6 +17,7 @@ Module implementing the TFFMs.
 import sys
 import math
 import re
+from Bio.Alphabet import IUPAC
 
 #
 # Changed to use the newer Bio.motifs package
@@ -991,6 +992,8 @@ def tffm_from_meme(meme_output, kind, name="TFFM"):
     """
 
     record = motifs.parse(open(meme_output), 'MEME')
+    if record.alphabet != IUPAC.unambiguous_dna:
+        sys.exit("### Wrong alphabet used in MEME ###")
     motif = record[0]
     nb_seq, nb_res, first_letters = utils.get_sequences_info(record.datafile)
     if kind == TFFM_KIND.FIRST_ORDER:
