@@ -28,8 +28,10 @@ data correlate with published experimentally measured DNA-binding affinities.
 These results demonstrate the capacity of TFFMs to accurately model DNA-protein
 interactions, while providing a single unified framework suitable for the next
 generation of TFBS predictions. All the details have been published in
-Mathelier and Wasserman, The next generation of transcription binding site
-prediction.
+**Mathelier and Wasserman, The Next Generation of Transcription Binding Site
+Prediction,** *PLOS Computational Biology* , Sept. 2013, 9(9):e1003214,
+`DOI:10.1371/journal.pcbi.1003214 <http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003214>`_.
+
 
 TFFMs can be saved and opened from files using the XML format already used by
 the `GHMM library <http://ghmm.org>`_.
@@ -167,8 +169,10 @@ https://github.com/wassermanlab/TFFM.
 Reference
 =========
 
-The TFFMs and the TFFM-framework have been described in Mathelier and
-Wasserman, The next generation of transcription binding site prediction.
+The TFFMs and the TFFM-framework have been described in **Mathelier and
+Wasserman, The Next Generation of Transcription Binding Site Prediction**, *PLOS
+Computational Biology*, Sept. 2013, 9(9):e1003214,
+`DOI:10.1371/journal.pcbi.1003214 <http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1003214>`_.
 Please cite this publication when publishing results using the TFFM-framework.
 
 Licence
