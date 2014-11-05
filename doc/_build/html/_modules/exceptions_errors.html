@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -50,15 +48,16 @@
             
   <h1>Source code for exceptions_errors</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Define the different exceptions specific to TFFMs that might be raised in the</span>
-<span class="sd">process of TFFM analyses.</span>
+<span class="sd">    :platform: Unix</span>
+<span class="sd">    :synopsis: Define the different exceptions specific to TFFMs that might be</span>
+<span class="sd">        raised in the process of TFFM analyses.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
 <div class="viewcode-block" id="TFFMKindError"><a class="viewcode-back" href="../exceptions_errors.html#exceptions_errors.TFFMKindError">[docs]</a><span class="k">class</span> <span class="nc">TFFMKindError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Define the exception error needed to be raised when a TFFM is instanciated</span>
-<span class="sd">    with a kind different from &quot;1st-order&quot; and &quot;detailed&quot;.</span>
+<span class="sd">    with a kind different from &#39;1st-order&#39; and &#39;detailed&#39;.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -70,7 +69,6 @@
 <span class="sd">        :type value: str</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="ne">Exception</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -116,7 +114,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Anthony Mathelier.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -49,243 +47,589 @@
           <div class="body">
             
   <h1>Source code for drawing</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :platform: Unix</span>
+<span class="sd">    :synopsis: Define a lot of functions necessary to draw the logos.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
 <span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">BLACK</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">,</span> <span class="n">RED</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">YELLOW</span><span class="p">,</span> <span class="n">ALPHABET</span>
-<span class="kn">import</span> <span class="nn">tffm</span> <span class="kn">as</span> <span class="nn">tffm_module</span>
+<span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">TFFM_KIND</span><span class="p">,</span> <span class="n">LOGO_TYPE</span>
+<span class="kn">import</span> <span class="nn">tffm_module</span>
 
 
-<div class="viewcode-block" id="print_header"><a class="viewcode-back" href="../drawing.html#drawing.print_header">[docs]</a><span class="k">def</span> <span class="nf">print_header</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+<div class="viewcode-block" id="print_header"><a class="viewcode-back" href="../drawing.html#drawing.print_header">[docs]</a><span class="k">def</span> <span class="nf">print_header</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the header of the svg to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg height: Height of the final svg.</span>
+<span class="sd">    :type height: int</span>
+<span class="sd">    :arg width: Width of the final svg.</span>
+<span class="sd">    :type width: int</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">dtd_url</span> <span class="o">=</span> <span class="s">&quot;http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd&quot;</span>
     <span class="n">svg_url</span> <span class="o">=</span> <span class="s">&quot;http://www.w3.org/2000/svg&quot;</span>
     <span class="n">xlink_url</span> <span class="o">=</span> <span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
-<span class="s">                 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&quot;&quot;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span>
 <span class="s">                 &lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.0//EN&quot; &quot;</span><span class="si">%s</span><span class="s">&quot;&gt;</span>
 <span class="s">                 &lt;svg height=&quot;</span><span class="si">%d</span><span class="s">&quot; width=&quot;</span><span class="si">%d</span><span class="s">&quot; xmlns=&quot;</span><span class="si">%s</span><span class="s">&quot; xmlns:xlink=&quot;</span><span class="si">%s</span><span class="s">&quot;&gt;</span>
-<span class="s">                 &quot;&quot;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">dtd_url</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">svg_url</span><span class="p">,</span> <span class="n">xlink_url</span><span class="p">))</span>
+<span class="s">                 &quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dtd_url</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">svg_url</span><span class="p">,</span> <span class="n">xlink_url</span><span class="p">))</span>
 
 </div>
 <div class="viewcode-block" id="print_footer"><a class="viewcode-back" href="../drawing.html#drawing.print_footer">[docs]</a><span class="k">def</span> <span class="nf">print_footer</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the footer of the svg to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&lt;/svg&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="print_ic"><a class="viewcode-back" href="../drawing.html#drawing.print_ic">[docs]</a><span class="k">def</span> <span class="nf">print_ic</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">):</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span>
+<div class="viewcode-block" id="print_ic"><a class="viewcode-back" href="../drawing.html#drawing.print_ic">[docs]</a><span class="k">def</span> <span class="nf">print_ic</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the information content underneath the logo.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg length: Number of positions in the logo.</span>
+<span class="sd">    :type length: int</span>
+<span class="sd">    :arg information_content: Value of the information content.</span>
+<span class="sd">    :type information_content: float</span>
+<span class="sd">    :arg x_coord: x-coordinate where to write the information content value in</span>
+<span class="sd">        the svg.</span>
+<span class="sd">    :type x_coord: float</span>
+<span class="sd">    :arg y_coord: y-coordinate where to write the information content value in</span>
+<span class="sd">        the svg.</span>
+<span class="sd">    :type y_coord: float</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span>
         <span class="n">x_coord</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">30</span> <span class="o">*</span> <span class="p">(</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">45</span><span class="p">))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;IC = </span><span class="si">%.2f</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">information_content</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;IC = </span><span class="si">%.2f</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">information_content</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="draw_axis"><a class="viewcode-back" href="../drawing.html#drawing.draw_axis">[docs]</a><span class="k">def</span> <span class="nf">draw_axis</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">):</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;line x1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_axis"><a class="viewcode-back" href="../drawing.html#drawing.draw_axis">[docs]</a><span class="k">def</span> <span class="nf">draw_axis</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw the axis to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg length: Number of positions in the logo.</span>
+<span class="sd">    :type length: float</span>
+<span class="sd">    :arg x_coord: x-coordinate where to write the axis in the svg.</span>
+<span class="sd">    :type x_coord: float</span>
+<span class="sd">    :arg y_coord: y-coordinate where to write the axis in the svg.</span>
+<span class="sd">    :type y_coord: float</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;line x1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="p">(</span>
         <span class="n">x_coord</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">length</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;style=</span><span class="se">\&quot;</span><span class="s">stroke:rgb(99,99,99);stroke-width:2</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
-            <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">27</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span>
-                                                       <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">20</span><span class="p">))</span>
-            <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%d</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">27</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span>
+                                                         <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">20</span><span class="p">))</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%d</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 
 </div>
 <div class="viewcode-block" id="draw_y_axis"><a class="viewcode-back" href="../drawing.html#drawing.draw_y_axis">[docs]</a><span class="k">def</span> <span class="nf">draw_y_axis</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">y_coord</span><span class="o">=</span><span class="mi">120</span><span class="p">):</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;line x1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">8</span><span class="p">))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">110</span><span class="p">))</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw the axis to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg x_coord: x-coordinate where to start (bottom) the Y-axis in the svg.</span>
+<span class="sd">    :type x_coord: float</span>
+<span class="sd">    :arg y_coord: y-coordinate where to start (bottom) the Y-axis in the svg.</span>
+<span class="sd">    :type y_coord: float</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;line x1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y1=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y2=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">110</span><span class="p">))</span>
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;style=</span><span class="se">\&quot;</span><span class="s">stroke:rgb(99,99,99);stroke-width:2</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">0</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
-                                                           <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">5</span><span class="p">))</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">1</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
-                                                           <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">55</span><span class="p">))</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">2</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
-                                                           <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">105</span><span class="p">))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">55</span><span class="p">))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;transform=</span><span class="se">\&quot;</span><span class="s">rotate(-90, </span><span class="si">%d</span><span class="s">, </span><span class="si">%d</span><span class="s">)</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span>
-                                                         <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">50</span><span class="p">))</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">0</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
+                                                             <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">1</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
+                                                             <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">55</span><span class="p">))</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">-</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">2</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">17</span><span class="p">,</span>
+                                                             <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">105</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;text x=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%d</span><span class="se">\&quot;\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">55</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;transform=</span><span class="se">\&quot;</span><span class="s">rotate(-90, </span><span class="si">%d</span><span class="s">, </span><span class="si">%d</span><span class="s">)</span><span class="se">\&quot;</span><span class="s">&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">-</span> <span class="mi">30</span><span class="p">,</span>
+                                                           <span class="n">y_coord</span> <span class="o">-</span> <span class="mi">50</span><span class="p">))</span>
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;bits</span><span class="se">\n</span><span class="s">&lt;/text&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="draw_ellipse"><a class="viewcode-back" href="../drawing.html#drawing.draw_ellipse">[docs]</a><span class="k">def</span> <span class="nf">draw_ellipse</span><span class="p">(</span><span class="n">x_center</span><span class="p">,</span> <span class="n">y_center</span><span class="p">,</span> <span class="n">x_radius</span><span class="p">,</span> <span class="n">y_radius</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;ellipse cx=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> cy=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> rx=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> ry=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_center</span><span class="p">,</span>
-        <span class="n">y_center</span><span class="p">,</span> <span class="n">x_radius</span><span class="p">,</span> <span class="n">y_radius</span><span class="p">))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
-        <span class="n">opacity</span><span class="p">))</span>
+<div class="viewcode-block" id="draw_ellipse"><a class="viewcode-back" href="../drawing.html#drawing.draw_ellipse">[docs]</a><span class="k">def</span> <span class="nf">draw_ellipse</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_center</span><span class="p">,</span> <span class="n">y_center</span><span class="p">,</span> <span class="n">x_radius</span><span class="p">,</span> <span class="n">y_radius</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span>
+                 <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw an ellipse to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg x_center: x-coordinate of the center of the ellipse.</span>
+<span class="sd">    :type x_center: float</span>
+<span class="sd">    :arg y_center: y-coordinate of the center of the ellipse.</span>
+<span class="sd">    :type y_center: float</span>
+<span class="sd">    :arg x_radius: Radius of the ellipse on the x-axis.</span>
+<span class="sd">    :type x_radius: float</span>
+<span class="sd">    :arg y_radius: Radius of the ellipse on the y-ayis.</span>
+<span class="sd">    :type y_radius: float</span>
+<span class="sd">    :arg colour: Color of the ellipse (default: black). The colour is given in</span>
+<span class="sd">        RGB.</span>
+<span class="sd">    :type colour: tuple (int, int, int)</span>
+<span class="sd">    :arg opacity: Opacity of the ellipse (default: 1.0)</span>
+<span class="sd">    :type opacity: float</span>
+
+<span class="sd">    :note: Look at the ellipse statement of an svg file for more information.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;ellipse cx=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> cy=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> rx=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> ry=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span> <span class="o">%</span>
+                 <span class="p">(</span><span class="n">x_center</span><span class="p">,</span> <span class="n">y_center</span><span class="p">,</span> <span class="n">x_radius</span><span class="p">,</span> <span class="n">y_radius</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span>
+                 <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">colour</span><span class="p">),</span> <span class="n">opacity</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="draw_polygon"><a class="viewcode-back" href="../drawing.html#drawing.draw_polygon">[docs]</a><span class="k">def</span> <span class="nf">draw_polygon</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<div class="viewcode-block" id="draw_polygon"><a class="viewcode-back" href="../drawing.html#drawing.draw_polygon">[docs]</a><span class="k">def</span> <span class="nf">draw_polygon</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw an polygon to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg pts: Coordinates of the points defining the polygon. For each point in</span>
+<span class="sd">        the list, its coordinates are given by the couple</span>
+<span class="sd">        (x-coordinate, y-coordinate).</span>
+<span class="sd">    :type pts: list of tuple (float, float)</span>
+<span class="sd">    :arg colour: Color of the polygon (default: black). The colour is given in</span>
+<span class="sd">        RGB.</span>
+<span class="sd">    :type colour: tuple (int, int, int)</span>
+<span class="sd">    :arg opacity: Opacity of the polygon (default: 1.0)</span>
+<span class="sd">    :type opacity: float</span>
+
+<span class="sd">    :note: Look at the polygon statement of an svg file for more information.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;polygon points=</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
-        <span class="n">opacity</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="s">, &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%f</span><span class="s">, </span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span>
+                 <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">colour</span><span class="p">),</span> <span class="n">opacity</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="draw_rectangle"><a class="viewcode-back" href="../drawing.html#drawing.draw_rectangle">[docs]</a><span class="k">def</span> <span class="nf">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;rect height=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> width=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
-    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="p">),</span>
-        <span class="n">opacity</span><span class="p">))</span>
+<div class="viewcode-block" id="draw_rectangle"><a class="viewcode-back" href="../drawing.html#drawing.draw_rectangle">[docs]</a><span class="k">def</span> <span class="nf">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="n">BLACK</span><span class="p">,</span>
+                   <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw an rectangle to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg x_coord: x-coordinate of the bottom-left corner of the rectangle.</span>
+<span class="sd">    :type x_coord: float</span>
+<span class="sd">    :arg y_coord: y-coordinate of the bottom-left corner of the rectangle.</span>
+<span class="sd">    :type y_coord: float</span>
+<span class="sd">    :arg height: Height of the rectangle.</span>
+<span class="sd">    :type height: float</span>
+<span class="sd">    :arg width: Width of the rectangle.</span>
+<span class="sd">    :type width: float</span>
+<span class="sd">    :arg colour: Color of the rectangle (default: black). The colour is given</span>
+<span class="sd">        in RGB.</span>
+<span class="sd">    :type colour: tuple (int, int, int)</span>
+<span class="sd">    :arg opacity: Opacity of the rectangle (default: 1.0)</span>
+<span class="sd">    :type opacity: float</span>
+
+<span class="sd">    :note: Look at the rectangle statement of an svg file for more information.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;rect height=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> width=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;x=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> y=</span><span class="se">\&quot;</span><span class="si">%f</span><span class="se">\&quot;</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">))</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;fill=</span><span class="se">\&quot;</span><span class="s">rgb</span><span class="si">%s</span><span class="se">\&quot;</span><span class="s"> style=</span><span class="se">\&quot;</span><span class="s">fill-opacity:</span><span class="si">%.2f</span><span class="se">\&quot;</span><span class="s"> /&gt;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span>
+                 <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">colour</span><span class="p">),</span> <span class="n">opacity</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="draw_letter_a"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_a">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_a</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">RED</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<div class="viewcode-block" id="draw_letter_a"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_a">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_a</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="n">RED</span><span class="p">,</span>
+                  <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw the letter &#39;A&#39; to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg x_coord: x-coordinate of the bottom left corner of the box containing</span>
+<span class="sd">        the &#39;A&#39;.</span>
+<span class="sd">    :type x_coord: float</span>
+<span class="sd">    :arg y_coord: y-coordinate of the bottom left corner ot the box containing</span>
+<span class="sd">        the &#39;A&#39;.</span>
+<span class="sd">    :type y_coord: float</span>
+<span class="sd">    :arg width: Width of the box containing the &#39;A&#39;.</span>
+<span class="sd">    :type width: float</span>
+<span class="sd">    :arg height: Height of the box containing the &#39;A&#39;.</span>
+<span class="sd">    :type height: float</span>
+<span class="sd">    :arg colour: Color of the &#39;A&#39; (default: black). The colour is given in</span>
+<span class="sd">        RGB.</span>
+<span class="sd">    :type colour: tuple (int, int, int)</span>
+<span class="sd">    :arg opacity: Opacity of the &#39;A&#39; (default: 1.0)</span>
+<span class="sd">    :type opacity: float</span>
+
+<span class="sd">    :note: The &#39;A&#39; is drawn by creating a red polygon giving the shape and a</span>
+<span class="sd">        white internal triangle above to make the bar in the middle of the &#39;A&#39;</span>
+<span class="sd">        appear.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- Begin &#39;A&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span><span class="p">)</span>
-    <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">*</span> <span class="mf">0.42</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">)</span>
-    <span class="n">pt3</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">*</span> <span class="mf">0.58</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">)</span>
-    <span class="n">pt4</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span><span class="p">)</span>
-    <span class="n">pt5</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.85</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span><span class="p">)</span>
-    <span class="n">pt6</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.725</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">)</span>
-    <span class="n">pt7</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.275</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">)</span>
-    <span class="n">pt8</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span><span class="p">)</span>
+    <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span><span class="p">)</span>
+    <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">0.42</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">)</span>
+    <span class="n">pt3</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">*</span> <span class="mf">0.58</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">)</span>
+    <span class="n">pt4</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span><span class="p">)</span>
+    <span class="n">pt5</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.85</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span><span class="p">)</span>
+    <span class="n">pt6</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.725</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">height</span><span class="p">)</span>
+    <span class="n">pt7</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.275</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">height</span><span class="p">)</span>
+    <span class="n">pt8</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span><span class="p">)</span>
     <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">pt3</span><span class="p">,</span> <span class="n">pt4</span><span class="p">,</span> <span class="n">pt5</span><span class="p">,</span> <span class="n">pt6</span><span class="p">,</span> <span class="n">pt7</span><span class="p">,</span> <span class="n">pt8</span><span class="p">]</span>
-    <span class="n">draw_polygon</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">ysize</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">:</span>
-        <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">)</span>
-        <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.34</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">pt3</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.64</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">draw_polygon</span><span class="p">([</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">pt3</span><span class="p">],</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_polygon</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">colour</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">height</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="n">pt1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">height</span><span class="p">)</span>
+        <span class="n">pt2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.34</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pt3</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.64</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">draw_polygon</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="p">[</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">pt3</span><span class="p">],</span> <span class="n">WHITE</span><span class="p">)</span>
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- End &#39;A&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="draw_letter_c"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_c">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_c</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<div class="viewcode-block" id="draw_letter_c"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_c">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_c</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span>
+                  <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw the letter &#39;C&#39; to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg x_coord: x-coordinate of the bottom left corner of the box containing</span>
+<span class="sd">        the &#39;C&#39;.</span>
+<span class="sd">    :type x_coord: float</span>
+<span class="sd">    :arg y_coord: y-coordinate of the bottom left corner ot the box containing</span>
+<span class="sd">        the &#39;C&#39;.</span>
+<span class="sd">    :type y_coord: float</span>
+<span class="sd">    :arg width: Width of the box containing the &#39;C&#39;.</span>
+<span class="sd">    :type width: float</span>
+<span class="sd">    :arg height: Height of the box containing the &#39;C&#39;.</span>
+<span class="sd">    :type height: float</span>
+<span class="sd">    :arg colour: Color of the box containing the &#39;C&#39; (default: black). The</span>
+<span class="sd">        colour is given in RGB.</span>
+<span class="sd">    :type colour: tuple (int, int, int)</span>
+<span class="sd">    :arg opacity: Opacity of the box containing the &#39;C&#39; (default: 1.0)</span>
+<span class="sd">    :type opacity: float</span>
+
+<span class="sd">    :note: The &#39;C&#39; is drawn by creating the surrounding ellipse with the right</span>
+<span class="sd">       colour and then superposing an smaller white ellipse and a white</span>
+<span class="sd">       rectangle on the right side of the ellipe to create the &#39;C&#39;.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- Begin &#39;C&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
-    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span>
-            <span class="n">ysize</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">,</span>
-            <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                 <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">colour</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span>
+                 <span class="n">height</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span>
+                   <span class="mf">0.5</span> <span class="o">*</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- End &#39;C&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="draw_letter_g"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_g">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_g</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">YELLOW</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<div class="viewcode-block" id="draw_letter_g"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_g">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_g</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="n">YELLOW</span><span class="p">,</span>
+                  <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw the letter &#39;G&#39; to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg x_coord: x-coordinate of the bottom left corner of the box containing</span>
+<span class="sd">        the &#39;G&#39;.</span>
+<span class="sd">    :type x_coord: float</span>
+<span class="sd">    :arg y_coord: y-coordinate of the bottom left corner ot the box containing</span>
+<span class="sd">        the &#39;G&#39;.</span>
+<span class="sd">    :type y_coord: float</span>
+<span class="sd">    :arg width: Width of the box containing the &#39;G&#39;.</span>
+<span class="sd">    :type width: float</span>
+<span class="sd">    :arg height: Height of the box containing the &#39;G&#39;.</span>
+<span class="sd">    :type height: float</span>
+<span class="sd">    :arg colour: Color of the box containing the &#39;G&#39; (default: black). The</span>
+<span class="sd">        colour is given in RGB.</span>
+<span class="sd">    :type colour: tuple (int, int, int)</span>
+<span class="sd">    :arg opacity: Opacity of the box containing the &#39;G&#39; (default: 1.0)</span>
+<span class="sd">    :type opacity: float</span>
+
+<span class="sd">    :note: The &#39;G&#39; is drawn by creating a &#39;C&#39; and then adding the two other</span>
+<span class="sd">       rectangles.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- Begin &#39;G&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
-    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span>
-            <span class="n">ysize</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
-            <span class="n">xsize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
-            <span class="n">ysize</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">ysize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">xsize</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                 <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">colour</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_ellipse</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span>
+                 <span class="n">height</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span>
+                   <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
+                   <span class="n">height</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">colour</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
+                   <span class="n">height</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">colour</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- End &#39;G&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="draw_letter_t"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_t">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_t</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GREEN</span><span class="p">,</span>
-        <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<div class="viewcode-block" id="draw_letter_t"><a class="viewcode-back" href="../drawing.html#drawing.draw_letter_t">[docs]</a><span class="k">def</span> <span class="nf">draw_letter_t</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="n">GREEN</span><span class="p">,</span>
+                  <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw the letter &#39;T&#39; to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg x_coord: x-coordinate of the bottom left corner of the box containing</span>
+<span class="sd">        the &#39;T&#39;.</span>
+<span class="sd">    :type x_coord: float</span>
+<span class="sd">    :arg y_coord: y-coordinate of the bottom left corner ot the box containing</span>
+<span class="sd">        the &#39;T&#39;.</span>
+<span class="sd">    :type y_coord: float</span>
+<span class="sd">    :arg width: Width of the box containing the &#39;T&#39;.</span>
+<span class="sd">    :type width: float</span>
+<span class="sd">    :arg height: Height of the box containing the &#39;T&#39;.</span>
+<span class="sd">    :type height: float</span>
+<span class="sd">    :arg colour: Color of the box containing the &#39;T&#39; (default: black). The</span>
+<span class="sd">        colour is given in RGB.</span>
+<span class="sd">    :type colour: tuple (int, int, int)</span>
+<span class="sd">    :arg opacity: Opacity of the box containing the &#39;T&#39; (default: 1.0)</span>
+<span class="sd">    :type opacity: float</span>
+
+<span class="sd">    :note: The &#39;T&#39; is drawn by using two rectangles.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- Begin &#39;T&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="mf">0.16</span> <span class="o">*</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span>
-            <span class="n">opacity</span><span class="p">)</span>
-    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span> <span class="o">*</span> <span class="n">xsize</span><span class="p">,</span>
-            <span class="n">output</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="mf">0.16</span> <span class="o">*</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">colour</span><span class="p">,</span>
+                   <span class="n">opacity</span><span class="p">)</span>
+    <span class="n">draw_rectangle</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">y_coord</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span>
+                   <span class="n">colour</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
     <span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;&lt;!-- End &#39;T&#39; --&gt;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="draw_left_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_left_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_left_letters</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
-    <span class="n">draw_letter_a</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-    <span class="n">draw_letter_c</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">120.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-    <span class="n">draw_letter_g</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">230.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-    <span class="n">draw_letter_t</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">340.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the big four nucleotides on the left side of the svg to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">draw_letter_a</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">)</span>
+    <span class="n">draw_letter_c</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">120.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">)</span>
+    <span class="n">draw_letter_g</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">230.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">)</span>
+    <span class="n">draw_letter_t</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">340.</span><span class="p">,</span> <span class="mf">60.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="draw_dense_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_dense_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_dense_letters</span><span class="p">(</span><span class="n">emissions</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span>
-        <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">index_letter</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-        <span class="n">proba</span><span class="p">,</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-        <span class="n">ysize</span> <span class="o">=</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">proba</span>
+<div class="viewcode-block" id="draw_dense_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_dense_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_dense_letters</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span>
+                       <span class="n">step</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">index_letter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw the four nucleotides in the dense logo</span>
+<span class="sd">    with respect to their probability of appearance at the current position,</span>
+<span class="sd">    and return the y-coordinate position for the next box where to draw</span>
+<span class="sd">    letters.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg probabilities: Probabilities of appearance of the four nucleotides.</span>
+<span class="sd">        The given probabilities are given for A, C, G, and T in this order.</span>
+<span class="sd">    :type probabilities: list of tuple (float, str)</span>
+<span class="sd">    :arg width: Width of box containing the letters to draw.</span>
+<span class="sd">    :type width: float</span>
+<span class="sd">    :arg xposition: x-coordinate of the bottom left corner of the box</span>
+<span class="sd">        containing the letters to draw.</span>
+<span class="sd">    :type xposition: float</span>
+<span class="sd">    :arg yposition: y-coordinate of the bottom left corner of the box</span>
+<span class="sd">        containing the letters to draw.</span>
+<span class="sd">    :type yposition: float</span>
+<span class="sd">    :arg step: Distance between two boxes containing the letters for the same</span>
+<span class="sd">       position (it is a dense logo!).</span>
+<span class="sd">    :type step: float</span>
+<span class="sd">    :arg previous_position_proba: Probabilities of getting ACGT at the</span>
+<span class="sd">        previous position of the motif.</span>
+<span class="sd">    :type previous_position_proba: dict</span>
+<span class="sd">    :arg index_letter: Index of the letter in the alphabet from A:0, C:1, G:2,</span>
+<span class="sd">        T:3 (i.e. -1&lt;index_letter&lt;4).</span>
+<span class="sd">    :type index_letter: int</span>
+
+<span class="sd">    :returns: The y-coordinate for the next box where to draw letters.</span>
+<span class="sd">    :rtype: float</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">proba</span><span class="p">,</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">probabilities</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">proba</span>
         <span class="k">if</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;A&#39;</span><span class="p">:</span>
             <span class="n">draw_letter_a</span><span class="p">(</span>
-                <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span>
+                <span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span>
                 <span class="n">opacity</span><span class="o">=</span><span class="n">previous_position_proba</span><span class="p">[</span><span class="n">index_letter</span><span class="p">])</span>
         <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;C&#39;</span><span class="p">:</span>
             <span class="n">draw_letter_c</span><span class="p">(</span>
-                <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span>
+                <span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span>
                 <span class="n">opacity</span><span class="o">=</span><span class="n">previous_position_proba</span><span class="p">[</span><span class="n">index_letter</span><span class="p">])</span>
         <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;G&#39;</span><span class="p">:</span>
             <span class="n">draw_letter_g</span><span class="p">(</span>
-                <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span>
+                <span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span>
                 <span class="n">opacity</span><span class="o">=</span><span class="n">previous_position_proba</span><span class="p">[</span><span class="n">index_letter</span><span class="p">])</span>
         <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;T&#39;</span><span class="p">:</span>
             <span class="n">draw_letter_t</span><span class="p">(</span>
-                <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span>
+                <span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span>
                 <span class="n">opacity</span><span class="o">=</span><span class="n">previous_position_proba</span><span class="p">[</span><span class="n">index_letter</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">yposition</span> <span class="o">+=</span> <span class="n">ysize</span>
-    <span class="n">yposition</span> <span class="o">+=</span> <span class="n">ysize</span> <span class="o">+</span> <span class="n">step</span>
+            <span class="n">yposition</span> <span class="o">+=</span> <span class="n">height</span>
+    <span class="n">yposition</span> <span class="o">+=</span> <span class="n">height</span> <span class="o">+</span> <span class="n">step</span>
     <span class="k">return</span> <span class="n">yposition</span>
 
 </div>
-<div class="viewcode-block" id="draw_summary_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_summary_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_summary_letters</span><span class="p">(</span><span class="n">emissions</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span>
-        <span class="n">output</span><span class="p">):</span>
+<div class="viewcode-block" id="draw_summary_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_summary_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_summary_letters</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span>
+                         <span class="n">step</span><span class="p">,</span> <span class="n">entropy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instruction to writh the ACGT letters at the current position</span>
+<span class="sd">    and return the x-coordinate and y-coordinate for the box containing the</span>
+<span class="sd">    letters at the next position.</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg probabilities: Probabilities of appearance of the four nucleotides.</span>
+<span class="sd">        The given probabilities are given for A, C, G, and T in this order.</span>
+<span class="sd">    :type probabilities: list of tuple (float, str)</span>
+<span class="sd">    :arg width: Width of box containing the letters to draw.</span>
+<span class="sd">    :type width: float</span>
+<span class="sd">    :arg xposition: x-coordinate of the bottom left corner of the box</span>
+<span class="sd">        containing the letters to draw.</span>
+<span class="sd">    :type xposition: float</span>
+<span class="sd">    :arg yposition: y-coordinate of the bottom left corner of the box</span>
+<span class="sd">        containing the letters to draw.</span>
+<span class="sd">    :type yposition: float</span>
+<span class="sd">    :arg step: Distance between two boxes containing the letters for the same</span>
+<span class="sd">       position (it is a dense logo!).</span>
+<span class="sd">    :type step: float</span>
+<span class="sd">    :arg entropy: Entropy of the current position to determine the height of</span>
+<span class="sd">       the letters.</span>
+<span class="sd">    :type entropy: float</span>
+
+<span class="sd">    :returns: The coordinates (x, y) of the box that will be drawn with letters</span>
+<span class="sd">        at the next position.</span>
+<span class="sd">    :rtype: tuple (float, float).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">max_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">entropy</span><span class="p">)</span> <span class="o">*</span> <span class="mf">50.</span>
     <span class="n">yposition</span> <span class="o">=</span> <span class="mf">10.</span> <span class="o">+</span> <span class="mf">100.</span> <span class="o">-</span> <span class="n">max_size</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-        <span class="n">proba</span><span class="p">,</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">emissions</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-        <span class="n">ysize</span> <span class="o">=</span> <span class="n">max_size</span> <span class="o">*</span> <span class="n">proba</span>
+        <span class="n">proba</span><span class="p">,</span> <span class="n">letter</span> <span class="o">=</span> <span class="n">probabilities</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">max_size</span> <span class="o">*</span> <span class="n">proba</span>
         <span class="k">if</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;A&#39;</span><span class="p">:</span>
-            <span class="n">draw_letter_a</span><span class="p">(</span><span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+            <span class="n">draw_letter_a</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;C&#39;</span><span class="p">:</span>
-            <span class="n">draw_letter_c</span><span class="p">(</span><span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+            <span class="n">draw_letter_c</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;G&#39;</span><span class="p">:</span>
-            <span class="n">draw_letter_g</span><span class="p">(</span><span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+            <span class="n">draw_letter_g</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="s">&#39;T&#39;</span><span class="p">:</span>
-            <span class="n">draw_letter_t</span><span class="p">(</span><span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">ysize</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+            <span class="n">draw_letter_t</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="n">yposition</span> <span class="o">+=</span> <span class="n">ysize</span>
-    <span class="k">return</span> <span class="n">xposition</span> <span class="o">+</span> <span class="n">xsize</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">yposition</span> <span class="o">+</span> <span class="n">ysize</span> <span class="o">+</span> <span class="n">step</span>
+            <span class="n">yposition</span> <span class="o">+=</span> <span class="n">height</span>
+    <span class="k">return</span> <span class="n">xposition</span> <span class="o">+</span> <span class="n">width</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">yposition</span> <span class="o">+</span> <span class="n">height</span> <span class="o">+</span> <span class="n">step</span>
 
 </div>
-<div class="viewcode-block" id="draw_frame"><a class="viewcode-back" href="../drawing.html#drawing.draw_frame">[docs]</a><span class="k">def</span> <span class="nf">draw_frame</span><span class="p">(</span><span class="n">header_x_coord</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="n">axis_length</span><span class="p">,</span> <span class="n">axis_x_coord</span><span class="p">,</span>
-        <span class="n">axis_y_coord</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-    <span class="n">print_header</span><span class="p">(</span><span class="n">header_x_coord</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-    <span class="n">draw_axis</span><span class="p">(</span><span class="n">axis_length</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">axis_x_coord</span><span class="p">,</span> <span class="n">axis_y_coord</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="get_position_start"><a class="viewcode-back" href="../drawing.html#drawing.get_position_start">[docs]</a><span class="k">def</span> <span class="nf">get_position_start</span><span class="p">(</span><span class="n">tffm</span><span class="p">):</span>
+<div class="viewcode-block" id="draw_frame"><a class="viewcode-back" href="../drawing.html#drawing.draw_frame">[docs]</a><span class="k">def</span> <span class="nf">draw_frame</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">header_width</span><span class="p">,</span> <span class="n">header_height</span><span class="p">,</span> <span class="n">axis_length</span><span class="p">,</span> <span class="n">axis_width</span><span class="p">,</span>
+               <span class="n">axis_height</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return the position (0-based) of the first matching state of the tffm.</span>
+<span class="sd">    Print the svg instructions to draw the frame of the logo (i.e. Y- and</span>
+<span class="sd">    X-axis).</span>
+
+<span class="sd">    :arg output: Stream where to write.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg header_width: Width of the svg.</span>
+<span class="sd">    :type header_width: float</span>
+<span class="sd">    :arg header_height: Height of the svg.</span>
+<span class="sd">    :type header_height: float</span>
+<span class="sd">    :arg axis_length: number of positions in the motif.</span>
+<span class="sd">    :type axis_length: float</span>
+<span class="sd">    :arg axis_width: Width of the logo x-axis.</span>
+<span class="sd">    :type axis_width: float</span>
+<span class="sd">    :arg axis_height: Height of the logo y-axis.</span>
+<span class="sd">    :type axis_height: float</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">tffm</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;1st-order&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">2</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">1</span>
 
+    <span class="n">print_header</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">header_width</span><span class="p">,</span> <span class="n">header_height</span><span class="p">)</span>
+    <span class="n">draw_axis</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">axis_length</span><span class="p">,</span> <span class="n">axis_width</span><span class="p">,</span> <span class="n">axis_height</span><span class="p">)</span>
 
-<span class="c"># The computation of the information content is done within the drawing since</span>
-<span class="c"># it follows the same algorithm computing the emission probabilities. So we do</span>
-<span class="c"># not call the get_information_content method for an algorithmic improvement.</span></div>
-<div class="viewcode-block" id="draw_logo_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_logo_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_logo_letters</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">xposition</span><span class="o">=</span><span class="mf">90.</span><span class="p">,</span> <span class="n">xsize</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span>
-        <span class="n">step</span><span class="o">=</span><span class="mf">10.</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="draw_logo_letters"><a class="viewcode-back" href="../drawing.html#drawing.draw_logo_letters">[docs]</a><span class="k">def</span> <span class="nf">draw_logo_letters</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">,</span> <span class="n">xposition</span><span class="o">=</span><span class="mf">90.</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">50.</span><span class="p">,</span>
+                      <span class="n">step</span><span class="o">=</span><span class="mf">10.</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Draw the letters of the logo and return the IC to be printed</span>
+<span class="sd">    Print the svg instructions to draw the letters of the logo and return the</span>
+<span class="sd">    information content to be printed.</span>
+
+<span class="sd">    :arg output: Stream where to write the svg instruction to draw the logo.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg tffm: The TFFM for which drawing the logo.</span>
+<span class="sd">    :type tffm: :class:`TFFM`</span>
+<span class="sd">    :arg logo_type: Kind of logo to draw (either &#39;summary&#39; or &#39;dense&#39;)</span>
+<span class="sd">    :type logo_type: str</span>
+<span class="sd">    :arg xposition: x-coordinate where to start the logo (default: 90.)</span>
+<span class="sd">    :type xposition: float</span>
+<span class="sd">    :arg width: Width of the logo.</span>
+<span class="sd">    :type within: float</span>
+<span class="sd">    :arg step: Distance between two boxes containing letters in the logo.</span>
+<span class="sd">    :type step: float</span>
+
+<span class="sd">    :note: The computation of the information content is done within the</span>
+<span class="sd">        drawing since it follows the same algorithm computing the emission</span>
+<span class="sd">        probabilities. So we do not call the get_information_content method for</span>
+<span class="sd">        an algorithmic improvement.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">previous_position_proba</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">background_emission_proba</span><span class="p">()</span>
     <span class="n">information_content</span> <span class="o">=</span> <span class="mf">0.</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">get_position_start</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">get_position_start</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="n">start</span><span class="p">):</span>
         <span class="n">position_proba</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.</span><span class="p">}</span>
         <span class="n">yposition</span> <span class="o">=</span> <span class="mf">10.</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="s">&quot;summary&quot;</span><span class="p">:</span>
-                <span class="n">__</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">get_emission_update_pos_proba</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span>
+        <span class="k">if</span> <span class="n">tffm</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">TFFM_KIND</span><span class="o">.</span><span class="n">ZERO_ORDER</span><span class="p">:</span>
+            <span class="n">__</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">get_emission_update_pos_proba</span><span class="p">(</span><span class="n">position_proba</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span>
+                                                    <span class="n">previous_position_proba</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="n">LOGO_TYPE</span><span class="o">.</span><span class="n">SUMMARY</span><span class="p">:</span>
+                    <span class="n">__</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">get_emission_update_pos_proba</span><span class="p">(</span><span class="n">position_proba</span><span class="p">,</span>
+                                                            <span class="n">position</span><span class="p">,</span>
+                                                            <span class="n">previous_position_proba</span><span class="p">,</span>
+                                                            <span class="n">i</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">emissions</span> <span class="o">=</span> <span class="n">tffm</span><span class="o">.</span><span class="n">get_emission_update_pos_proba</span><span class="p">(</span>
                         <span class="n">position_proba</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">emissions</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">get_emission_update_pos_proba</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span>
-                        <span class="n">position_proba</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-                <span class="n">yposition</span> <span class="o">=</span> <span class="n">draw_dense_letters</span><span class="p">(</span><span class="n">emissions</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span> <span class="n">xposition</span><span class="p">,</span>
-                        <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">previous_position_proba</span><span class="p">,</span> <span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                        <span class="n">output</span><span class="p">)</span>
+                    <span class="n">yposition</span> <span class="o">=</span> <span class="n">draw_dense_letters</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">emissions</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span>
+                                                   <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span>
+                                                   <span class="n">previous_position_proba</span><span class="p">,</span>
+                                                   <span class="n">ALPHABET</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="n">previous_position_proba</span> <span class="o">=</span> <span class="n">position_proba</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">tffm</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;detailed&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tffm</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="n">TFFM_KIND</span><span class="o">.</span><span class="n">DETAILED</span><span class="p">:</span>
             <span class="n">somme</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">previous_position_proba</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
             <span class="k">for</span> <span class="n">nucleotide</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">previous_position_proba</span><span class="p">):</span>
                 <span class="n">previous_position_proba</span><span class="p">[</span><span class="n">nucleotide</span><span class="p">]</span> <span class="o">/=</span> <span class="n">somme</span>
@@ -294,30 +638,46 @@
         <span class="n">emissions_tuple</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">keys</span><span class="p">)</span>
         <span class="n">entropy</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">compute_entropy</span><span class="p">(</span><span class="n">emissions_tuple</span><span class="p">)</span>
         <span class="n">information_content</span> <span class="o">+=</span> <span class="mf">2.</span> <span class="o">-</span> <span class="n">entropy</span>
-        <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="s">&quot;summary&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="n">LOGO_TYPE</span><span class="o">.</span><span class="n">SUMMARY</span><span class="p">:</span>
             <span class="n">emissions_tuple</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-            <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span> <span class="o">=</span> <span class="n">draw_summary_letters</span><span class="p">(</span><span class="n">emissions_tuple</span><span class="p">,</span> <span class="n">xsize</span><span class="p">,</span>
-                    <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+            <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span> <span class="o">=</span> <span class="n">draw_summary_letters</span><span class="p">(</span><span class="n">output</span><span class="p">,</span>
+                                                        <span class="n">emissions_tuple</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span>
+                                                        <span class="n">xposition</span><span class="p">,</span> <span class="n">yposition</span><span class="p">,</span>
+                                                        <span class="n">step</span><span class="p">,</span> <span class="n">entropy</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">xposition</span> <span class="o">+=</span> <span class="n">xsize</span> <span class="o">+</span> <span class="n">step</span>
+            <span class="n">xposition</span> <span class="o">+=</span> <span class="n">width</span> <span class="o">+</span> <span class="n">step</span>
     <span class="k">return</span> <span class="n">information_content</span>
 
-</div>
-<div class="viewcode-block" id="draw_logo"><a class="viewcode-back" href="../drawing.html#drawing.draw_logo">[docs]</a><span class="k">def</span> <span class="nf">draw_logo</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Print the logo in svg format to the output file &quot;&quot;&quot;</span>
-    <span class="c"># Print the header.</span>
+
+<span class="c"># TODO raise an error if the logo type is wrong</span></div>
+<div class="viewcode-block" id="draw_logo"><a class="viewcode-back" href="../drawing.html#drawing.draw_logo">[docs]</a><span class="k">def</span> <span class="nf">draw_logo</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print the svg instructions to draw the logo to the output.</span>
+
+<span class="sd">    :arg output: Stream where to write the svg instruction to draw the logo.</span>
+<span class="sd">    :type output: file</span>
+<span class="sd">    :arg tffm: TFFM from which to draw the logo.</span>
+<span class="sd">    :type tffm: :class:`TFFM`</span>
+<span class="sd">    :arg logo_type: Kind of logo to draw (either LOGO_TYPE.SUMMARY or</span>
+<span class="sd">        LOGO_TYPE.DENSE)</span>
+<span class="sd">    :type logo_type: Enum</span>
+
+<span class="sd">    :todo: raise an error if the logo type is wrong.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">header_y_coord</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="s">&quot;summary&quot;</span><span class="p">:</span>
-        <span class="n">draw_frame</span><span class="p">(</span><span class="mi">170</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">),</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="n">LOGO_TYPE</span><span class="o">.</span><span class="n">SUMMARY</span><span class="p">:</span>
+        <span class="n">draw_frame</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">),</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
         <span class="n">draw_y_axis</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">draw_frame</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">),</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="n">draw_frame</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="n">header_y_coord</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">),</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
         <span class="n">draw_left_letters</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-    <span class="n">information_content</span> <span class="o">=</span> <span class="n">draw_logo_letters</span><span class="p">(</span><span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="s">&quot;summary&quot;</span><span class="p">:</span>
-        <span class="n">print_ic</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+    <span class="n">information_content</span> <span class="o">=</span> <span class="n">draw_logo_letters</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">tffm</span><span class="p">,</span> <span class="n">logo_type</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">logo_type</span> <span class="o">==</span> <span class="n">LOGO_TYPE</span><span class="o">.</span><span class="n">SUMMARY</span><span class="p">:</span>
+        <span class="n">print_ic</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">print_ic</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
+        <span class="n">print_ic</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tffm</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">information_content</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">450</span><span class="p">)</span>
     <span class="n">print_footer</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div>
 </pre></div>
 
@@ -358,7 +718,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Anthony Mathelier.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -89,7 +87,7 @@ functions <a class="reference internal" href="#tffm_module.tffm_from_xml" title=
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note :</th><td class="field-body">The destruction is made using
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">The destruction is made using
 the <tt class="xref py py-class docutils literal"><span class="pre">ghmm.DiscreteEmissionHMM</span></tt> destructor.</td>
 </tr>
 </tbody>
@@ -117,7 +115,7 @@ TFFM, use <cite>TFFM_KIND.ZERO_ORDER, or `TFFM_KIND.FIRST_ORDER</cite>, or
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises :</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.TFFMKindError</span></tt> when the given kind is
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.TFFMKindError</span></tt> when the given kind is
 neither &#8216;1st-order&#8217; nor &#8216;detailed&#8217;.</p>
 </td>
 </tr>
@@ -213,7 +211,7 @@ consider non ACGT nucleotides.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of list</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body">One example of a sequence_split is [&#8220;ACT&#8221;, &#8220;N&#8221;, &#8220;ATC&#8221;].</td>
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body">One example of a sequence_split is [&#8220;ACT&#8221;, &#8220;N&#8221;, &#8220;ATC&#8221;].</td>
 </tr>
 </tbody>
 </table>
@@ -239,7 +237,7 @@ consider non ACGT nucleotides.</td>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">ghmm.DiscreteEmissionHMM</span></tt></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Todo :</th><td class="field-body"><p class="first last">Raise an error rather than a <tt class="xref py py-func docutils literal"><span class="pre">sys.exit()</span></tt> when the trimmed
+<tr class="field-even field"><th class="field-name">Todo:</th><td class="field-body"><p class="first last">Raise an error rather than a <tt class="xref py py-func docutils literal"><span class="pre">sys.exit()</span></tt> when the trimmed
 HMM becomes empty.</p>
 </td>
 </tr>
@@ -284,7 +282,7 @@ last matching position in the TFFM).</p>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.get_emission_update_pos_proba">
-<tt class="descname">get_emission_update_pos_proba</tt><big>(</big><em>position_proba</em>, <em>position</em>, <em>previous_position_proba</em>, <em>index</em><big>)</big><a class="headerlink" href="#tffm_module.TFFM.get_emission_update_pos_proba" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_emission_update_pos_proba</tt><big>(</big><em>position_proba</em>, <em>position</em>, <em>previous_position_proba</em>, <em>index</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.get_emission_update_pos_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.get_emission_update_pos_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the emission probabilities of ACGT at position <em>position</em> and
 update the emission probabilities in <em>position_proba</em> given the
 emission probabilities at the previous position
@@ -293,7 +291,7 @@ emission probabilities at the previous position
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note :</th><td class="field-body"><p class="first">This function is used state by state and several states
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">This function is used state by state and several states
 represent the same position in detailed TFFM, this is why we need
 to update the probabilities listed in position_proba.</p>
 </td>
@@ -338,7 +336,7 @@ analyzed at the current position.</li>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.get_position_start">
-<tt class="descname">get_position_start</tt><big>(</big><big>)</big><a class="headerlink" href="#tffm_module.TFFM.get_position_start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_position_start</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.get_position_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.get_position_start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Give the position of the first matching state.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -348,7 +346,7 @@ analyzed at the current position.</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Warning :</th><td class="field-body">The position is given 0-based.</td>
+<tr class="field-odd field"><th class="field-name">Warning:</th><td class="field-body">The position is given 0-based.</td>
 </tr>
 </tbody>
 </table>
@@ -368,7 +366,7 @@ positions.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Note :</th><td class="field-body">The output is an ordered list following the order of the
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">The output is an ordered list following the order of the
 positions within the motif.</td>
 </tr>
 </tbody>
@@ -427,7 +425,7 @@ match position to be kept.</li>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.pocc_sequences">
-<tt class="descname">pocc_sequences</tt><big>(</big><em>seq_file</em>, <em>threshold=0.0</em><big>)</big><a class="headerlink" href="#tffm_module.TFFM.pocc_sequences" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">pocc_sequences</tt><big>(</big><em>seq_file</em>, <em>threshold=0.0</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.pocc_sequences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.pocc_sequences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the TFFM on the fasta sequences and return the Pocc value
 (probability of occupancy) for each sequence.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -448,7 +446,7 @@ compute the Pocc (default: 0.0).</li>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">Generator</span></tt> of <tt class="xref py py-class docutils literal"><span class="pre">HIT</span></tt></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">(<strong>0.0&lt;=</strong> <em>threshold</em> <strong>&lt;=1.0</strong>)</p>
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body"><p class="first last">(<strong>0.0&lt;=</strong> <em>threshold</em> <strong>&lt;=1.0</strong>)</p>
 </td>
 </tr>
 </tbody>
@@ -457,7 +455,7 @@ compute the Pocc (default: 0.0).</li>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.print_dense_logo">
-<tt class="descname">print_dense_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ba5113f9150&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_dense_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_dense_logo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">print_dense_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b45accac150&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_dense_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_dense_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the svg code of the corresponding dense logo (i.e. displaying the
 dinucleotide dependencies captured by the TFFM).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -467,7 +465,7 @@ dinucleotide dependencies captured by the TFFM).</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>output</strong> (<em>file</em>) &#8211; Stream where to output the svg
 (defaut: <tt class="xref py py-class docutils literal"><span class="pre">sys.stdout</span></tt>).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body">The <em>output</em> argument is not a file name but it is an
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body">The <em>output</em> argument is not a file name but it is an
 <strong>already</strong> open file stream.</td>
 </tr>
 </tbody>
@@ -476,7 +474,7 @@ dinucleotide dependencies captured by the TFFM).</p>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.print_summary_logo">
-<tt class="descname">print_summary_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ba5113f9150&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_summary_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_summary_logo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">print_summary_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b45accac150&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_summary_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_summary_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the svg code of the corresponding summary logo (i.e. similar to a
 regular sequence logo).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -486,7 +484,7 @@ regular sequence logo).</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>output</strong> (<em>file</em>) &#8211; Stream where to output the svg
 (defaut: <tt class="xref py py-class docutils literal"><span class="pre">sys.stdout</span></tt>).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body">The <em>output</em> argument is not a file name but it is an
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body">The <em>output</em> argument is not a file name but it is an
 <strong>already</strong> open file stream.</td>
 </tr>
 </tbody>
@@ -517,7 +515,7 @@ TFBS hit per sequence is to be reported (default: <tt class="xref py py-class do
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">list of <tt class="xref py py-class docutils literal"><span class="pre">HIT</span></tt></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">(<strong>0.0&lt;=</strong> <em>threshold</em> <strong>&lt;=1.0</strong>)</p>
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body"><p class="first last">(<strong>0.0&lt;=</strong> <em>threshold</em> <strong>&lt;=1.0</strong>)</p>
 </td>
 </tr>
 </tbody>
@@ -526,7 +524,7 @@ TFBS hit per sequence is to be reported (default: <tt class="xref py py-class do
 
 <dl class="method">
 <dt id="tffm_module.TFFM.scan_sequences">
-<tt class="descname">scan_sequences</tt><big>(</big><em>seq_file</em>, <em>threshold=0.0</em>, <em>only_best=False</em><big>)</big><a class="headerlink" href="#tffm_module.TFFM.scan_sequences" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">scan_sequences</tt><big>(</big><em>seq_file</em>, <em>threshold=0.0</em>, <em>only_best=False</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.scan_sequences"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.scan_sequences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the TFFM on the fasta sequences and return the TFBS hits.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -549,7 +547,7 @@ TFBS hit per sequence is to be reported (default: <tt class="xref py py-class do
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">Generator</span></tt> of <tt class="xref py py-class docutils literal"><span class="pre">HIT</span></tt></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">(<strong>0.0&lt;=</strong> <em>threshold</em> <strong>&lt;=1.0</strong>)</p>
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body"><p class="first last">(<strong>0.0&lt;=</strong> <em>threshold</em> <strong>&lt;=1.0</strong>)</p>
 </td>
 </tr>
 </tbody>
@@ -565,7 +563,7 @@ transition probabilities.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Note :</th><td class="field-body"><p class="first">The training of the underlying HMM is made using the Baum-Welsh
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first">The training of the underlying HMM is made using the Baum-Welsh
 algorithm.</p>
 </td>
 </tr>
@@ -580,7 +578,7 @@ algorithm to reestimate the probabilities (default: 500).</li>
 </ul>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Todo :</th><td class="field-body"><p class="first last">Check file and raise error if does not exist.</p>
+<tr class="field-odd field"><th class="field-name">Todo:</th><td class="field-body"><p class="first last">Check file and raise error if does not exist.</p>
 </td>
 </tr>
 </tbody>
@@ -598,7 +596,7 @@ algorithm to reestimate the probabilities (default: 500).</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>threshold</strong> (<em>float</em>) &#8211; The minimal information content value for an edge TFFM
 match position to be kept.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Warning :</th><td class="field-body">Trims the TFFM in place. To preserve the TFFM, use
+<tr class="field-even field"><th class="field-name">Warning:</th><td class="field-body">Trims the TFFM in place. To preserve the TFFM, use
 the <a class="reference internal" href="#tffm_module.TFFM.get_trimmed" title="tffm_module.TFFM.get_trimmed"><tt class="xref py py-func docutils literal"><span class="pre">get_trimmed()</span></tt></a> method which returns a trimmed copy of the
 TFFM but does not alter this TFFM.</td>
 </tr>
@@ -612,12 +610,12 @@ TFFM but does not alter this TFFM.</td>
 
 <dl class="function">
 <dt id="tffm_module.background_emission_proba_1storder">
-<tt class="descclassname">tffm_module.</tt><tt class="descname">background_emission_proba_1storder</tt><big>(</big><em>tffm</em><big>)</big><a class="headerlink" href="#tffm_module.background_emission_proba_1storder" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">tffm_module.</tt><tt class="descname">background_emission_proba_1storder</tt><big>(</big><em>tffm</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#background_emission_proba_1storder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.background_emission_proba_1storder" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="tffm_module.background_emission_proba_detailed">
-<tt class="descclassname">tffm_module.</tt><tt class="descname">background_emission_proba_detailed</tt><big>(</big><em>tffm</em><big>)</big><a class="headerlink" href="#tffm_module.background_emission_proba_detailed" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">tffm_module.</tt><tt class="descname">background_emission_proba_detailed</tt><big>(</big><em>tffm</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#background_emission_proba_detailed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.background_emission_proba_detailed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -660,7 +658,7 @@ nucleotides.</p>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Warning :</th><td class="field-body">The list gives the probabilities corresponding to A, C, G, and T
+<tr class="field-even field"><th class="field-name">Warning:</th><td class="field-body">The list gives the probabilities corresponding to A, C, G, and T
 <strong>in this order</strong>.</td>
 </tr>
 </tbody>
@@ -669,7 +667,7 @@ nucleotides.</p>
 
 <dl class="function">
 <dt id="tffm_module.create_0order_hmm">
-<tt class="descclassname">tffm_module.</tt><tt class="descname">create_0order_hmm</tt><big>(</big><em>nb_seq</em>, <em>nb_residues</em>, <em>first_letters</em>, <em>motif</em><big>)</big><a class="headerlink" href="#tffm_module.create_0order_hmm" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">tffm_module.</tt><tt class="descname">create_0order_hmm</tt><big>(</big><em>nb_seq</em>, <em>nb_residues</em>, <em>first_letters</em>, <em>motif</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#create_0order_hmm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.create_0order_hmm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a 0-order HMM initialized from MEME result</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -770,7 +768,7 @@ sequence is to be kept.</li>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">list</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">The two input lists are required to be ordered following the
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body"><p class="first last">The two input lists are required to be ordered following the
 positions on the sequence.  The best hit per position is given. When
 no hit has been found at a position, the constant None is used.</p>
 </td>
@@ -800,7 +798,7 @@ no hit has been found at a position, the constant None is used.</p>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#tffm_module.TFFM" title="tffm_module.TFFM"><tt class="xref py py-class docutils literal"><span class="pre">TFFM</span></tt></a></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">As the PFM is used to initialize the TFFM, a pseudocount of 1 is
+<tr class="field-even field"><th class="field-name">Note:</th><td class="field-body"><p class="first last">As the PFM is used to initialize the TFFM, a pseudocount of 1 is
 added to all the values in the PFM</p>
 </td>
 </tr>
@@ -810,7 +808,7 @@ added to all the values in the PFM</p>
 
 <dl class="function">
 <dt id="tffm_module.tffm_from_motif">
-<tt class="descclassname">tffm_module.</tt><tt class="descname">tffm_from_motif</tt><big>(</big><em>motif</em>, <em>kind</em>, <em>name='TFFM'</em>, <em>nb_res=None</em>, <em>first_letters=None</em><big>)</big><a class="headerlink" href="#tffm_module.tffm_from_motif" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">tffm_module.</tt><tt class="descname">tffm_from_motif</tt><big>(</big><em>motif</em>, <em>kind</em>, <em>name='TFFM'</em>, <em>nb_res=None</em>, <em>first_letters=None</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#tffm_from_motif"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.tffm_from_motif" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct an initialized TFFM from a PFM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -839,7 +837,7 @@ equiprobabilities for A, C, G, and T</li>
 <tr class="field-even field"><th class="field-name">See also:</th><td class="field-body"><p class="first"><a class="reference internal" href="#tffm_module.tffm_from_meme" title="tffm_module.tffm_from_meme"><tt class="xref py py-func docutils literal"><span class="pre">tffm_from_meme()</span></tt></a></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Note :</th><td class="field-body"><p class="first last">As the PFM is used to initialize the TFFM, a pseudocount of 1 is
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body"><p class="first last">As the PFM is used to initialize the TFFM, a pseudocount of 1 is
 added to all the values in the PFM</p>
 </td>
 </tr>
@@ -928,7 +926,7 @@ added to all the values in the PFM</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Anthony Mathelier.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
