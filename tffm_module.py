@@ -18,6 +18,7 @@ import sys
 import math
 import re
 from Bio.Alphabet import IUPAC
+from Bio import SeqIO
 
 #
 # Changed to use the newer Bio.motifs package
@@ -263,8 +264,12 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         """
 
         # TODO Check file and raise error if does not exist.
+        # Only upper case is allowed in the ALPHABET, need to convert
+        sequences = []
+        for record in SeqIO.parse(training_file, "fasta"):
+            sequences.append(record.seq.upper())
         training_sequences = ghmm.SequenceSet(ghmm.Alphabet(ALPHABET),
-                                              training_file)
+                                              sequences)
         # Need to give the same weight to all the sequences since it does not
         # seem to be done by default by ghmm.
         utils.set_sequences_weight(training_sequences, 1.0)
