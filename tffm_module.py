@@ -275,12 +275,12 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         utils.set_sequences_weight(training_sequences, 1.0)
         self.baumWelch(training_sequences, max_iter, epsilon)
 
-    def scan_sequence(self, sequence, threshold, only_best):
+    def scan_sequence(self, sequence, threshold=0.0, only_best=False):
         """
         Apply the TFFM on the fasta sequence and return the TFBS hits.
 
         :arg sequence: DNA sequence to apply the TFFM on.
-        :type seq_file: :class:`Bio.SeqRecord`
+        :type sequence: :class:`Bio.SeqRecord`
         :arg threshold: The threshold used to predict a hit (i.e. the minimal
             probability value for a position to be considered a TFBS hit)
             (default: 0.0).
