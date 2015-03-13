@@ -267,7 +267,10 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         # Only upper case is allowed in the ALPHABET, need to convert
         sequences = []
         for record in SeqIO.parse(training_file, "fasta"):
-            sequences.append(record.seq.upper())
+            sequence = record.seq.upper()
+            # Only considering sequences with ACGTs
+            if not re.match("[!AGCT]", str(sequence)):
+                sequences.append(sequence)
         training_sequences = ghmm.SequenceSet(ghmm.Alphabet(ALPHABET),
                                               sequences)
         # Need to give the same weight to all the sequences since it does not
