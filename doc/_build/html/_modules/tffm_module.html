@@ -308,15 +308,16 @@
 <span class="sd">            algorithm to reestimate the probabilities (default: 500).</span>
 <span class="sd">        :type max_iter: int</span>
 
-<span class="sd">        :todo: Check file and raise error if does not exist.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c"># TODO Check file and raise error if does not exist.</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">training_file</span><span class="p">))</span>
         <span class="c"># Only upper case is allowed in the ALPHABET, need to convert</span>
         <span class="n">sequences</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">training_file</span><span class="p">,</span> <span class="s">&quot;fasta&quot;</span><span class="p">):</span>
-            <span class="n">sequences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">seq</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+            <span class="n">sequence</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">seq</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+            <span class="c"># Only considering sequences with ACGTs</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&quot;[!AGCT]&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">sequence</span><span class="p">)):</span>
+                <span class="n">sequences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
         <span class="n">training_sequences</span> <span class="o">=</span> <span class="n">ghmm</span><span class="o">.</span><span class="n">SequenceSet</span><span class="p">(</span><span class="n">ghmm</span><span class="o">.</span><span class="n">Alphabet</span><span class="p">(</span><span class="n">ALPHABET</span><span class="p">),</span>
                                               <span class="n">sequences</span><span class="p">)</span>
         <span class="c"># Need to give the same weight to all the sequences since it does not</span>
@@ -324,12 +325,12 @@
         <span class="n">utils</span><span class="o">.</span><span class="n">set_sequences_weight</span><span class="p">(</span><span class="n">training_sequences</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">baumWelch</span><span class="p">(</span><span class="n">training_sequences</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="TFFM.scan_sequence"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.scan_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">scan_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">only_best</span><span class="p">):</span>
+<div class="viewcode-block" id="TFFM.scan_sequence"><a class="viewcode-back" href="../tffm_module.html#tffm_module.TFFM.scan_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">scan_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">only_best</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Apply the TFFM on the fasta sequence and return the TFBS hits.</span>
 
 <span class="sd">        :arg sequence: DNA sequence to apply the TFFM on.</span>
-<span class="sd">        :type seq_file: :class:`Bio.SeqRecord`</span>
+<span class="sd">        :type sequence: :class:`Bio.SeqRecord`</span>
 <span class="sd">        :arg threshold: The threshold used to predict a hit (i.e. the minimal</span>
 <span class="sd">            probability value for a position to be considered a TFBS hit)</span>
 <span class="sd">            (default: 0.0).</span>

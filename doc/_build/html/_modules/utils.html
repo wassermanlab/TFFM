@@ -86,11 +86,9 @@
 <span class="sd">    :returns: The set of Bio.SeqRecord instances found in the fasta file.</span>
 <span class="sd">    :rtype: list of :class:`Bio.SeqRecord`</span>
 
-<span class="sd">    :todo: Check file and raise error if does not exist.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c"># TODO Check file and raise error if does not exist.</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fasta_file</span><span class="p">))</span>
     <span class="c"># We do not use &quot;with&quot; for python2.4 compatibility</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fasta_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
         <span class="n">record_list</span> <span class="o">=</span> <span class="p">[]</span>

@@ -455,7 +455,7 @@ compute the Pocc (default: 0.0).</li>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.print_dense_logo">
-<tt class="descname">print_dense_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b45accac150&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_dense_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_dense_logo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">print_dense_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ba1bc26f150&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_dense_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_dense_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the svg code of the corresponding dense logo (i.e. displaying the
 dinucleotide dependencies captured by the TFFM).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -474,7 +474,7 @@ dinucleotide dependencies captured by the TFFM).</p>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.print_summary_logo">
-<tt class="descname">print_summary_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b45accac150&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_summary_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_summary_logo" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">print_summary_logo</tt><big>(</big><em>output=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2ba1bc26f150&gt;</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.print_summary_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.print_summary_logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the svg code of the corresponding summary logo (i.e. similar to a
 regular sequence logo).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -493,14 +493,14 @@ regular sequence logo).</p>
 
 <dl class="method">
 <dt id="tffm_module.TFFM.scan_sequence">
-<tt class="descname">scan_sequence</tt><big>(</big><em>sequence</em>, <em>threshold</em>, <em>only_best</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.scan_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.scan_sequence" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">scan_sequence</tt><big>(</big><em>sequence</em>, <em>threshold=0.0</em>, <em>only_best=False</em><big>)</big><a class="reference internal" href="_modules/tffm_module.html#TFFM.scan_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tffm_module.TFFM.scan_sequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the TFFM on the fasta sequence and return the TFBS hits.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>sequence</strong> &#8211; DNA sequence to apply the TFFM on.</li>
+<li><strong>sequence</strong> (<tt class="xref py py-class docutils literal"><span class="pre">Bio.SeqRecord</span></tt>) &#8211; DNA sequence to apply the TFFM on.</li>
 <li><strong>threshold</strong> (<em>float</em>) &#8211; The threshold used to predict a hit (i.e. the minimal
 probability value for a position to be considered a TFBS hit)
 (default: 0.0).</li>
@@ -567,7 +567,7 @@ transition probabilities.</p>
 algorithm.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>training_file</strong> (<em>str</em>) &#8211; The fasta file of the sequences to train the TFFM
 on.</li>
 <li><strong>epsilon</strong> (<em>float</em>) &#8211; The least relative improvement cut-off in likelihood
@@ -576,9 +576,6 @@ compared to the previous iteration of the Baum-Welsh algorithm
 <li><strong>max_iter</strong> (<em>int</em>) &#8211; The maximum number of iteration of the Baum-Welsh
 algorithm to reestimate the probabilities (default: 500).</li>
 </ul>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Todo:</th><td class="field-body"><p class="first last">Check file and raise error if does not exist.</p>
 </td>
 </tr>
 </tbody>
