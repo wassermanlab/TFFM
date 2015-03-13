@@ -37,11 +37,9 @@ def parse_fasta(fasta_file):
     :returns: The set of Bio.SeqRecord instances found in the fasta file.
     :rtype: list of :class:`Bio.SeqRecord`
 
-    :todo: Check file and raise error if does not exist.
-
     """
 
-    # TODO Check file and raise error if does not exist.
+    assert(os.path.isfile(fasta_file))
     # We do not use "with" for python2.4 compatibility
     with open(fasta_file) as stream:
         record_list = []

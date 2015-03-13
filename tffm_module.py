@@ -259,11 +259,9 @@ class TFFM(ghmm.DiscreteEmissionHMM):
             algorithm to reestimate the probabilities (default: 500).
         :type max_iter: int
 
-        :todo: Check file and raise error if does not exist.
-
         """
 
-        # TODO Check file and raise error if does not exist.
+        assert(os.path.isfile(training_file))
         # Only upper case is allowed in the ALPHABET, need to convert
         sequences = []
         for record in SeqIO.parse(training_file, "fasta"):
