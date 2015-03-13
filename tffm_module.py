@@ -15,6 +15,7 @@ Module implementing the TFFMs.
 
 
 import sys
+import os
 import math
 import re
 from Bio.Alphabet import IUPAC
