@@ -268,7 +268,7 @@ class TFFM(ghmm.DiscreteEmissionHMM):
         for record in SeqIO.parse(training_file, "fasta"):
             sequence = record.seq.upper()
             # Only considering sequences with ACGTs
-            if not re.match("[!AGCT]", str(sequence)):
+            if not re.search("[^AGCT]", str(sequence)):
                 sequences.append(sequence)
         training_sequences = ghmm.SequenceSet(ghmm.Alphabet(ALPHABET),
                                               sequences)
