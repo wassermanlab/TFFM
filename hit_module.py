@@ -66,11 +66,15 @@ class HIT:
 
         """
 
+        if tffm:
+            name = tffm.name
+        else:
+            name = "NoName"
         string = "%s\t%d\t%d\t%s\t%s\t%s\t%d\t%s" % (self.seq_record.id,
                                                      self.start, self.end,
                                                      self.strand,
                                                      self.sequence(),
-                                                     self.tffm.name,
+                                                     name,
                                                      self.tffm_matched_state,
                                                      repr(self.score))
         return string
