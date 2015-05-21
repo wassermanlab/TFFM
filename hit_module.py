@@ -66,8 +66,8 @@ class HIT:
 
         """
 
-        if tffm:
-            name = tffm.name
+        if self.tffm:
+            name = self.tffm.name
         else:
             name = "NoName"
         string = "%s\t%d\t%d\t%s\t%s\t%s\t%d\t%s" % (self.seq_record.id,
