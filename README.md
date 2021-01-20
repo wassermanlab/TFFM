@@ -32,25 +32,24 @@ The next generation of transcription binding site prediction.
 TFFMs can be saved and opened from files using the XML format already used by
 the GHMM library.
 
-You can get more information at http://cisreg.cmmt.ubc.ca/TFFM/doc/.
+We recommend you to read the documentation to get more information at
+[http://cisreg.cmmt.ubc.ca/TFFM/doc/](http://cisreg.cmmt.ubc.ca/TFFM/doc/).
 
-###############################################################################
-Authors: Anthony Mathelier and Wyeth W. Wasserman
-         Centre for Molecular Medicine and Therapeutics
-         950 West 28th Avenue
-         Vancouver, BC
-         V5Z 4H4 Canada
+# Authors
 
-         anthony.mathelier@gmail.com
-         wyeth@cmmt.ubc.ca
+  Anthony Mathelier and Wyeth W. Wasserman
+  Centre for Molecular Medicine and Therapeutics
+  950 West 28th Avenue
+  Vancouver, BC
+  V5Z 4H4 Canada
 
-         Refer to the AUTHORS file.
-###############################################################################
+  anthony.mathelier@ncmm.uio.no
+  wyeth@cmmt.ubc.ca
 
+  Refer to the AUTHORS file.
          
 
-###############################################################################
-System requirements:
+# System requirements
 
 * The TFFM-framework 2.0 has been developed and tested under Ubuntu
     Linux operating system. It has also been tested on CentOS.
@@ -61,29 +60,34 @@ System requirements:
 * The GHMM library should be installed and accessible from Python. See
     http://ghmm.org for instructions on how to install it.
 
-###############################################################################
-Tutorial:
+# Tutorial
 
 For a brief tutorial on how to use the TFFMs, go to
-http://cisreg.cmmt.ubc.ca/TFFM/doc/.
+[http://cisreg.cmmt.ubc.ca/TFFM/doc/](http://cisreg.cmmt.ubc.ca/TFFM/doc/).
 
-###############################################################################
-Download:
+# Download
 
-The TFFM-framework can be downloaded at https://github.com/wassermanlab/TFFM.
+The TFFM-framework can be downloaded on
+[github](https://github.com/wassermanlab/TFFM).
 
-###############################################################################
-Reference:
+# Web application
 
-The TFFMs and the TFFM-framework have been described in Mathelier and
-Wasserman, The next generation of transcription binding site prediction.
+You can generate TFFMs and scan DNA sequences with TFFMs using the dedicated
+web application at
+[http://cisreg.cmmt.ubc.ca/TFFM/webapp/](http://cisreg.cmmt.ubc.ca/TFFM/webapp/).
+
+# Reference
+
+The TFFMs and the TFFM-framework have been described in [Mathelier and
+Wasserman. The next generation of transcription binding site prediction. _Plos
+Computational Biology_, 2013](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003214).
+
 Please cite this publication when using the TFFMs.
 
 
-###############################################################################
-Licence:
+# Licence
 
-* The TFFM-framework has been developed under the GNU Lesser General
-    Public Licence (see http://www.gnu.org/copyleft/lesser.html).
+* The TFFM-framework has been developed under the [GNU Lesser General
+    Public Licence](http://www.gnu.org/copyleft/lesser.html).
 * The TFFM-framework uses the GHMM library which is also licenced
     under the GNU LGPL.

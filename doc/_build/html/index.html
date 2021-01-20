@@ -1,33 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Welcome to TFFM’s documentation! &mdash; TFFM  documentation</title>
-    
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to TFFM’s documentation! &#8212; TFFM  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="TFFM  documentation" href="#" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="tffm Module" href="tffm_module.html" /> 
-  </head>
-  <body>
-    <div class="related">
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -39,17 +31,18 @@
         <li class="right" >
           <a href="tffm_module.html" title="tffm Module"
              accesskey="N">next</a> |</li>
-        <li><a href="#">TFFM  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">TFFM  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to TFFM’s documentation!</a></li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="welcome-to-tffm-s-documentation">
-<h1>Welcome to TFFM&#8217;s documentation!<a class="headerlink" href="#welcome-to-tffm-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to TFFM’s documentation!<a class="headerlink" href="#welcome-to-tffm-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>We provide here the documentation of the TFFM-framework developed in <a class="reference external" href="http://docs.python.org/2.7/">Python</a>.  The <strong>Transcription Factor Flexible Models
 (TFFMs)</strong> represent TFBSs and are based on hidden Markov models (HMM). They are
 flexible and are able to model both position interdependence within TFBSs and
@@ -77,15 +70,15 @@ the <a class="reference external" href="http://ghmm.org">GHMM library</a>.</p>
 <div class="section" id="system-requirements">
 <h1>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>The TFFM-framework 2.0 has been developed and tested under <a class="reference external" href="http://www.ubuntu.com/">Ubuntu Linux</a> operating system. It has also been tested on
-<a class="reference external" href="http://www.centos.org">CentOS</a>.</li>
-<li><strong>Python</strong> should be installed (version 2.7 has been used
-successfully).</li>
-<li><strong>Biopython</strong> (at least version 1.61) should be installed and accessible from
-your Python executable.  See <a class="reference external" href="http://biopython.org">http://biopython.org</a> for instructions on how to
-install it.</li>
-<li>The <strong>GHMM</strong> library should be installed and accessible from Python. See
-<a class="reference external" href="http://ghmm.org">http://ghmm.org</a> for instructions on how to install it.</li>
+<li><p>The TFFM-framework 2.0 has been developed and tested under <a class="reference external" href="http://www.ubuntu.com/">Ubuntu Linux</a> operating system. It has also been tested on
+<a class="reference external" href="http://www.centos.org">CentOS</a>.</p></li>
+<li><p><strong>Python</strong> should be installed (version 2.7 has been used
+successfully).</p></li>
+<li><p><strong>Biopython</strong> (at least version 1.61) should be installed and accessible from
+your Python executable. See <a class="reference external" href="http://biopython.org">http://biopython.org</a> for instructions on how to
+install it.</p></li>
+<li><p>The <strong>GHMM</strong> library should be installed and accessible from Python. See
+<a class="reference external" href="http://ghmm.org">http://ghmm.org</a> for instructions on how to install it.</p></li>
 </ul>
 </div>
 <div class="section" id="contents">
@@ -101,6 +94,27 @@ install it.</li>
 </ul>
 </div>
 </div>
+<div class="section" id="installation-using-conda-and-launching-the-tutorial">
+<h1>Installation using conda and launching the tutorial<a class="headerlink" href="#installation-using-conda-and-launching-the-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>First, install <a class="reference external" href="https://bioconda.github.io/user/install.html">conda and bioconda</a> using the instructions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">tffm1</span> <span class="n">python</span><span class="o">=</span><span class="mf">2.7</span> <span class="n">biopython</span><span class="o">=</span><span class="mf">1.70</span> <span class="n">ghmm</span>
+</pre></div>
+</div>
+<p>This will require agreeing to install many packages, and takes a minute or two.</p>
+<p>Activate the conda environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">tffm</span>
+</pre></div>
+</div>
+<p>Download TFFM as a git repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">wassermanlab</span><span class="o">/</span><span class="n">TFFM</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Change to tutorial directory and launch python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">TFFM</span><span class="o">/</span><span class="n">tutorial</span>
+<span class="n">python</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="tutorial">
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <p>Data for this tutorial can be found in the tutorial directory of the
@@ -109,40 +123,40 @@ TFFM-framework package at
 you need to be located in the tutorial directory. The location to be added to
 <cite>sys.path</cite> (second line of the tutorial) corresponds to the directory
 containing the TFFM-framework.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">&lt;</span><span class="n">TFFM</span><span class="o">-</span><span class="n">framework</span> <span class="n">repository</span> <span class="n">path</span><span class="o">&gt;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tffm_module</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">TFFM_KIND</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">tffm_from_meme</span><span class="p">(</span><span class="s">&quot;meme.txt&quot;</span><span class="p">,</span> <span class="n">TFFM_KIND</span><span class="o">.</span><span class="n">FIRST_ORDER</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;tffm_first_order_initial.xml&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="s">&quot;train.fa&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;tffm_first_order.xml&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;tffm_first_order_summary_logo.svg&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">tffm_from_meme</span><span class="p">(</span><span class="s2">&quot;meme.txt&quot;</span><span class="p">,</span> <span class="n">TFFM_KIND</span><span class="o">.</span><span class="n">FIRST_ORDER</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;tffm_first_order_initial.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="s2">&quot;train.fa&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;tffm_first_order.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;tffm_first_order_summary_logo.svg&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span><span class="o">.</span><span class="n">print_summary_logo</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;tffm_first_order_dense_logo.svg&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;tffm_first_order_dense_logo.svg&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span><span class="o">.</span><span class="n">print_dense_logo</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">tffm_from_meme</span><span class="p">(</span><span class="s">&quot;meme.txt&quot;</span><span class="p">,</span> <span class="n">TFFM_KIND</span><span class="o">.</span><span class="n">DETAILED</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;tffm_detailed_initial.xml&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="s">&quot;train.fa&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;tffm_detailed.xml&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;tffm_detailed_summary_logo.svg&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">tffm_from_meme</span><span class="p">(</span><span class="s2">&quot;meme.txt&quot;</span><span class="p">,</span> <span class="n">TFFM_KIND</span><span class="o">.</span><span class="n">DETAILED</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;tffm_detailed_initial.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="s2">&quot;train.fa&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;tffm_detailed.xml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;tffm_detailed_summary_logo.svg&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span><span class="o">.</span><span class="n">print_summary_logo</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;tffm_detailed_dense_logo.svg&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;tffm_detailed_dense_logo.svg&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span><span class="o">.</span><span class="n">print_dense_logo</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">tffm_from_xml</span><span class="p">(</span><span class="s">&quot;tffm_first_order.xml&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_first_order</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">tffm_from_xml</span><span class="p">(</span><span class="s2">&quot;tffm_first_order.xml&quot;</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">TFFM_KIND</span><span class="o">.</span><span class="n">FIRST_ORDER</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&quot;1st-order all&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s2">&quot;1st-order all&quot;</span>
 <span class="go">1st-order all</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">tffm_first_order</span><span class="o">.</span><span class="n">scan_sequences</span><span class="p">(</span><span class="s">&quot;test.fa&quot;</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">tffm_first_order</span><span class="o">.</span><span class="n">scan_sequences</span><span class="p">(</span><span class="s2">&quot;test.fa&quot;</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">hit</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="k">print</span> <span class="n">hit</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="n">hit</span>
 <span class="gp">...</span>
 <span class="go">hg19_ct_UserTrack_3545_1911 1   15  -   CCCAATCTGGGGGAG TFFM    16  2.0412237861770574e-05</span>
 <span class="go">hg19_ct_UserTrack_3545_1911 2   16  -   TCCCAATCTGGGGGA TFFM    16  5.972631515438409e-10</span>
@@ -158,21 +172,21 @@ containing the TFFM-framework.</p>
 <span class="go">hg19_ct_UserTrack_3545_3739 85  99  -   CTCAGACTGCCTTCC TFFM    16  9.886433151452122e-09</span>
 <span class="go">hg19_ct_UserTrack_3545_3739 86  100 +   GAAGGCAGTCTGAGC TFFM    16  4.299143127628496e-07</span>
 <span class="go">hg19_ct_UserTrack_3545_3739 87  101 +   AAGGCAGTCTGAGCC TFFM    16  3.147869508275758e-08</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&quot;1st-order best&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s2">&quot;1st-order best&quot;</span>
 <span class="go">1st-order best</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">tffm_first_order</span><span class="o">.</span><span class="n">scan_sequences</span><span class="p">(</span><span class="s">&quot;test.fa&quot;</span><span class="p">,</span> <span class="n">only_best</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">tffm_first_order</span><span class="o">.</span><span class="n">scan_sequences</span><span class="p">(</span><span class="s2">&quot;test.fa&quot;</span><span class="p">,</span> <span class="n">only_best</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">hit</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="k">print</span> <span class="n">hit</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="n">hit</span>
 <span class="gp">...</span>
 <span class="go">hg19_ct_UserTrack_3545_1911 33  47  -   TAGGCCCGGAGGGAG TFFM    16  0.7487725826821764</span>
 <span class="go">hg19_ct_UserTrack_3545_3739 29  43  +   CCTGCCCCCAGGGTG TFFM    16  0.9670956290505575</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">tffm_from_xml</span><span class="p">(</span><span class="s">&quot;tffm_detailed.xml&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tffm_detailed</span> <span class="o">=</span> <span class="n">tffm_module</span><span class="o">.</span><span class="n">tffm_from_xml</span><span class="p">(</span><span class="s2">&quot;tffm_detailed.xml&quot;</span><span class="p">,</span>
 <span class="gp">... </span>        <span class="n">TFFM_KIND</span><span class="o">.</span><span class="n">DETAILED</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&quot;detailed all&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s2">&quot;detailed all&quot;</span>
 <span class="go">detailed all</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">tffm_detailed</span><span class="o">.</span><span class="n">scan_sequences</span><span class="p">(</span><span class="s">&quot;test.fa&quot;</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">tffm_detailed</span><span class="o">.</span><span class="n">scan_sequences</span><span class="p">(</span><span class="s2">&quot;test.fa&quot;</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">hit</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="k">print</span> <span class="n">hit</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="n">hit</span>
 <span class="gp">...</span>
 <span class="go">hg19_ct_UserTrack_3545_1911 1   15  +   CTCCCCCAGATTGGG TFFM    62  1.2342473696772854e-08</span>
 <span class="go">hg19_ct_UserTrack_3545_1911 1   15  -   CCCAATCTGGGGGAG TFFM    62  6.845206246155106e-06</span>
@@ -186,11 +200,11 @@ containing the TFFM-framework.</p>
 <span class="go">hg19_ct_UserTrack_3545_3739 86  100 -   GCTCAGACTGCCTTC TFFM    61  1.1487113198838786e-10</span>
 <span class="go">hg19_ct_UserTrack_3545_3739 87  101 +   AAGGCAGTCTGAGCC TFFM    61  4.790574256236894e-07</span>
 <span class="go">hg19_ct_UserTrack_3545_3739 87  101 -   GGCTCAGACTGCCTT TFFM    63  1.5113773626351342e-09</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&quot;detailed best&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s2">&quot;detailed best&quot;</span>
 <span class="go">detailed best</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">tffm_detailed</span><span class="o">.</span><span class="n">scan_sequences</span><span class="p">(</span><span class="s">&quot;test.fa&quot;</span><span class="p">,</span> <span class="n">only_best</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">tffm_detailed</span><span class="o">.</span><span class="n">scan_sequences</span><span class="p">(</span><span class="s2">&quot;test.fa&quot;</span><span class="p">,</span> <span class="n">only_best</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">if</span> <span class="n">hit</span><span class="p">:</span>
-<span class="gp">... </span>        <span class="k">print</span> <span class="n">hit</span>
+<span class="gp">... </span>        <span class="nb">print</span> <span class="n">hit</span>
 <span class="gp">...</span>
 <span class="go">hg19_ct_UserTrack_3545_1911 31  45  +   CTCTCCCTCCGGGCC TFFM    61  0.8256588185762648</span>
 <span class="go">hg19_ct_UserTrack_3545_3739 29  43  +   CCTGCCCCCAGGGTG TFFM    62  0.9683269774058026</span>
@@ -213,32 +227,34 @@ Please cite this publication when publishing results using the TFFM-framework.</
 <div class="section" id="licence">
 <h1>Licence<a class="headerlink" href="#licence" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li>The TFFM-framework has been developed under the GNU Lesser General Public
-Licence (see <a class="reference external" href="http://www.gnu.org/copyleft/lesser.html">http://www.gnu.org/copyleft/lesser.html</a> and LICENCE).</li>
-<li>The TFFM-framework uses the GHMM library which is also licenced under the GNU
-LGPL.</li>
+<li><p>The TFFM-framework has been developed under the GNU Lesser General Public
+Licence (see <a class="reference external" href="http://www.gnu.org/copyleft/lesser.html">http://www.gnu.org/copyleft/lesser.html</a> and LICENCE).</p></li>
+<li><p>The TFFM-framework uses the GHMM library which is also licenced under the GNU
+LGPL.</p></li>
 </ul>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
+  <h3><a href="#">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to TFFM&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#">Welcome to TFFM’s documentation!</a></li>
 <li><a class="reference internal" href="#system-requirements">System requirements</a></li>
 <li><a class="reference internal" href="#contents">Contents</a></li>
+<li><a class="reference internal" href="#installation-using-conda-and-launching-the-tutorial">Installation using conda and launching the tutorial</a></li>
 <li><a class="reference internal" href="#tutorial">Tutorial</a></li>
 <li><a class="reference internal" href="#download">Download</a></li>
 <li><a class="reference internal" href="#reference">Reference</a></li>
@@ -249,29 +265,28 @@ LGPL.</li>
   <h4>Next topic</h4>
   <p class="topless"><a href="tffm_module.html"
                         title="next chapter">tffm Module</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/index.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -283,12 +298,13 @@ LGPL.</li>
         <li class="right" >
           <a href="tffm_module.html" title="tffm Module"
              >next</a> |</li>
-        <li><a href="#">TFFM  documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">TFFM  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to TFFM’s documentation!</a></li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2013, Anthony Mathelier.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013, Anthony Mathelier.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>

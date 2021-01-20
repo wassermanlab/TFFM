@@ -45,7 +45,7 @@ System requirements
 * **Python** should be installed (version 2.7 has been used
   successfully).
 * **Biopython** (at least version 1.61) should be installed and accessible from
-  your Python executable.  See http://biopython.org for instructions on how to
+  your Python executable. See http://biopython.org for instructions on how to
   install it.
 * The **GHMM** library should be installed and accessible from Python. See
   http://ghmm.org for instructions on how to install it.
@@ -62,6 +62,29 @@ Contents
    utils
    constants
    exceptions_errors
+
+Installation using conda and launching the tutorial
+===================================================
+
+First, install `conda and bioconda
+<https://bioconda.github.io/user/install.html>`_ using the instructions::
+
+    conda create --name tffm1 python=2.7 biopython=1.70 ghmm
+
+This will require agreeing to install many packages, and takes a minute or two.
+
+Activate the conda environment::
+
+    conda activate tffm
+
+Download TFFM as a git repository::
+
+    git clone https://github.com/wassermanlab/TFFM.git
+
+Change to tutorial directory and launch python::
+
+    cd TFFM/tutorial
+    python
 
 Tutorial
 ========
