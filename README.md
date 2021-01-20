@@ -32,23 +32,17 @@ We recommend you to read the documentation to get more information at
 
 # Authors
 
-  Anthony Mathelier and Wyeth W. Wasserman
-
-  Centre for Molecular Medicine and Therapeutics
-
-  950 West 28th Avenue
-
-  Vancouver, BC
-
+  Anthony Mathelier and Wyeth W. Wasserman   
+  Centre for Molecular Medicine and Therapeutics   
+  950 West 28th Avenue   
+  Vancouver, BC   
   V5Z 4H4 Canada
 
-  anthony.mathelier@ncmm.uio.no
-
+  anthony.mathelier@ncmm.uio.no   
   wyeth@cmmt.ubc.ca
 
   Refer to the AUTHORS file.
          
-
 # System requirements
 
 * The TFFM-framework 2.0 has been developed and tested under Ubuntu
