@@ -1,9 +1,4 @@
-#################################
-##                             ##
-##  TFFM-framework version 2.0 ##
-##         03/05/2013          ##
-##                             ##
-#################################
+# TFFM-framework version 2.0 - 03/05/2013
 
 We provide here the documentation of the TFFM-framework developed in Python.
 The Transcription Factor Flexible Models (TFFMs) represent TFBSs and are based
@@ -38,12 +33,17 @@ We recommend you to read the documentation to get more information at
 # Authors
 
   Anthony Mathelier and Wyeth W. Wasserman
+
   Centre for Molecular Medicine and Therapeutics
+
   950 West 28th Avenue
+
   Vancouver, BC
+
   V5Z 4H4 Canada
 
   anthony.mathelier@ncmm.uio.no
+
   wyeth@cmmt.ubc.ca
 
   Refer to the AUTHORS file.
