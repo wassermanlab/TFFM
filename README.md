@@ -57,7 +57,7 @@ We recommend you to read the documentation to get more information at
 # Tutorial
 
 For a brief tutorial on how to use the TFFMs, go to
-[http://cisreg.cmmt.ubc.ca/TFFM/doc/](http://cisreg.cmmt.ubc.ca/TFFM/doc/).
+[http://cisreg.cmmt.ubc.ca/TFFM/doc/index.html](http://cisreg.cmmt.ubc.ca/TFFM/doc/index.html).
 
 # Download
 
