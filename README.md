@@ -28,7 +28,7 @@ TFFMs can be saved and opened from files using the XML format already used by
 the GHMM library.
 
 We recommend you to read the documentation to get more information at
-[http://cisreg.cmmt.ubc.ca/TFFM/doc/](http://cisreg.cmmt.ubc.ca/TFFM/doc/).
+[http://cisreg.cmmt.ubc.ca/TFFM/doc/index.html](http://cisreg.cmmt.ubc.ca/TFFM/doc/index.html).
 
 # Authors
 
