@@ -999,7 +999,7 @@ def tffm_from_meme(meme_output, kind, name="TFFM"):
     """
 
     record = motifs.parse(open(meme_output), 'MEME')
-    if record.alphabet != IUPAC.unambiguous_dna:
+    if record.alphabet != "".join(sorted(IUPAC.unambiguous_dna.letters)):
         sys.exit("### Wrong alphabet used in MEME ###")
     motif = record[0]
     nb_seq, nb_res, first_letters = utils.get_sequences_info(record.datafile)
